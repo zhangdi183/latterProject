@@ -5,8 +5,7 @@ import first from '../components/first'
 import search from '../components/search'
 import Order from '../components/Order'
 
-
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
   routes: [
