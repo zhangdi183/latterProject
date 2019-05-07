@@ -4,12 +4,14 @@
   </div>
 </template>
 
+
 <script>
-export default {
+  import {} from "./resize"
+  export default {
   name: 'App'
 }
 </script>
 
 <style>
-
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
 </style>
