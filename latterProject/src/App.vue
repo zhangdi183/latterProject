@@ -16,6 +16,7 @@
 </script>
 
 <style>
+  @import url('../node_modules/bootstrap/dist/css/bootstrap.min.css');
   *{
     padding: 0;
     margin: 0;

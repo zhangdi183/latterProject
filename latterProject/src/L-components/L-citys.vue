@@ -15,18 +15,19 @@
     </div>
     <!--这是当前定位到的城市(后台返回数据)-->
     <div class="L_btn">
-      <span class="text text-primary">{{LmLocatingCity}}</span>
-      <span class="glyphicon glyphicon-menu-right pull-right"></span>
+      <span class="text text-primary">{{LmLocatingCity.name}}</span>
+      <!--这是城市选择-->
+      <router-link :to="{path:'/find',query:{Lcitysname:LmLocatingCity.name,LMcityid:LmLocatingCity.id}}"><span class="glyphicon glyphicon-menu-right pull-right"></span></router-link>
       <div class="clearfix"></div>
     </div>
     <div class="L_hotCity">
       <span class="L_city">热门城市</span>
       <!--这是后台数据返回的热门城市-->
-      <li class="text text-primary L_cityLi" v-for="(d,i) in LmHotCity" id="i" @click="LmCitysGet($event)">{{d.name}}</li>
+      <li class="text text-primary L_cityLi" v-for="(d,i) in LmHotCity" id="i" @click="LmCitysGet($event)"><router-link :to="{path:'/find',query:{Lcitysname:d.name,LMcityid:d.id}}">{{d.name}}</router-link></li>
     </div>
     <div class="L_hotCity" v-for="(key,value) in LmAllCity">
       <span class="L_city">{{value}}</span>
-      <li class="text text-muted L_AllcityLi" v-for="data in key"><router-link :to="{path:'/find'}">{{data.name}}</router-link></li>
+      <li class="text text-muted L_AllcityLi" v-for="data in key"><router-link :to="{path:'/find',query:{Lcitysname:data.name,LMcityid:data.id}}">{{data.name}}</router-link></li>
     </div>
   </div>
 </template>
@@ -37,7 +38,7 @@
     name: "L-citys",
     data(){
       return{
-        LmLocatingCity:'',
+        LmLocatingCity:{},
         LmHotCity:[],
         LmAllCity:{},
         LmCityId:Number
@@ -45,16 +46,14 @@
     },
     methods:{
       LmCitysGet(e){
-        this.LmCityId = e.target.id+1;
-        Vue.axios.get(`https://elm.cangdu.org/v1/cities/${this.LmCityId}`).then((res)=>{
-          console.log(res)
-        })
+
       }
     },
     created(){
       //这是当前定位城市返回的数据
       Vue.axios.get('https://elm.cangdu.org/v1/cities?type=guess').then((res)=>{
-        this.LmLocatingCity=res.data.name
+        this.LmLocatingCity=res.data
+
       }).catch((err)=>{
         console.log('请求错误')
       });
