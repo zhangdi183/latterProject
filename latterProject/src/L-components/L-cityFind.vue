@@ -1,8 +1,8 @@
 <template>
     <div class="Lmcitysfind">
       <div class="L_head">
-        <router-link :to="{path:'/'}"><span class="glyphicon glyphicon-menu-left" style="color: white;"></span></router-link>
-        <div class="L_headDiv">{{LmSubmitName}}</div>
+        <router-link :to="{path:'/'}"><span class="glyphicon glyphicon-menu-left pull-left" style="color: white;"></span></router-link>
+        <span class="L_headDiv">{{LmSubmitName}}</span>
         <router-link :to="{path:'/'}"><span class="LmChangeCity pull-right">切换城市</span></router-link>
       </div>
       <!--这是请求地址的表单-->
@@ -76,24 +76,28 @@
 </script>
 
 <style scoped>
+
 .L_head{
   padding: 0.6rem 0.1rem 0.4rem;
   width: 16rem;
   background: rgb(49,144,232);
   color: white;
+  text-align: center;
 }
 .L_head span{
   font-size: 0.8rem;
 }
-.L_headDiv{
-  font-size: 0.8rem;
-  font-weight: bold;
-  position: relative;
-  left: 37%;
-  text-align: center;
-  display: inline-block;
-}
+/*.L_headDiv{*/
+  /*font-size: 0.8rem;*/
+  /*font-weight: bold;*/
+  /*position: relative;*/
+  /*left: 37%;*/
+  /*text-align: center;*/
+  /*display: inline-block;*/
+
+/*}*/
   .LmChangeCity{
+
     color: white;
     font-size: 0.6rem;
   }
@@ -108,9 +112,10 @@
     width: 16rem;
     border-top: 0.1rem solid #9f9f9f;
     margin: .8rem 0;
+    background: white;
 }
   .LmFindHis h5{
-
+    background: white;
     border-bottom: 0.09rem solid #9f9f9f;
     padding: 0.5rem ;
   }
@@ -120,6 +125,7 @@
     padding-left: 0.25rem;
     line-height: 1.5rem;
     font-size: 0.7rem;
+    background: white;
   }
 
 </style>

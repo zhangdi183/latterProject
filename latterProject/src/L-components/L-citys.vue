@@ -4,7 +4,7 @@
       <div>
         <span class="pull-left">ele.me</span>
         <!--这是一个路由跳转按钮-->
-        <span class="pull-right">登录|注册</span>
+        <router-link :to="{path:'/login'}"><span class="pull-right">登录|注册</span></router-link>
         <div class="clearfix"></div>
       </div>
     </div>
@@ -79,6 +79,7 @@
   .L_head{
     width: 16rem;
     background: rgb(49,144,232);
+    text-align: center;
   }
   .L_head span{
     color: white;
