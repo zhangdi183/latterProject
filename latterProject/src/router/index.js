@@ -6,6 +6,7 @@ import search from '../components/search'
 import Order from '../components/Order'
 import Lcity from '../L-components/L-citys'
 import LcityFind from '../L-components/L-cityFind'
+import Nscenter from '../nComponents/Nscenter'
 Vue.use(Router)
 
 export default new Router({
@@ -15,6 +16,7 @@ export default new Router({
     {path:'/first',component:first},
     {path:'/search',component:search},
     {path:'/order',component:Order},
-    {path:'/nmine',component:Nmine}
+    {path:'/nmine',component:Nmine},
+    {path:'/nscenter',component:Nscenter},
   ]
 })

@@ -27,4 +27,7 @@
     fill: currentColor;
     overflow: hidden;
   }
+  body,html{
+    background-color: #f5f5f5;
+  }
 </style>
