@@ -2,7 +2,7 @@
   <!--服务中心-->
     <div>
       <div class="serve">
-        <mt-header title="服务中心">
+        <mt-header fixed title="服务中心">
           <router-link to="/nmine" slot="left">
             <mt-button icon="back"></mt-button>
           </router-link>
@@ -15,19 +15,19 @@
           </svg><br>
           <span>在线客服</span>
         </router-link>
-        <router-link to="/" class="surplus">
+        <div class="surplus" @click="hotLine">
           <svg class="icon icon2" aria-hidden="true">
             <use xlink:href="#icondianhua"></use>
           </svg><br>
           <span>在线热线</span>
-        </router-link>
+        </div>
         <div class="clean"></div>
       </div>
       <!--热门问题-->
       <div>
         <mt-cell-swipe title="热门问题" class="problem"></mt-cell-swipe>
-        <router-link to="/" v-for="(data,index) in problem" :key="index">
-          <mt-cell-swipe :title="data" is-link></mt-cell-swipe>
+        <router-link to="/" v-for="(data,index,i) in problem" :key="i" class="pro">
+          <mt-cell-swipe :title="index" is-link></mt-cell-swipe>
         </router-link>
       </div>
     </div>
@@ -36,18 +36,31 @@
 <script>
   import { CellSwipe } from 'mint-ui';
   import Vue from 'vue'
+  import { MessageBox } from 'mint-ui';
   
   Vue.component(CellSwipe.name, CellSwipe);
     export default {
         name: "Nscenter",
       data(){
         return{
-          problem:{},
+          all:'',
+          problem:'',
+          content:[]
+        }
+      },
+      methods:{
+        hotLine(){
+          window.confirm('要打开 选取应用 吗?');
         }
       },
       mounted(){
         Vue.axios.get('https://elm.cangdu.org/v3/profile/explain').then((res)=>{
-          console.log(res.data);
+          // console.log(res.data);
+          //  this.all = res.data;
+          // this.problem=this.all.map(item=>{
+          //   return item;
+          // });
+          // console.log(this.problem);
           this.problem=res.data;
         }).catch((error)=>{
           console.log('请求错误!',error);
@@ -60,22 +73,19 @@
   .clean{
     clear: both;
   }
-  .serve{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
   .surplus{
     float:left;
     color: #000;
-    width: 49.7%;
+    width: 50%;
     text-align: center;
     border-right: 1px solid #f1f1f1;
     border-bottom: 1px solid #f1f1f1;
     text-decoration: none;
     padding: .8rem 0;
     background: #fff;
+  }
+  .two{
+    margin-top: 1.8rem;
   }
   .icon{
     font-size: 1.2rem;
@@ -91,6 +101,9 @@
     color: #666;
   }
   .problem{
-    padding: .5rem 0;
+    font-weight: 700;
+  }
+  .pro{
+    color: #333;
   }
 </style>

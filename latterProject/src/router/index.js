@@ -9,7 +9,10 @@ import LcityFind from '../L-components/L-cityFind'
 import Nscenter from '../nComponents/Nscenter'
 import Llogin from '../L-components/L-login'
 import Lresetp from '../L-components/L-resetPassword'
-Vue.use(Router)
+import Ndownload from '../nComponents/Ndownload'
+import Nintegral from '../nComponents/Nintegral'
+// import Nmine_load from '../nComponents/Nmine_load'
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -22,5 +25,7 @@ export default new Router({
     {path:'/order',component:Order},
     {path:'/nmine',component:Nmine},
     {path:'/nscenter',component:Nscenter},
+    {path:'/ndownload',component:Ndownload},
+    {path:'/nintegral',component:Nintegral},
   ]
 })

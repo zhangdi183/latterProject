@@ -1,3 +1,4 @@
+<!--登陆之后的我的组件-->
 <template>
   <div>
     <!--顶部-->
@@ -20,27 +21,27 @@
             <use xlink:href="#iconphone"></use>
           </svg><p class="p2">暂无绑定手机号</p>
         </div>
-      <div class="jt_right">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#iconjiantou"></use>
-        </svg>
-      </div>
+        <div class="jt_right">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#iconjiantou"></use>
+          </svg>
+        </div>
       </router-link>
     </div>
     <!--余额-->
     <div>
-        <router-link to="/" class="surplus">
-          <span><span class="num">0.00</span>&nbsp;元</span><br>
-          <span>我的余额</span>
-        </router-link>
-        <router-link to="/" class="surplus">
-          <span><span class="num num1">0</span>&nbsp;个</span><br>
-          <span>我的优惠</span>
-        </router-link>
-        <router-link to="/" class="surplus">
-          <span><span class="num num2">0</span>&nbsp;分</span><br>
-          <span>我的积分</span>
-        </router-link>
+      <router-link to="/" class="surplus">
+        <span><span class="num">0.00</span>&nbsp;元</span><br>
+        <span>我的余额</span>
+      </router-link>
+      <router-link to="/" class="surplus">
+        <span><span class="num num1">3</span>&nbsp;个</span><br>
+        <span>我的优惠</span>
+      </router-link>
+      <router-link to="/" class="surplus">
+        <span><span class="num num2">0</span>&nbsp;分</span><br>
+        <span>我的积分</span>
+      </router-link>
       <div class="clean"></div>
     </div>
     <!--订单-->
@@ -58,52 +59,52 @@
       </router-link>
       
       <router-link to="/nintegral">
-      <mt-cell-swipe class="or">
-        <span>积分商城</span>
-        <svg class="icon icon1 icon2" aria-hidden="true">
-          <use xlink:href="#icon-"></use>
-        </svg>
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#iconjiantou"></use>
-        </svg>
-      </mt-cell-swipe>
+        <mt-cell-swipe class="or">
+          <span>积分商城</span>
+          <svg class="icon icon1 icon2" aria-hidden="true">
+            <use xlink:href="#icon-"></use>
+          </svg>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#iconjiantou"></use>
+          </svg>
+        </mt-cell-swipe>
       </router-link>
       
       <router-link to="/">
-      <mt-cell-swipe class="or">
-        <span>饿了么会员卡</span>
-        <svg class="icon icon1 icon3" aria-hidden="true">
-          <use xlink:href="#iconhuiyuan"></use>
-        </svg>
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#iconjiantou"></use>
-        </svg>
-      </mt-cell-swipe>
+        <mt-cell-swipe class="or">
+          <span>饿了么会员卡</span>
+          <svg class="icon icon1 icon3" aria-hidden="true">
+            <use xlink:href="#iconhuiyuan"></use>
+          </svg>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#iconjiantou"></use>
+          </svg>
+        </mt-cell-swipe>
       </router-link>
       
       <div class="order">
         <router-link to="/nscenter">
-        <mt-cell-swipe class="or">
-          <span>服务中心</span>
-          <svg class="icon icon1 icon4" aria-hidden="true">
-            <use xlink:href="#iconkefu"></use>
-          </svg>
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#iconjiantou"></use>
-          </svg>
-        </mt-cell-swipe>
+          <mt-cell-swipe class="or">
+            <span>服务中心</span>
+            <svg class="icon icon1 icon4" aria-hidden="true">
+              <use xlink:href="#iconkefu"></use>
+            </svg>
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#iconjiantou"></use>
+            </svg>
+          </mt-cell-swipe>
         </router-link>
         
         <router-link to="/ndownload">
-        <mt-cell-swipe class="or">
-          <span>下载饿了么APP</span>
-          <svg class="icon icon1" aria-hidden="true">
-            <use xlink:href="#iconeliaomo"></use>
-          </svg>
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#iconjiantou"></use>
-          </svg>
-        </mt-cell-swipe>
+          <mt-cell-swipe class="or">
+            <span>下载饿了么APP</span>
+            <svg class="icon icon1" aria-hidden="true">
+              <use xlink:href="#iconeliaomo"></use>
+            </svg>
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#iconjiantou"></use>
+            </svg>
+          </mt-cell-swipe>
         </router-link>
       </div>
     </div>
@@ -114,19 +115,19 @@
   import { Header } from 'mint-ui';
   import Vue from "vue";
   import { CellSwipe } from 'mint-ui';
-
+  
   Vue.component(CellSwipe.name, CellSwipe);
   Vue.component(Header.name, Header);
-  export default {
-    name: "Nmine",
-    /*mounted(){
-      Vue.axios.post('https://elm.cangdu.org/v1/addimg/:type').then((res)=>{
-        console.log(1111,res.data);
-      }).catch((error)=>{
-        console.log('请求错误!',error);
-      });
-    },*/
-  }
+    export default {
+        name: "Nmine_load",
+      mounted(){
+        Vue.axios.get('https://elm.cangdu.org/v1/user').then((res)=>{
+          console.log(res.data);
+        }).catch((error)=>{
+          console.log('请求错误!',error);
+        });
+      },
+    }
 </script>
 
 <style scoped>

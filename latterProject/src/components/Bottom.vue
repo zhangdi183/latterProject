@@ -3,23 +3,23 @@
     <div>
       <mt-tabbar>
           <mt-tab-item id="外卖">
-            <router-link :to="{path:'/first'}">
-            <svg class="icon" aria-hidden="true">
+            <router-link :to="{path:'/first'}" class="btnc">
+            <svg class="icon icon1" aria-hidden="true">
               <use xlink:href="#iconSSS"></use>
             </svg><br>
             <span>外卖</span>
             </router-link>
           </mt-tab-item>
         <mt-tab-item id="搜索">
-          <router-link :to="{path:'/search'}">
-          <svg class="icon" aria-hidden="true">
+          <router-link :to="{path:'/search'}" class="btnc">
+          <svg class="icon icon2" aria-hidden="true">
             <use xlink:href="#iconzhizhen"></use>
           </svg><br>
           <span>搜索</span>
           </router-link>
         </mt-tab-item>
         <mt-tab-item id="订单">
-          <router-link :to="{path:'/order'}">
+          <router-link :to="{path:'/order'}" class="btnc">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icondingdan"></use>
           </svg><br>
@@ -28,7 +28,7 @@
         </mt-tab-item>
         
           <mt-tab-item id="我的">
-            <router-link :to="{path:'/nmine'}">
+            <router-link :to="{path:'/nmine'}" class="btnc">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icongerenzhongxinyonghu01"></use>
             </svg><br>
@@ -47,8 +47,17 @@
   
   Vue.component(Tabbar.name, Tabbar);
   Vue.component(TabItem.name, TabItem);
+  
     export default {
-        name: "Bottom"
+        name: "Bottom",
+      data(){
+          return{
+          
+          }
+      },
+      methods:{
+      
+      }
     }
 </script>
 
@@ -62,5 +71,11 @@
  }
  a{
     text-decoration: none;
+  }
+ .icon{
+   margin: .2rem 0;
+ }
+  .btnc:focus .icon{
+    color: #3a83ff;
   }
 </style>
