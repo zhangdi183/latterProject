@@ -7,7 +7,9 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Vuex from 'vuex'
 
+Vue.use(Vuex);
 Vue.use(MintUI);
 Vue.use(VueAxios, axios);
 import Vuex from 'vuex'
@@ -28,11 +30,20 @@ const store = new Vuex.Store({
 
 Vue.config.productionTip = false;
 
-/* eslint-disable no-new */
+const store = new Vuex.Store({
+  state:{
+    //食品分类列表
+    shopcart:[],
+    //城市信息
+    cityinfo:[],
+  }
+});
+
 new Vue({
   el: '#app',
   store,
   router,
+  store,
   components: { App },
   template: '<App/>'
 });

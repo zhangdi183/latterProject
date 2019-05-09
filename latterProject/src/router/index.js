@@ -14,6 +14,7 @@ import Nintegral from '../nComponents/Nintegral'
 // import Nmine_load from '../nComponents/Nmine_load'
 import LblanceMoney from '../L-components/L-blanceMoney'
 import LBalanceProblem from '../L-components/L-balanceProblem'
+import Nsweet from '../nComponents/Nsweet'
 Vue.use(Router);
 
 export default new Router({
@@ -31,5 +32,6 @@ export default new Router({
     {path:'/nscenter',component:Nscenter},
     {path:'/ndownload',component:Ndownload},
     {path:'/nintegral',component:Nintegral},
+    {path:'/sweet',component:Nsweet},
   ]
 })

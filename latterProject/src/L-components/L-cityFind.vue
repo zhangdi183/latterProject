@@ -12,7 +12,9 @@
       </div>
       <!--这是展示搜索结果的div-->
       <div class="LmFindHis" v-if="isTrue">
-        <h5 v-for="data in LmFindCitysArr" @click="LmGetData(data)">{{ data.name}}<small class="center-block">{{data.address}}</small></h5>
+        <router-link to="/first">
+          <h5 v-for="data in LmFindCitysArr" @click="LmGetData(data)">{{ data.name}}<small class="center-block">{{data.address}}</small></h5>
+        </router-link>
       </div>
       <!--这是搜索历史页面-->
       <div class="LmFindHis" v-if="true">
@@ -55,6 +57,8 @@
         //这是搜索到的内容
         LmGetData(data){
           this.$store.state.LmFindCitysHis.push(data);
+          this.LmHistory.push(data);
+          this.$store.state.cityinfo=data;
         },
         //这是清除所有历史数据
         LmDeleteData(){
