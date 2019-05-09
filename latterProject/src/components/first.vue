@@ -58,10 +58,23 @@
               <span class="bzp" v-for="items in item.supports">{{items.icon_name}}</span><span class="clean"></span>
             </span></span>
             <div class="pf">
+              <!--评分-->
               <img src="../L-imgs/1.jpg" alt="img" class="img1">
               <img src="../L-imgs/2.jpg" alt="img" class="img2" :style="{left:-(2.5-2.5*item.rating/5)+'rem'}">
-              <span class="rat">{{item.rating}}<span class="ys">月售{{item.recent_order_num}}单</span><span class="fn">{{item.delivery_mode.text}}</span></span>
+              <span class="rat">{{item.rating}}<span class="ys">月售{{item.recent_order_num}}单</span></span>
+              <span class="po">
+                <span class="pr">
+                  <span class="fn">{{item.delivery_mode.text}}</span>
+                  <span class="zsd">{{item.supports[1].name}}</span>
+               </span>
+                <span class="clean"></span>
+              </span>
             </div>
+            <!--起送-->
+            <span class="qs">
+              ¥{{item.float_minimum_order_amount}}起送 / {{item.piecewise_agent_fee.tips}}
+              <span class="dis">{{item.distance}} / <span class="time">{{item.order_lead_time}}</span></span>
+            </span>
           </div>
           <div class="clean"></div>
         </router-link>
@@ -103,7 +116,7 @@
         });
         //商铺列表
         Vue.axios.get('https://elm.cangdu.org/shopping/restaurants?latitude=this.$store.state.cityinfo.latitude&longitude=this.$store.state.cityinfo.longitude').then((res)=>{
-           console.log(res.data);
+           // console.log(res.data);
            this.shop=res.data
         }).catch((error)=>{
           console.log('请求错误!',error);
@@ -159,7 +172,7 @@
     display: block;
     border-bottom: 1px solid #ccc;
     box-sizing: border-box;
-    padding: .7rem .4rem;
+    padding: .9rem .4rem;
   }
   .bottom .img{
     width: 3rem;
@@ -199,7 +212,7 @@
   }
   .right{
     /*background-color: #74ff64;*/
-    width: 11.6rem;
+    width: 11.4rem;
     height: 3rem;
     float: left;
     margin-left: .5rem;
@@ -207,8 +220,9 @@
   .pf{
     /*background-color: #74ff64;*/
     width: 11.6rem;
-    height: .6rem;
+    height: .7rem;
     position: relative;
+    top: .4rem;
     overflow: hidden;
   }
   .img1, .img2{
@@ -218,11 +232,11 @@
   .img1{
     width: 2.5rem;
     left: 0;
-    top: .05rem;
+    top: .15rem;
   }
   .img2{
     width: 2.5rem;
-    top: 0;
+    top: .1rem;
   }
   .right .rat{
     position: absolute;
@@ -237,14 +251,46 @@
     font-size: .4rem;
     color: #666;
   }
-  .right .rat .fn{
+  .right .po{
+    display: inline-block;
+    width: 100%;
+    /*background-color: red;*/
+  }
+  .right .pr{
+    float: right;
+  }
+  .right .fn{
     display: inline-block;
     color: #fff;
     background-color: #3190e8;
     border: .025rem solid #3190e8;
-    font-size: .4rem;
+    font-size: .3rem;
     padding: .04rem .08rem 0;
     border-radius: .08rem;
-    margin-left: .08rem;
+  }
+  .right .zsd{
+    color: #3190e8;
+    border: .025rem solid #3190e8;
+    font-size: .3rem;
+    padding: .04rem .08rem 0;
+    border-radius: .08rem;
+  }
+  .right .qs{
+    position: relative;
+    top: .7rem;
+    left: 0;
+    transform: scale(.9);
+    font-size: .55rem;
+    color: #666;
+    word-wrap:break-word
+  }
+  .right .dis{
+    color: #999;
+    font-weight: 400;
+    margin-left: 2rem;
+  }
+  .right .time{
+    color: #3190e8;
+    font-weight: 400;
   }
 </style>

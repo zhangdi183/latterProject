@@ -1,6 +1,6 @@
 <template>
   <!--底部-->
-    <div>
+    <div class="foot">
       <mt-tabbar>
           <mt-tab-item id="外卖">
             <router-link :to="{path:'/first'}" class="btnc">
@@ -35,9 +35,7 @@
             <span>我的</span>
             </router-link>
           </mt-tab-item>
-        
       </mt-tabbar>
-
     </div>
 </template>
 
@@ -50,14 +48,6 @@
   
     export default {
         name: "Bottom",
-      data(){
-          return{
-          
-          }
-      },
-      methods:{
-      
-      }
     }
 </script>
 
@@ -77,5 +67,11 @@
  }
   .btnc:focus .icon{
     color: #3a83ff;
+  }
+  .foot{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 </style>
