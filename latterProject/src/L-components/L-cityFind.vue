@@ -15,10 +15,10 @@
         <h5 v-for="data in LmFindCitysArr" @click="LmGetData(data)">{{ data.name}}<small class="center-block">{{data.address}}</small></h5>
       </div>
       <!--这是搜索历史页面-->
-      <div class="LmFindHis" v-if="">
+      <div class="LmFindHis" v-if="true">
         <h5><small>搜索历史</small></h5>
         <h5 v-for="data in LmHistory">{{data.name}}<small class="center-block">{{data.address}}</small></h5>
-        <p style="text-align: center" @click="LmDeleteData" v-if="LmIsTrue">清空所有历史</p>
+        <p style="text-align: center" @click="LmDeleteData" v-if="true">清空所有历史</p>
       </div>
     </div>
 </template>
@@ -54,7 +54,7 @@
         },
         //这是搜索到的内容
         LmGetData(data){
-          this.LmHistory.push(data);
+          this.$store.state.LmFindCitysHis.push(data);
         },
         //这是清除所有历史数据
         LmDeleteData(){
@@ -62,7 +62,8 @@
         },
       },
         created(){
-          // console.log(this.$route.query)
+          this.LmHistory = this.$store.state.LmFindCitysHis
+          // console.log(this.$route.query)0
           this.LmSubmitName=this.$route.query.Lcitysname;
           this.LmSubmitId=this.$route.query.LMcityid;
           //判断历史记录是否为空

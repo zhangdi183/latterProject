@@ -12,11 +12,15 @@ import Lresetp from '../L-components/L-resetPassword'
 import Ndownload from '../nComponents/Ndownload'
 import Nintegral from '../nComponents/Nintegral'
 // import Nmine_load from '../nComponents/Nmine_load'
+import LblanceMoney from '../L-components/L-blanceMoney'
+import LBalanceProblem from '../L-components/L-balanceProblem'
 Vue.use(Router);
 
 export default new Router({
   routes: [
     {path:'/',component:Lcity},
+    {path:'/balance',component:LblanceMoney},
+    {path:'/lmBp',component:LBalanceProblem },
     {path:'/resetpassword',component:Lresetp},
     {path:'/login',component:Llogin},
     {path:'/find',component:LcityFind},

@@ -29,7 +29,7 @@
     </div>
     <!--余额-->
     <div>
-        <router-link to="/" class="surplus">
+        <router-link to="/balance" class="surplus">
           <span><span class="num">0.00</span>&nbsp;元</span><br>
           <span>我的余额</span>
         </router-link>

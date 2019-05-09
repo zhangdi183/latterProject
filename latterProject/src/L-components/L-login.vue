@@ -13,7 +13,12 @@
           <span :style="LmSpan1">abc...</span>
         </div>
         <input type="text" placeholder="验证码" v-model="LmY">
-        <div id="coad"><span v-if="isTrue">{{LmCoad}}</span><span @click="isTrue=!isTrue;isFalse=!isFalse" v-if="isFalse">点击显示验证码</span></div>
+        <div id="coad">
+          <img :src="isStr" alt="" class="img">
+        </div>
+        <span @click="getD" class="Lcantsee">
+          看不清<br><span class="text-primary">换一张</span>
+        </span>
 
         <p>温馨提示:未注册过的账号,登陆时将被自动注册</p>
         <p>注册过的用户可凭账号密码登录</p>
@@ -60,8 +65,9 @@
             LmY:'',
             LmCoad:'',
             isTrue:false,
-            isFalse:true,
-            isShow:false
+            isShow:false,
+            isStr:'',
+            loginReturn:''
 
           }
       },
@@ -78,20 +84,34 @@
           }
         },
         login(){
-          if(this.LmV!='' && this.LmP !='' && (this.LmY!='' &&this.LmY===this.LmCoad)){
+          if(this.LmV!='' && this.LmP !='' && this.LmY!=''){
             Vue.axios.post('https://elm.cangdu.org/v2/login',{
               username:this.LmV,
-              password:this.LmP
+              password:this.LmP,
+              captcha_code:this.LmY
             }).then((res)=>{
-              console.log(res)
+              this.loginReturn = res.data.message
+              if (this.loginReturn==='密码错误') {
+                this.isShow=true;
+              }else {
+                this.$router.push({path:'/nmine'})
+                this.$store.state.LmPersonInfor=res.data
+              }
             }).catch((err)=>{
               console.log(err)
             })
-            this.$router.push({path:'/nmine'})
-          }else{
+
+          }else if (this.LmV==='' && this.LmP ==='' && this.LmY==='') {
             this.isShow=true;
           }
         },
+        getD(){
+          this.isFalse=!this.isFalse
+          Vue.axios.post('https://elm.cangdu.org/v1/captchas').then((res)=>{
+            this.isStr = res.data.code
+            console.log(this.isStr);
+          })
+        }
       },
       created(){
         let a=String(Math.floor(Math.random()*9))
@@ -99,6 +119,12 @@
         let c=String(Math.floor(Math.random()*9))
         let d=String(Math.floor(Math.random()*9))
         this.LmCoad=a+b+c+d;
+
+        this.isFalse=!this.isFalse
+        Vue.axios.post('https://elm.cangdu.org/v1/captchas').then((res)=>{
+          this.isStr = res.data.code
+          console.log(this.isStr);
+        })
       }
     }
 </script>
@@ -150,7 +176,7 @@
   right: 0.8rem;
 }
   #coad{
-    /*width: 3rem;*/
+    width: 3rem;
     line-height: 1rem;
     padding: 0.5rem;
     border: 0.01rem black solid;
@@ -158,14 +184,23 @@
     position: absolute;
     background: rgba(0,0,0,0.1);
     top: 6.55rem;
-    right: 1rem;
+    right: 3rem;
     color:darkred;
+    display: inline-block;
   }
   .LmAlert{
     background: white;
     position: absolute;
     top:50%;
     left:20%;
+  }
+  .img{
+    width: 100%;
+  }
+  .Lcantsee{
+    position: absolute;
+    top: 6.55rem;
+    right: 0.5rem;
   }
 
 </style>
