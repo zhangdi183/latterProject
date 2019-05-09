@@ -94,13 +94,12 @@
               if (this.loginReturn==='密码错误') {
                 this.isShow=true;
               }else {
-                this.$router.push({path:'/nmine'})
-                this.$store.state.LmPersonInfor=res.data
+                this.$router.push({path:'/nmine_load'})
+                // this.$store.state.LmPersonInfor=res.data
               }
             }).catch((err)=>{
               console.log(err)
             })
-
           }else if (this.LmV==='' && this.LmP ==='' && this.LmY==='') {
             this.isShow=true;
           }
@@ -109,17 +108,10 @@
           this.isFalse=!this.isFalse
           Vue.axios.post('https://elm.cangdu.org/v1/captchas').then((res)=>{
             this.isStr = res.data.code
-            console.log(this.isStr);
           })
         }
       },
       created(){
-        let a=String(Math.floor(Math.random()*9))
-        let b=String(Math.floor(Math.random()*9))
-        let c=String(Math.floor(Math.random()*9))
-        let d=String(Math.floor(Math.random()*9))
-        this.LmCoad=a+b+c+d;
-
         this.isFalse=!this.isFalse
         Vue.axios.post('https://elm.cangdu.org/v1/captchas').then((res)=>{
           this.isStr = res.data.code

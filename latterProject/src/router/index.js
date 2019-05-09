@@ -15,6 +15,11 @@ import Nintegral from '../nComponents/Nintegral'
 import LblanceMoney from '../L-components/L-blanceMoney'
 import LBalanceProblem from '../L-components/L-balanceProblem'
 import Nsweet from '../nComponents/Nsweet'
+import NMLOAD from '../nComponents/Nmine_load'
+import Lpreferential from '../L-components/L-preferential'
+import Lhongbao from '../L-components/L-Hongbao'
+import Ldaijinjuan from '../L-components/L-daijinjuan'
+import Lhishongbao from '../L-components/L-Hishoingbao'
 Vue.use(Router);
 
 export default new Router({
@@ -33,5 +38,16 @@ export default new Router({
     {path:'/ndownload',component:Ndownload},
     {path:'/nintegral',component:Nintegral},
     {path:'/sweet',component:Nsweet},
+    {path:'/nmine_load',component:NMLOAD},
+    //这是优惠界面 包含二级路由
+    {path:'/preferential',component:Lpreferential,children:[
+        {path:'',redirect:{
+          path:'/preferential/Lhongbao',component:Lhongbao
+          }},
+        {path:'/preferential/Lhongbao',component:Lhongbao},
+        {path:'/preferential/Ldaijinjuan',component:Ldaijinjuan}
+      ]},
+  //  这是历史红包的路由
+    {path:'/Hishongbao',component:Lhishongbao},
   ]
 })

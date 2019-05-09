@@ -16,7 +16,7 @@
           </svg>
         </div>
         <div class="information">
-          <p class="p1">登录/注册</p>
+          <p class="p1">{{username}}</p>
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#iconphone"></use>
           </svg><p class="p2">暂无绑定手机号</p>
@@ -30,16 +30,16 @@
     </div>
     <!--余额-->
     <div>
-      <router-link to="/" class="surplus">
-        <span><span class="num">0.00</span>&nbsp;元</span><br>
+      <router-link :to="{path:'/balance',query:{yue:balance}}" class="surplus">
+        <span><span class="num">{{balance}}.00</span>&nbsp;元</span><br>
         <span>我的余额</span>
       </router-link>
-      <router-link to="/" class="surplus">
-        <span><span class="num num1">3</span>&nbsp;个</span><br>
+      <router-link to="/preferential" class="surplus">
+        <span><span class="num num1">{{gift_amount}}</span>&nbsp;个</span><br>
         <span>我的优惠</span>
       </router-link>
       <router-link to="/" class="surplus">
-        <span><span class="num num2">0</span>&nbsp;分</span><br>
+        <span><span class="num num2">{{point}}</span>&nbsp;分</span><br>
         <span>我的积分</span>
       </router-link>
       <div class="clean"></div>
@@ -108,6 +108,7 @@
         </router-link>
       </div>
     </div>
+    <Bottom></Bottom>
   </div>
 </template>
 
@@ -115,14 +116,28 @@
   import { Header } from 'mint-ui';
   import Vue from "vue";
   import { CellSwipe } from 'mint-ui';
+  import Bottom from '../components/Bottom'
   
   Vue.component(CellSwipe.name, CellSwipe);
   Vue.component(Header.name, Header);
     export default {
         name: "Nmine_load",
+        components:{Bottom},
+        data(){
+          return{
+            username:'',
+            gift_amount:'',
+            point:'',
+            balance:''
+          }
+        },
       mounted(){
         Vue.axios.get('https://elm.cangdu.org/v1/user').then((res)=>{
-          console.log(res.data);
+          // console.log(res.data);
+          this.username=res.data.username
+          this.gift_amount=res.data.gift_amount
+          this.point=res.data.point
+          this.balance=res.data.balance
         }).catch((error)=>{
           console.log('请求错误!',error);
         });

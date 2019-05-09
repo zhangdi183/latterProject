@@ -1,6 +1,6 @@
 <template>
-    <div class="L_money">
-      <div class="L_head">
+
+      <div class="L_head"> <div class="L_money">
         <router-link :to="{path:'/nmine'}"><span class="glyphicon glyphicon-menu-left pull-left" style="color: white;"></span></router-link>
         <span class="">我的余额</span>
         <!--这是余额展示-->
@@ -14,7 +14,7 @@
           </h5>
           <!--这是余额展示-->
           <div class="L_moneyShow">
-            <h2>0.00</h2>
+            <h2>{{balance}}.00</h2>
             <span>元</span>
           </div>
           <button class="btn L_reflect">提现</button>
@@ -30,7 +30,14 @@
 
 <script>
     export default {
-        name: "L-blanceMoney"
+        name: "L-blanceMoney",
+        data(){
+          balance:''
+        },
+        created(){
+          this.balance=this.$route.query.yue
+        }
+
     }
 </script>
 
