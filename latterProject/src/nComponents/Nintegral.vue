@@ -2,6 +2,8 @@
     <div class="int">
       <h3>请重新进入</h3>
       <p>请返回后重新进入积分商城~</p>
+      <div>
+        <img src="../L-imgs/ufo.png" height="176" width="176"/></div>
     </div>
 </template>
 

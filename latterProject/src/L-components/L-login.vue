@@ -23,11 +23,11 @@
         <p>温馨提示:未注册过的账号,登陆时将被自动注册</p>
         <p>注册过的用户可凭账号密码登录</p>
         <div></div>
-        <button class="btn btn-success btn-group btn-block" @click="login">登录</button>
+        <button class="btn btn-success btn-group btn-block " @click="login">登录</button>
       </div>
       <router-link :to="{path:'/resetpassword'}"><h6 class="text text-primary pull-right" style="margin-right:0.5rem ">重置密码?</h6></router-link>
       <!--这是个警告框-->
-      <div class="alert alert-warning text-center LmAlert" v-if="isShow">
+      <div class="alert alert-warning text-center LmAlert bounceIn" v-if="isShow">
         <img src="../L-imgs/感叹号.png" height="100" width="100"/>
         <p>请输入手机号/邮箱/用户名</p>
         <button class="btn btn-success btn-group btn-block" @click="isShow=false">确认</button>
@@ -115,7 +115,7 @@
         this.isFalse=!this.isFalse
         Vue.axios.post('https://elm.cangdu.org/v1/captchas').then((res)=>{
           this.isStr = res.data.code
-          console.log(this.isStr);
+          // console.log(this.isStr);
         })
       }
     }

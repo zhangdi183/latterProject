@@ -24,8 +24,8 @@
       data(){
           return{
             span1:{
-              color:'black',
-              borderBottom:''
+              color:'#3190E8',
+              borderBottom:'0.1rem solid #3190E8'
             },
             span2:{
               color:'black',

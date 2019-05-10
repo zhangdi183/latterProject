@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Nmine from '../nComponents/Nmine'
 import first from '../components/first'
 import search from '../components/search'
@@ -20,6 +21,14 @@ import Lpreferential from '../L-components/L-preferential'
 import Lhongbao from '../L-components/L-Hongbao'
 import Ldaijinjuan from '../L-components/L-daijinjuan'
 import Lhishongbao from '../L-components/L-Hishoingbao'
+import LexchangeHb from '../L-components/L-exchangeHB'
+import Lprize from '../L-components/L-prize'
+import integral from '../L-components/L-integral'
+import Lvip from '../L-components/L-vip'
+import vipE from '../L-components/L-vipExplain'
+import VipPay from '../L-components/L-vipPay'
+import vipExchange from '../L-components/L-vipExchange'
+import vipHistory from '../L-components/L-vipHistory'
 Vue.use(Router);
 
 export default new Router({
@@ -49,5 +58,21 @@ export default new Router({
       ]},
   //  这是历史红包的路由
     {path:'/Hishongbao',component:Lhishongbao},
+  //  这是兑换红包的路由
+    {path:'/exchangeHb',component:LexchangeHb},
+    //这是推荐有奖的路由
+    {path:'/Lprize',component:Lprize},
+  //  这个是我的积分的路由
+    {path:'/integral',component:integral},
+    //这个是vip的路由
+    {path:'/vip',component:Lvip},
+    //这个是跳转会员说明的路由
+    {path:'/vipExplain',component:vipE},
+  //  这个跳转到会员支付页面
+    {path:'/vipPay',component:VipPay},
+    //这个跳转到会员兑换
+    {path:'/vipexchange',component:vipExchange},
+    //这个跳转到会员历史
+    {path:'/viphistory',component:vipHistory},
   ]
 })

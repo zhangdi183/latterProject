@@ -8,6 +8,7 @@ import 'mint-ui/lib/style.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Vuex from 'vuex'
+import 'animate.css'
 
 Vue.use(Vuex);
 Vue.use(MintUI);

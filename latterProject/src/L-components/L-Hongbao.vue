@@ -5,21 +5,22 @@
         <small class="text-primary pull-right L_problem"><router-link :to="{path:'/'}">红包问题</router-link></small>
       </h5>
       <!--这个是可用红包-->
-      <div class="useHongBao"  v-for="i in Arr">
+      <div class="useHongBao"  v-for="(i,d) in Arr" :key="d">
           <div class="topImg"></div>
           <div class="LmHongbao">
             <div>
-              <span>￥<span class="LmHongbaospan">{{i}}</span></span>
+              <span>￥<span class="LmHongbaospan">{{i.amount}}</span></span>
               <h5><small>满20元可用</small></h5>
             </div>
             <div class="LmCenter">
-              <h5>分享红包</h5>
-              <p>2017-5-23到期</p>
-              <p>限收货手机号为17630909807</p>
+              <h5>{{i.name}}</h5>
+              <p>{{i.end_date}}</p>
+              <p>限收货手机号为{{i.phone }}</p>
             </div>
             <span style="color: red; position: relative; top: -2.4rem; right: 0.16rem;">剩3日</span>
           </div>
       </div>
+      <h4><small>限品类:快餐便当,特色菜系,小吃夜宵,甜品饮品,异国料理</small></h4>
       <!--这里是查看过期红包-->
       <div class="text-center">
         <router-link :to="{path:'/Hishongbao'}">
@@ -59,19 +60,25 @@
       },
       created(){
         Vue.axios.get('https://elm.cangdu.org/v1/user').then((res)=>{
-          console.log(res.data);
+          // console.log(res.data);
           this.userId=res.data.user_id;
           this.gift_amount=res.data.gift_amount
           this.get='https://elm.cangdu.org/promotion/v2/users/'+`${this.userId}`+'/hongbaos?limit=20&offset=0'
           console.log(this.get,'111')
         })
       },
+      mounted(){
+          Vue.axios.get('https://elm.cangdu.org/promotion/v2/users/1/hongbaos?limit=20&offset=0').then((res)=>{
+            this.Arr=res.data;
+            console.log(res.data)
+          })
+      },
       methods:{
         L_span1(){
-            this.$router.push({path:'/find'})
+            this.$router.push({path:'/exchangeHb'})
         },
         L_span2(){
-          this.$router.push({path:'/find'})
+          this.$router.push({path:'/Lprize'})
         }
       },
     }
@@ -148,5 +155,11 @@
     position: relative;
     bottom: -3.2rem;
     z-index: 1;
+  }
+  h4{
+    width: 14rem;
+    margin: 0.5rem auto;
+    font-size: 0.7rem;
+    padding: 0 0.9rem;
   }
 </style>

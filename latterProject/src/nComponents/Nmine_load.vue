@@ -38,7 +38,7 @@
         <span><span class="num num1">{{gift_amount}}</span>&nbsp;个</span><br>
         <span>我的优惠</span>
       </router-link>
-      <router-link to="/" class="surplus">
+      <router-link to="/integral" class="surplus">
         <span><span class="num num2">{{point}}</span>&nbsp;分</span><br>
         <span>我的积分</span>
       </router-link>
@@ -70,7 +70,7 @@
         </mt-cell-swipe>
       </router-link>
       
-      <router-link to="/">
+      <router-link to="/vip">
         <mt-cell-swipe class="or">
           <span>饿了么会员卡</span>
           <svg class="icon icon1 icon3" aria-hidden="true">

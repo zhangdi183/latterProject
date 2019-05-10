@@ -15,7 +15,9 @@
           </svg>
         </div>
         <div class="information">
-          <p class="p1">登录/注册</p>
+         <router-link :to="{path:'/login'}">
+           <p class="p1">登录/注册</p>
+         </router-link>
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#iconphone"></use>
           </svg><p class="p2">暂无绑定手机号</p>
@@ -29,7 +31,7 @@
     </div>
     <!--余额-->
     <div>
-        <router-link to="/balance" class="surplus">
+        <router-link to="/" class="surplus">
           <span><span class="num">0.00</span>&nbsp;元</span><br>
           <span>我的余额</span>
         </router-link>
@@ -107,6 +109,7 @@
         </router-link>
       </div>
     </div>
+    <Bottom></Bottom>
   </div>
 </template>
 
@@ -114,11 +117,13 @@
   import { Header } from 'mint-ui';
   import Vue from "vue";
   import { CellSwipe } from 'mint-ui';
+  import Bottom from '../components/Bottom'
 
   Vue.component(CellSwipe.name, CellSwipe);
   Vue.component(Header.name, Header);
   export default {
     name: "Nmine",
+    components:{Bottom}
     /*mounted(){
       Vue.axios.post('https://elm.cangdu.org/v1/addimg/:type').then((res)=>{
         console.log(1111,res.data);
@@ -130,6 +135,9 @@
 </script>
 
 <style scoped>
+  .p1{
+    color: white;
+  }
   .clean{
     clear:both;
   }

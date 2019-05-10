@@ -1,6 +1,7 @@
 <template>
 
-      <div class="L_head"> <div class="L_money">
+      <div class="L_head">
+        <div class="L_money">
         <router-link :to="{path:'/nmine'}"><span class="glyphicon glyphicon-menu-left pull-left" style="color: white;"></span></router-link>
         <span class="">我的余额</span>
         <!--这是余额展示-->
@@ -20,10 +21,11 @@
           <button class="btn L_reflect">提现</button>
         </div>
       </div>
-      <!--这是交易明细部分-->
-      <div class="L_footer">
-        <p class="text-muted L_detail">交易明细</p>
-        <img src="../L-imgs/elm.png" height="98" width="98"/></div>
+        <!--这是交易明细部分-->
+        <div class="L_footer">
+          <p class="text-muted L_detail">交易明细</p>
+          <img src="../L-imgs/elm.png" height="98" width="98"/>
+        </div>
         <p class="text-center text-muted">暂无明细记录哦</p>
     </div>
 </template>
@@ -44,14 +46,15 @@
 <style scoped>
 .L_money{
   position: relative;
-}
-.L_head{
   padding: 0.6rem 0.1rem 0.4rem;
   width: 16rem;
   background: rgb(49,144,232);
   color: white;
   text-align: center;
   font-weight: bold;
+}
+.L_head{
+
 }
   .L_body{
     background: white;
