@@ -123,7 +123,7 @@
   Vue.component(Header.name, Header);
   export default {
     name: "Nmine",
-    components:{Bottom}
+    components: {Bottom},
     /*mounted(){
       Vue.axios.post('https://elm.cangdu.org/v1/addimg/:type').then((res)=>{
         console.log(1111,res.data);

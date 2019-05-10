@@ -9,11 +9,13 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Vuex from 'vuex'
 import 'animate.css'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(Vuex);
 Vue.use(MintUI);
 Vue.use(VueAxios, axios);
-
+Vue.use(ElementUI);
 Vue.use(Vuex)
 axios.defaults.withCredentials = true
 
@@ -28,7 +30,9 @@ const store = new Vuex.Store({
     //这个是搜索城市历史的数组
     LmFindCitysHis:[],
     //这个是个人信息
-    LmPersonInfor:{}
+    LmPersonInfor:{},
+    //获取食品列表
+    nfoot:''
   }
 });
 

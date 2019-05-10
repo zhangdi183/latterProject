@@ -6,12 +6,15 @@
         <mt-button icon="back"></mt-button>
       </router-link>
     </mt-header>
+    <Bottom></Bottom>
   </div>
 </template>
 
 <script>
+  import Bottom from './Bottom'
     export default {
-        name: "Order"
+        name: "Order",
+      components: {Bottom}
     }
 </script>
 

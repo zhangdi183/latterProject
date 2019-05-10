@@ -2,7 +2,7 @@
     <div>
       <!--标题-->
       <mt-header :title="this.$store.state.cityinfo.name" class="tit">
-        <router-link to="/" slot="left">
+        <router-link to="/search" slot="left">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#iconsousuo"></use>
           </svg>
@@ -51,34 +51,43 @@
         <span>附近商家</span>
         </div>
         <!--商家品牌-->
-        <router-link to="/" v-for="(item,i) in shop" :key="i" class="bottom">
-          <img :src="'//elm.cangdu.org/img/'+item.image_path" alt="img" class="img">
-          <div class="right">
+        <router-link to="/nfoot" v-for="(item,i) in shop" :key="i" class="bottom">
+          <a @click="sendId(item.id)">
+            <img :src="'//elm.cangdu.org/img/'+item.image_path" alt="img" class="img">
+            <div class="right">
             <span class="zong"><span class="pp" v-if="item.is_premium===true">品牌</span>{{item.name}}<span class="fr">
               <span class="bzp" v-for="items in item.supports">{{items.icon_name}}</span><span class="clean"></span>
             </span></span>
-            <div class="pf">
-              <!--评分-->
-              <img src="../L-imgs/1.jpg" alt="img" class="img1">
-              <img src="../L-imgs/2.jpg" alt="img" class="img2" :style="{left:-(2.5-2.5*item.rating/5)+'rem'}">
-              <span class="rat">{{item.rating}}<span class="ys">月售{{item.recent_order_num}}单</span></span>
-              <span class="po">
+              <div class="pf">
+                <!--评分-->
+                <el-rate
+                  v-model="item.rating"
+                  disabled
+                  disabled-void-color="#ccc"
+                  show-score
+                  text-color="#ff9900"
+                  class="ele">
+                </el-rate>
+                <span class="ys">月售{{item.recent_order_num}}单</span><br>
                 <span class="pr">
                   <span class="fn">{{item.delivery_mode.text}}</span>
                   <span class="zsd">{{item.supports[1].name}}</span>
-               </span>
+               </span><br>
                 <span class="clean"></span>
-              </span>
-            </div>
-            <!--起送-->
-            <span class="qs">
+                <span class="clean"></span>
+                <!--起送-->
+                <span class="qs">
               ¥{{item.float_minimum_order_amount}}起送 / {{item.piecewise_agent_fee.tips}}
               <span class="dis">{{item.distance}} / <span class="time">{{item.order_lead_time}}</span></span>
             </span>
-          </div>
-          <div class="clean"></div>
+              </div>
+  
+            </div>
+            <div class="clean"></div>
+          </a>
         </router-link>
       </div>
+      <Bottom></Bottom>
     </div>
 </template>
 
@@ -86,10 +95,12 @@
   import { Header } from 'mint-ui';
   import Vue from 'vue'
   import Swiper from "swiper"
+  import Bottom from './Bottom'
   
   Vue.component(Header.name, Header);
     export default {
         name: "first",
+      components: {Bottom},
       data(){
           return{
             pic:'',
@@ -125,6 +136,17 @@
       methods:{
         sendTitle(tit){
           this.$store.state.shopcart=tit;
+        },
+        sendId(id){
+          //获取食品列表
+          Vue.axios.get(`https://elm.cangdu.org/shopping/v2/menu?restaurant_id=${id}`).then((res)=>{
+            console.log(res.data);
+            this.$store.state.nfoot=res.data;
+            // console.log(this.$store.state.nfoot);
+            // this.sort=res.data;
+          }).catch((error)=>{
+            console.log('请求错误!',error);
+          });
         }
       }
     }
@@ -134,6 +156,11 @@
   @import "../../node_modules/swiper/dist/css/swiper.css";
   .clean{
     clear: both;
+  }
+  .ele{
+    /*background-color: red;*/
+    box-sizing: border-box;
+    display: inline-block;
   }
   .tit svg{
     font-size: .9rem;
@@ -217,46 +244,16 @@
     float: left;
     margin-left: .5rem;
   }
-  .pf{
-    /*background-color: #74ff64;*/
-    width: 11.6rem;
-    height: .7rem;
-    position: relative;
-    top: .4rem;
-    overflow: hidden;
-  }
-  .img1, .img2{
-    height: .4rem;
-    position: absolute;
-  }
-  .img1{
-    width: 2.5rem;
-    left: 0;
-    top: .15rem;
-  }
-  .img2{
-    width: 2.5rem;
-    top: .1rem;
-  }
-  .right .rat{
-    position: absolute;
-    top: 0;
-    left: 2.6rem;
-    color: orange;
-    font-size: .3rem;
-  }
-  .right .rat .ys{
+  .right .ys{
     transform: scale(.8);
     margin-left: .2rem;
-    font-size: .4rem;
+    font-size: .6rem;
+    line-height: .9rem;
     color: #666;
-  }
-  .right .po{
-    display: inline-block;
-    width: 100%;
-    /*background-color: red;*/
+    float: right;
   }
   .right .pr{
+    /*background-color: red;*/
     float: right;
   }
   .right .fn{
@@ -276,9 +273,6 @@
     border-radius: .08rem;
   }
   .right .qs{
-    position: relative;
-    top: .7rem;
-    left: 0;
     transform: scale(.9);
     font-size: .55rem;
     color: #666;

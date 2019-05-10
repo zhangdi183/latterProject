@@ -29,6 +29,7 @@ import vipE from '../L-components/L-vipExplain'
 import VipPay from '../L-components/L-vipPay'
 import vipExchange from '../L-components/L-vipExchange'
 import vipHistory from '../L-components/L-vipHistory'
+import Nfoot from '../nComponents/Nfoot'
 Vue.use(Router);
 
 export default new Router({
@@ -48,6 +49,7 @@ export default new Router({
     {path:'/nintegral',component:Nintegral},
     {path:'/sweet',component:Nsweet},
     {path:'/nmine_load',component:NMLOAD},
+    {path:'/nfoot',component:Nfoot},
     //这是优惠界面 包含二级路由
     {path:'/preferential',component:Lpreferential,children:[
         {path:'',redirect:{
