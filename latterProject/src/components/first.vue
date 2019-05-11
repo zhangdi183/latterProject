@@ -52,7 +52,7 @@
         </div>
         <!--商家品牌-->
         <router-link to="/nfoot" v-for="(item,i) in shop" :key="i" class="bottom">
-          <a @click="sendId(item.id)">
+          <a @click="sendId(item.id,item)">
             <img :src="'//elm.cangdu.org/img/'+item.image_path" alt="img" class="img">
             <div class="right">
             <span class="zong"><span class="pp" v-if="item.is_premium===true">品牌</span>{{item.name}}<span class="fr">
@@ -128,7 +128,7 @@
         //商铺列表
         Vue.axios.get('https://elm.cangdu.org/shopping/restaurants?latitude=this.$store.state.cityinfo.latitude&longitude=this.$store.state.cityinfo.longitude').then((res)=>{
            // console.log(res.data);
-           this.shop=res.data
+           this.shop=res.data;
         }).catch((error)=>{
           console.log('请求错误!',error);
         });
@@ -137,16 +137,15 @@
         sendTitle(tit){
           this.$store.state.shopcart=tit;
         },
-        sendId(id){
+        sendId(id,item){
           //获取食品列表
           Vue.axios.get(`https://elm.cangdu.org/shopping/v2/menu?restaurant_id=${id}`).then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             this.$store.state.nfoot=res.data;
-            // console.log(this.$store.state.nfoot);
-            // this.sort=res.data;
           }).catch((error)=>{
             console.log('请求错误!',error);
           });
+          this.$store.state.nshoplist=item;
         }
       }
     }

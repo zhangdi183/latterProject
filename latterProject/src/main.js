@@ -32,7 +32,9 @@ const store = new Vuex.Store({
     //这个是个人信息
     LmPersonInfor:{},
     //获取食品列表
-    nfoot:''
+    nfoot:'',
+    //商铺列表
+    nshoplist:{},
   }
 });
 
