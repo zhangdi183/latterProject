@@ -9,7 +9,7 @@
     </mt-header>
     <!--信息 >-->
     <div class="infor">
-      <router-link to="/" class="info">
+      <router-link :to="{path:'/Linformation'}" class="info">
         <div class="head">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icontouxiang-kong"></use>

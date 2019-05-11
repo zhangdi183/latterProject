@@ -2,7 +2,7 @@
     <div class="L_problem">
       <!--这是头-->
       <div class="L_head">
-        <router-link :to="{path:'/balance'}"><span class="glyphicon glyphicon-menu-left pull-left" style="color: white;"></span></router-link>
+        <span class="glyphicon glyphicon-menu-left pull-left" style="color: white;" @click="$router.go(-1)"></span>
         <span class="L_headDiv">余额问题</span>
       </div>
       <!--这是问题-->
@@ -24,7 +24,6 @@
         },
         created(){
           Vue.axios.get('https://elm.cangdu.org/v3/profile/explain').then((res)=>{
-            //
             console.log(res.data.balanceContent)
           }).catch((err)=>{
             console.log(err)

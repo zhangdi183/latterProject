@@ -30,6 +30,7 @@ import VipPay from '../L-components/L-vipPay'
 import vipExchange from '../L-components/L-vipExchange'
 import vipHistory from '../L-components/L-vipHistory'
 import Nfoot from '../nComponents/Nfoot'
+import Linfor from '../L-components/L-information'
 Vue.use(Router);
 
 export default new Router({
@@ -76,5 +77,7 @@ export default new Router({
     {path:'/vipexchange',component:vipExchange},
     //这个跳转到会员历史
     {path:'/viphistory',component:vipHistory},
+    //这个跳转到账户信息
+    {path:'/Linformation',component:Linfor}
   ]
 })
