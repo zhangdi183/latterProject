@@ -26,8 +26,8 @@
       <!--热门问题-->
       <div>
         <mt-cell-swipe title="热门问题" class="problem"></mt-cell-swipe>
-        <router-link to="/" v-for="(data,index,i) in problem" :key="i" class="pro">
-          <mt-cell-swipe :title="index" is-link></mt-cell-swipe>
+        <router-link to="/" v-for="(data,index,i) in array" :key="i" class="pro">
+          <mt-cell-swipe :title="data" is-link></mt-cell-swipe>
         </router-link>
       </div>
     </div>
@@ -45,23 +45,35 @@
         return{
           all:'',
           problem:'',
-          content:[]
+          content:[],
+          array:[]
         }
       },
       methods:{
         hotLine(){
           window.confirm('要打开 选取应用 吗?');
-        }
+        },
       },
       mounted(){
         Vue.axios.get('https://elm.cangdu.org/v3/profile/explain').then((res)=>{
-          // console.log(res.data);
-          //  this.all = res.data;
-          // this.problem=this.all.map(item=>{
-          //   return item;
-          // });
-          // console.log(this.problem);
-          this.problem=res.data;
+          let arr=[]
+          //将所有的键值对放进数组
+          for(let a in res.data){
+            arr.push(a)
+          }
+          let arr1=[]
+          //将问题取出放进数组
+          for(let i=0;i<arr.length;i++){
+            if (arr[i].indexOf('Caption')!=-1){
+              arr1.push(arr[i])
+            }
+          };
+
+          for (let i in arr1){
+            // console.log(i)
+            // console.log(res.data[arr2[i]])
+            this.array.push(res.data[arr1[i]])
+          }
         }).catch((error)=>{
           console.log('请求错误!',error);
         });

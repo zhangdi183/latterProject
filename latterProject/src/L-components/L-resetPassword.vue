@@ -1,7 +1,7 @@
 <template>
   <div class="Llogin">
     <div class="L_head">
-      <router-link :to="{path:'/login'}"><span class="glyphicon glyphicon-menu-left pull-left" style="color: white;"></span></router-link>
+      <span class="glyphicon glyphicon-menu-left pull-left" style="color: white;" @click="$router.go(-1)"></span>
       <span class="">重置密码</span>
     </div>
     <!--这是账号密码-->
@@ -11,14 +11,19 @@
       <input :type="isPass" placeholder="新密码" v-model="LmP">
       <input :type="isPass" placeholder="确认新密码" v-model="LmP">
       <input type="text" placeholder="验证码" v-model="LmY">
-      <div id="coad"><span v-if="isTrue">{{LmCoad}}</span><span @click="isTrue=!isTrue;isFalse=!isFalse" v-if="isFalse">点击显示验证码</span></div>
+      <div id="coad">
+        <img :src="isStr" alt="" class="img">
+      </div>
+      <span @click="getD" class="Lcantsee">
+          看不清<br><span class="text-primary">换一张</span>
+        </span>
 
       <button class="btn btn-success btn-group btn-block" @click="login">确认修改</button>
     </div>
     <!--这是个警告框-->
-    <div class="alert alert-warning text-center LmAlert" v-if="isShow">
+    <div class="alert alert-warning text-center LmAlert bounceIn" v-if="isShow">
       <img src="../L-imgs/感叹号.png" height="100" width="100"/>
-      <p>正确的账号</p>
+      <p>{{alertTxt}}</p>
       <button class="btn btn-success btn-group btn-block" @click="isShow=false">确认</button>
     </div>
   </div>
@@ -56,7 +61,9 @@
         LmLP:'',
         isTrue:false,
         isFalse:true,
-        isShow:false
+        isShow:false,
+        isStr:'',
+        alertTxt:''
 
       }
     },
@@ -73,27 +80,31 @@
         }
       },
       login(){
-        if(this.LmV!='' && this.LmP !='' && this.LmLP&& (this.LmY!='' &&this.LmY===this.LmCoad)){
-          Vue.axios.post('https://elm.cangdu.org/v2/login',{
-            username:this.LmV,
-            password:this.LmP
-          }).then((res)=>{
-            console.log(res)
-          }).catch((err)=>{
-            console.log(err)
-          })
-          this.$router.push({path:'/nmine'})
-        }else{
-          this.isShow=true;
-        }
+        Vue.axios.post('https://elm.cangdu.org/v2/changepassword',{
+          username:this.LmV,
+          oldpassWord:this.LmLP,
+          newpassword:this.LmP,
+          confirmpassword:this.LmP,
+          captcha_code:this.LmY
+        }).then((res)=>{
+          if (res.data.success==='密码修改成功'){
+            this.isShow=!this.isShow
+            this.alertTxt='密码修改成功'
+          }
+        })
       },
+      getD(){
+        this.isFalse=!this.isFalse
+        Vue.axios.post('https://elm.cangdu.org/v1/captchas').then((res)=>{
+          this.isStr = res.data.code
+        })
+      }
     },
     created(){
-      let a=String(Math.floor(Math.random()*9))
-      let b=String(Math.floor(Math.random()*9))
-      let c=String(Math.floor(Math.random()*9))
-      let d=String(Math.floor(Math.random()*9))
-      this.LmCoad=a+b+c+d;
+      this.isFalse=!this.isFalse
+      Vue.axios.post('https://elm.cangdu.org/v1/captchas').then((res)=>{
+        this.isStr = res.data.code
+      })
     }
   }
 </script>
@@ -140,7 +151,7 @@
   }
 
   #coad{
-    /*width: 3rem;*/
+    width: 3rem;
     line-height: 1rem;
     padding: 0.5rem;
     border: 0.01rem black solid;
@@ -148,8 +159,9 @@
     position: absolute;
     background: rgba(0,0,0,0.1);
     top: 10.6rem;
-    right: 1rem;
+    right: 3rem;
     color:darkred;
+    display: inline-block;
   }
   .LmAlert{
     width:10rem;
@@ -158,6 +170,14 @@
     position: absolute;
     top:50%;
     left:20%;
+  }
+  #coad img{
+    width: 100%;
+  }
+  .Lcantsee{
+    position: absolute;
+    top: 10.6rem;
+    right: 0.5rem;
   }
 
 </style>

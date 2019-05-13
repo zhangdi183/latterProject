@@ -20,18 +20,22 @@
                 </div>
             </label>
             <!--这个是用户名-->
-            <div class="username">
-              <span class="pull-left text-muted">用户名</span>
-              <span class="glyphicon glyphicon-menu-right pull-right text-muted"></span>
-              <span class="pull-right">{{name}}</span>
-              <div class="clearfix"></div>
-            </div>
+            <router-link :to="{path:'/changeUsername'}">
+              <div class="username">
+                <span class="pull-left text-muted">用户名</span>
+                <span class="glyphicon glyphicon-menu-right pull-right text-muted"></span>
+                <span class="pull-right">{{name}}</span>
+                <div class="clearfix"></div>
+              </div>
+            </router-link>
             <!--这个是收货地址-->
-            <div class="address">
-              <span class="pull-left text-muted">收货地址</span>
-              <span class="glyphicon glyphicon-menu-right pull-right text-muted"></span>
-              <div class="clearfix"></div>
-            </div>
+            <router-link :to="{path:'/LshoppingAdd'}">
+              <div class="address">
+                <span class="pull-left text-muted">收货地址</span>
+                <span class="glyphicon glyphicon-menu-right pull-right text-muted"></span>
+                <div class="clearfix"></div>
+              </div>
+            </router-link>
           </div>
       </div>
       <h5 style="margin-left: 0.9rem"><small>绑定手机号</small></h5>
@@ -44,12 +48,14 @@
       </div>
       <h5 style="margin-left: 0.9rem"><small>安全设置</small></h5>
       <!--这个是修改密码-->
-      <div class="address">
-        <span class="pull-left text-muted">登陆密码</span>
-        <span class="glyphicon glyphicon-menu-right pull-right text-muted"></span>
-        <span class="pull-right">修改</span>
-        <div class="clearfix"></div>
-      </div>
+      <router-link :to="{path:'/resetpassword'}">
+        <div class="address">
+          <span class="pull-left text-muted">登陆密码</span>
+          <span class="glyphicon glyphicon-menu-right pull-right text-muted"></span>
+          <span class="pull-right">修改</span>
+          <div class="clearfix"></div>
+        </div>
+      </router-link>
       <div class="text-center">
         <button class="btn btn-danger" style="width: 13rem;margin: 0.3rem auto" @click="exit">退出登录</button>
       </div>
@@ -60,11 +66,11 @@
         <button class="btn btn-success btn-group btn-block" @click="isShow=false">确认</button>
       </div>
       <!--这是个退出警告框-->
-      <div class="alert alert-warning text-center LmAlert bounceIn" v-if="isShow">
+      <div class="alert alert-warning text-center LmAlert bounceIn" v-if="isShow1">
         <img src="../L-imgs/感叹号.png" height="100" width="100"/>
         <h2>是否退出登录</h2>
         <div>
-          <button class="btn btn-default" @click="isShow=false">再想想</button>
+          <button class="btn btn-default" @click="isShow1=false">再想想</button>
           <button class="btn btn-danger" @click="exitLogin">退出登录</button>
         </div>
       </div>
@@ -79,6 +85,7 @@
           return{
             alertTxt:'',
             isShow:false,
+            isShow1:false,
             name:''
           }
       },
@@ -92,7 +99,7 @@
           this.alertTxt='请在手机APP中设置'
         },
         exit(){
-          this.isShow=!this.isShow
+          this.isShow1=!this.isShow
         },
         exitLogin(){
             Vue.axios.get('https://elm.cangdu.org/v2/signout').then((res)=>{
@@ -105,9 +112,14 @@
       },
       created(){
           Vue.axios.get('https://elm.cangdu.org/v1/user').then((res)=>{
-            this.name=res.data.username
-          })
-      }
+            if (this.$store.state.changeUsername!=''){
+              this.name=this.$store.state.changeUsername
+            }else{
+              this.name=res.data.username
+            }
+            console.log(res.data)
+          });
+      },
     }
 </script>
 
@@ -134,7 +146,6 @@
   .headfile div{
     display: inline-block;
     width: 2rem;
-    background: red;
     float: right;
     position: relative;
     top: -0.3rem;

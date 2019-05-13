@@ -31,6 +31,10 @@ import vipExchange from '../L-components/L-vipExchange'
 import vipHistory from '../L-components/L-vipHistory'
 import Nfoot from '../nComponents/Nfoot'
 import Linfor from '../L-components/L-information'
+import LchangeName from '../L-components/L-changeName'
+import LshoppingAddress from '../L-components/L-shoppingAddress'
+import Laddshopping from '../L-components/L-addShoppingAddress'
+import Lchoose from '../L-components/L-chooseAddress'
 Vue.use(Router);
 
 export default new Router({
@@ -78,6 +82,14 @@ export default new Router({
     //这个跳转到会员历史
     {path:'/viphistory',component:vipHistory},
     //这个跳转到账户信息
-    {path:'/Linformation',component:Linfor}
+    {path:'/Linformation',component:Linfor},
+    //这个跳转到修改用户姓名
+    {path:'/changeUsername',component:LchangeName},
+    //这个是收货地址的路由
+    {path:'/LshoppingAdd',component:LshoppingAddress},
+    //这个是新增收货地址的路由
+    {path:'/addShoppingAddress',component:Laddshopping},
+    //这个是选择具体地址的路由
+    {path:'/LchooseAddress',component:Lchoose},
   ]
 })

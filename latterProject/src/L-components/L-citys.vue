@@ -53,7 +53,7 @@
       //这是当前定位城市返回的数据
       Vue.axios.get('https://elm.cangdu.org/v1/cities?type=guess').then((res)=>{
         this.LmLocatingCity=res.data
-
+        console.log(res.data)
       }).catch((err)=>{
         console.log('请求错误')
       });

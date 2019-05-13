@@ -35,6 +35,8 @@ const store = new Vuex.Store({
     nfoot:'',
     //商铺列表
     nshoplist:{},
+    //修改用户名
+    changeUsername:'',
   }
 });
 

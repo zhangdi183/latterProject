@@ -134,7 +134,11 @@
       mounted(){
         Vue.axios.get('https://elm.cangdu.org/v1/user').then((res)=>{
           // console.log(res.data);
-          this.username=res.data.username
+         if (this.$store.state.changeUsername!=''){
+           this.username=this.$store.state.changeUsername
+         }else {
+           this.username=res.data.username
+         }
           this.gift_amount=res.data.gift_amount
           this.point=res.data.point
           this.balance=res.data.balance
