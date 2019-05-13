@@ -37,6 +37,8 @@ const store = new Vuex.Store({
     nshoplist:{},
     //修改用户名
     changeUsername:'',
+    //评价分数
+    neva:'',
   }
 });
 

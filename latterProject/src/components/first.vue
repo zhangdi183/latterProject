@@ -51,41 +51,42 @@
         <span>附近商家</span>
         </div>
         <!--商家品牌-->
-        <router-link to="/nfoot" v-for="(item,i) in shop" :key="i" class="bottom">
-          <a @click="sendId(item.id,item)">
-            <img :src="'//elm.cangdu.org/img/'+item.image_path" alt="img" class="img">
-            <div class="right">
+        <div class="near">
+          <router-link to="/nfoot" v-for="(item,i) in shop" :key="i" class="bottom">
+            <a @click="sendId(item.id,item)">
+              <img :src="'//elm.cangdu.org/img/'+item.image_path" alt="img" class="img">
+              <div class="right">
             <span class="zong"><span class="pp" v-if="item.is_premium===true">品牌</span>{{item.name}}<span class="fr">
               <span class="bzp" v-for="items in item.supports">{{items.icon_name}}</span><span class="clean"></span>
             </span></span>
-              <div class="pf">
-                <!--评分-->
-                <el-rate
-                  v-model="item.rating"
-                  disabled
-                  disabled-void-color="#ccc"
-                  show-score
-                  text-color="#ff9900"
-                  class="ele">
-                </el-rate>
-                <span class="ys">月售{{item.recent_order_num}}单</span><br>
-                <span class="pr">
+                <div class="pf">
+                  <!--评分-->
+                  <el-rate
+                    v-model="item.rating"
+                    disabled
+                    disabled-void-color="#ccc"
+                    show-score
+                    text-color="#ff9900"
+                    class="ele">
+                  </el-rate>
+                  <span class="ys">月售{{item.recent_order_num}}单</span><br>
+                  <span class="pr">
                   <span class="fn">{{item.delivery_mode.text}}</span>
                   <span class="zsd">{{item.supports[1].name}}</span>
                </span><br>
-                <span class="clean"></span>
-                <span class="clean"></span>
-                <!--起送-->
-                <span class="qs">
+                  <span class="clean"></span>
+                  <span class="clean"></span>
+                  <!--起送-->
+                  <span class="qs">
               ¥{{item.float_minimum_order_amount}}起送 / {{item.piecewise_agent_fee.tips}}
               <span class="dis">{{item.distance}} / <span class="time">{{item.order_lead_time}}</span></span>
             </span>
+                </div>
               </div>
-  
-            </div>
-            <div class="clean"></div>
-          </a>
-        </router-link>
+              <div class="clean"></div>
+            </a>
+          </router-link>
+        </div>
       </div>
       <Bottom></Bottom>
     </div>
@@ -145,7 +146,12 @@
           }).catch((error)=>{
             console.log('请求错误!',error);
           });
+          //判断数组是否长度为0
+          if(item.activities.length === 0){
+            item.activities.push({'icon_name':'无活动'});
+          }
           this.$store.state.nshoplist=item;
+          // console.log(item);
         }
       }
     }
@@ -199,6 +205,9 @@
     border-bottom: 1px solid #ccc;
     box-sizing: border-box;
     padding: .9rem .4rem;
+  }
+  .near{
+    margin-bottom: 2.5rem;
   }
   .bottom .img{
     width: 3rem;
