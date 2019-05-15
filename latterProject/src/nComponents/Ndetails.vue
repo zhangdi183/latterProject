@@ -1,9 +1,6 @@
 <template>
   <!--商家详情页-->
     <div>
-      <!--<mt-header title="商家详情" class="head">-->
-          <!--<mt-button icon="back" @click="$router.back(-1)"></mt-button>-->
-      <!--</mt-header>-->
       <div class="head">
         <i class="el-icon-arrow-left left_back" @click="$router.back(-1)"></i>
         <span class="clean"></span>

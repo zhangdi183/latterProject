@@ -26,7 +26,7 @@
         </div>
         <img :src="'//elm.cangdu.org/img/'+top.image_path" alt="" class="bgimg" v-if="tophide">
       <!--头部选项卡-->
-      <el-tabs v-model="activeName" @tab-click="handleClick" id="tab">
+      <el-tabs v-model="activeName" id="tab">
         <el-tab-pane name="ss1" disabled></el-tab-pane>
         <el-tab-pane name="ss2" disabled></el-tab-pane>
         <el-tab-pane label="商品" name="first">
@@ -47,24 +47,29 @@
               </div>
               <!--右边--返回的商品数据-->
               <ul>
-                <router-link to="/">
+                <router-link to="/nprodes">
                   <li v-for="data1 in lidata.foods" class="middle_right">
-                    <img :src="'//elm.cangdu.org/img/'+data1.image_path" alt="">
-                    <span class="new" v-if="newshow"><span>新品</span></span>
-                    <div class="middle_r_r">
+                    <div @click="sendFoot(data1)">
+                      <img :src="'//elm.cangdu.org/img/'+data1.image_path" alt="">
+                      <span class="new" v-if="newshow"><span>新品</span></span>
+                      <div class="middle_r_r">
                       <span>
                         <strong>{{data1.name}}</strong>
-                        <!--招牌菜-----没有返回的数据!!!-->
-                        <!--<span class="pinp" v-if="data1.is_featured==='0'">招牌</span>-->
                         <span class="pinp" v-if="zp">招牌</span>
                         <span class="clean"></span>
                       </span>
-                      <div class="txt_des">{{data1.description}}</div>
-                      <div class="rate">{{data1.tips.split(" ")[1]}}<span> 好评率{{data1.satisfy_rate}}%</span></div>
-                      <div class="img_text" v-if="isshow">{{data1.activity.image_text}}</div>
-                      <div class="price"><strong v-for="data2 in data1.specfoods">¥{{data2.price}}</strong></div>
+                        <div class="txt_des">{{data1.description}}</div>
+                        <div class="rate">{{data1.tips.split(" ")[1]}}<span> 好评率{{data1.satisfy_rate}}%</span></div>
+                        <div class="img_text" :class="data1.activity.image_text===''?'hid':''">{{data1.activity.image_text}}</div>
+                        <div class="price">
+                          <strong v-for="data2 in data1.specfoods">¥{{data2.price}}</strong>
+                          <span class="add" :class="lengg?'':'hidden'"><i class="el-icon-plus"></i></span>
+                          <span class="select_add" :class="lengg?'hidden':''">选规格</span>
+                          <div class="clean"></div>
+                        </div>
+                      </div>
+                      <div class="clean"></div>
                     </div>
-                    <div class="clean"></div>
                   </li>
                 </router-link>
               </ul>
@@ -85,7 +90,7 @@
             <span>
               服务态度
               <el-rate
-                v-model="quZ"
+                v-model="assess.service_score.toFixed(1)*1"
                 disabled
                 disabled-void-color="#ccc"
                 show-score
@@ -96,7 +101,7 @@
               <span>
               菜品评价
               <el-rate
-                v-model="quZ1"
+                v-model="assess.food_score.toFixed(1)*1"
                 disabled
                 disabled-void-color="#ccc"
                 show-score
@@ -110,7 +115,35 @@
             <!--评价-->
             <ul>
               <li class="first">
-                <span v-for="data in tags" :class="data.name==='不满意'?'grey':'blue'">{{data.name}}({{data.count}})</span>
+                <span v-for="(data,i) in tags" :class="pindex===i?'selected':data.name==='不满意'?'grey':'blue'" @click="getSelect(i)">{{data.name}}({{data.count}})</span>
+              </li>
+              <li v-for="data1 in assinfo">
+                <img :src="data1.avatar===''?avimg1:avimg2" alt="" class="tx">
+                <div class="pj_right">
+                  <span>{{data1.username}}
+                    <span class="time">{{data1.rated_at}}</span>
+                  </span><br>
+                  <span>
+                    <el-rate
+                      v-model="data1.rating_star"
+                      disabled
+                      disabled-void-color="#ccc"
+                      class="ele">
+                  </el-rate>
+                    {{data1.time_spent_desc}}
+                  </span>
+                  <div class="center" v-if="ispj">
+                    <div class="middle" v-if="ispjimg" v-for="pj in data1.item_ratings">
+                      <img :src="pjimg+pj.image_hash.slice(0,1)+'/'+pj.image_hash.slice(1,3)+'/'+pj.image_hash.slice(3)+'.jpeg'" alt="">
+                      <div class="clean"></div>
+                    </div>
+                    <div class="clean"></div>
+                    <div class="bq" v-for="dor in data1.item_ratings">
+                      <span>{{dor.food_name}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="clean"></div>
               </li>
             </ul>
         </el-tab-pane>
@@ -131,16 +164,31 @@
             tabPosition: 'left',
             sort:'',
             lidata:'',
-            isshow:true,
             zp:true,
             newshow:true,
             top:this.$store.state.nshoplist,
             len:this.$store.state.nshoplist.activities.length,
             tophide:true,
+            //加购 选规格的变量
+            isadd:false,
+            issele:false,
+            lengg:'',
           //  评价定义的变量
             eval:this.$store.state.nfoot,
             assess:'',
             tags:'',
+            assinfo:'',
+            pindex:'',
+            second:'',
+            //头像
+            avimg1:'',
+            avimg2:'',
+            //评价图片
+            pjimg:'https://fuss10.elemecdn.com/',
+            //定义变量分别控制评价图片和标签的显隐
+            ispjimg:true,
+            ispj:true,
+            //无限滚动
           }
       },
       //配合first页面,将无活动的店铺筛选过滤,并将top隐藏
@@ -152,9 +200,6 @@
         }
       },
       methods:{
-        handleClick(tab, event) {
-          // console.log(tab, event);
-        },
         showInfo(e) {
           this.lidata = e;
           for (let i of e.foods) {
@@ -163,10 +208,19 @@
               i.activity = {'image_text': ''};
               // let v=i.activity.hasOwnProperty('image_text');
             }
-            /*描述将空的过滤掉*/
-              // if (i.activity.image_text === '') {
-              //   this.isshow = false;
-              // }
+            /*加购和选规格*/
+              for(let pro of i.specfoods){
+                // if(pro.specs.length===0 || pro.specs.length===1 && pro.specs[0].value==='默认'){
+                //   this.isadd=true;
+                //   this.issele=false;
+                // }else {
+                //   // console.log('sssssssssssssssssss');
+                //   this.isadd=false;
+                //   this.issele=true;
+                // }
+                // console.log(pro.name,pro.specs);
+                this.lengg= pro.specs.length===0 || pro.specs.length===1 && pro.specs[0].value==='默认';
+              }
   
             /*招牌--新品*/
             let v = i.attributes;
@@ -192,9 +246,17 @@
               hash[curVal.id] ? '' : hash[curVal.id] = true && preVal.push(curVal); return preVal
             }, []);
           }
-        }
+        },
+        //评价点击变色
+        getSelect(i){
+          this.pindex=i;
+        },
+        sendFoot(footdata){
+          // console.log(footdata);
+          this.$store.state.nfootPro=footdata;
+        },
       },
-      mounted(){
+      created(){
             for(let data1 of this.eval){
               //获取评价的分数的请求
               Vue.axios.get(`https://elm.cangdu.org/ugc/v2/restaurants/${data1.restaurant_id}/ratings/scores`).then((res)=>{
@@ -211,21 +273,35 @@
                 console.log('请求错误!',error);
               });
               //获取评价信息
-
+              Vue.axios.get(`https://elm.cangdu.org/ugc/v2/restaurants/${data1.restaurant_id}/ratings?offset=0&limit=10`).then((res)=>{
+                // console.log(res.data);
+                this.assinfo=res.data;
+                for(let img of this.assinfo){
+                  //头像图片获取
+                  let urlimg='https://fuss10.elemecdn.com/';
+                  if(img.avatar!==''){
+                    this.avimg2=urlimg+img.avatar.slice(0,1)+'/'+img.avatar.slice(1,3)+'/'+img.avatar.slice(3)+'.jpeg'
+                  }else {
+                    this.avimg1='//elm.cangdu.org/img/default.jpg';
+                  }
+                  //判断评价是否有图片
+                  for(let is of img.item_ratings){
+                    if(is===null){
+                      this.ispj=false;
+                    }else {
+                      let arr=[];
+                      arr.push(is.image_hash);
+                      if(arr===null){
+                        this.ispjimg=false;
+                      }
+                    }
+                  }
+                }
+              }).catch((error)=>{
+                console.log('请求错误!',error);
+              });
             }
       },
-      computed:{
-          quZ(){
-            var qz1 =parseFloat(this.assess.service_score).toFixed(1);
-            // var qz1 = Math.floor(this.assess.service_score * 10) / 10;
-            return qz1;
-          },
-        quZ1(){
-          var qz2 =parseFloat(this.assess.food_score).toFixed(1);
-          // var qz2 =Math.floor(this.assess.food_score * 10) / 10;
-          return qz2;
-        },
-      }
     }
 </script>
 
@@ -327,6 +403,9 @@
     font-weight: 400;
     padding: 0 .15rem;
   }
+  .middle_r_r .pinp,.middle_r_r .hid{
+    display: none;
+  }
   .middle_r_r .pinp{
     color: rgb(240, 115, 115);
     float: right;
@@ -355,6 +434,23 @@
     font-size: .7rem;
     color: #f60;
     font-weight: 700;
+  }
+  .middle_r_r .price span{
+    display: inline-block;
+    font-size: .55rem;
+    color: #fff;
+    padding: .06rem .1rem;
+    background-color: #3190e8;
+    border-radius: .2rem;
+    border: 1px solid #3190e8;
+    float: right;
+    margin-right: .35rem;
+    }
+  .middle_r_r .price .add{
+    font-weight: 900;
+  }
+  .middle_r_r .price .hidden{
+    display: none;
   }
   .top{
     background-color: rgba(0,0,0,0.3);
@@ -480,28 +576,77 @@
     width: 100%;
     margin: .4rem 0;
   }
-  .tab ul .first{
+  .tab ul li{
+    border-bottom: .01rem solid #ccc;
     box-sizing: border-box;
     padding: .5rem;
   }
-  .tab ul .first .blue{
+  .tab ul .first .blue,.tab ul .first .grey,.tab ul .first .selected{
     display: inline-block;
     margin: 0 .6rem .5rem 0;
     font-size: .6rem;
-    color: #6d7885;
     padding: .3rem;
-    background-color: #ebf5ff;
     border-radius: .2rem;
     border: 1px;
   }
+  .tab ul .first .blue{
+    color: #6d7885;
+    background-color: #ebf5ff;
+  }
   .tab ul .first .grey{
-    display: inline-block;
-    margin: 0 .6rem .5rem 0;
-    font-size: .6rem;
-    padding: .3rem;
     background-color: #f5f5f5;
     color: #aaa;
-    border-radius: .2rem;
-    border: 1px;
+  }
+  .tab ul .first .selected{
+    background-color: #3190e8;
+    color: #fff;
+  }
+  .tab ul li .tx{
+    width: 1.8rem;
+    border-radius: 50%;
+    float: left;
+    margin-right: .8rem;
+  }
+  .tab ul li .pj_right{
+    float: left;
+    width: 80%;
+    color: #666;
+    margin-bottom: .2rem;
+  }
+  .tab ul li .middle{
+    display: inline-block;
+    float: left;
+    font-size: 0;
+  }
+  .tab ul li .middle img{
+    width: 3rem;
+    margin-right: .4rem;
+  }
+  .tab ul li .pj_right .time{
+    float: right;
+    font-size: .4rem;
+    color: #999;
+  }
+  .tab ul li .ele{
+    display: inline-block;
+    font-size: .45rem;
+    color: #666;
+  }
+  .tab ul li .pj_right .bq{
+    background-color: red;
+    font-size: .55rem;
+    color: #999;
+  }
+  .tab ul li .pj_right .bq span{
+    display: inline-block;
+    width: 2.2rem;
+    padding: .2rem;
+    border: .025rem solid #ebebeb;
+    border-radius: .15rem;
+    margin: .5rem .3rem 0 0;
+    float: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 </style>

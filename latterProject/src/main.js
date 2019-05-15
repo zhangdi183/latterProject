@@ -33,6 +33,8 @@ const store = new Vuex.Store({
     LmPersonInfor:{},
     //获取食品列表
     nfoot:'',
+    //食品列表遍历之后
+    nfootPro:{},
     //商铺列表
     nshoplist:{},
     //修改用户名

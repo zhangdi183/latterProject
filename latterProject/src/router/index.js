@@ -37,6 +37,8 @@ import Laddshopping from '../L-components/L-addShoppingAddress'
 import Lchoose from '../L-components/L-chooseAddress'
 import Nshowactive from '../nComponents/Nshowactive'
 import Ndetails from '../nComponents/Ndetails'
+
+import Nprodes from '../nComponents/Nprodes'
 Vue.use(Router);
 
 export default new Router({
@@ -59,6 +61,8 @@ export default new Router({
     {path:'/nfoot',component:Nfoot},
     {path:'/nshowactive',component:Nshowactive},
     {path:'/ndetails',component:Ndetails},
+  
+    {path:'/nprodes',component:Nprodes},
     //这是优惠界面 包含二级路由
     {path:'/preferential',component:Lpreferential,children:[
         {path:'',redirect:{
@@ -95,5 +99,7 @@ export default new Router({
     {path:'/addShoppingAddress',component:Laddshopping},
     //这个是选择具体地址的路由
     {path:'/LchooseAddress',component:Lchoose},
+  
+    {path:'/nprodes',component:Nprodes},
   ]
 })
