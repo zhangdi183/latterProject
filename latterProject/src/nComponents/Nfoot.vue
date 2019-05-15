@@ -63,7 +63,7 @@
                         <div class="img_text" :class="data1.activity.image_text===''?'hid':''">{{data1.activity.image_text}}</div>
                         <div class="price">
                           <strong v-for="data2 in data1.specfoods">¥{{data2.price}}</strong>
-                          <span class="add" :class="lengg?'':'hidden'"><i class="el-icon-plus"></i></span>
+                          <span class="add" :class="lengg?'':'hidden'" @click="addShopCart(data1.specfoods)"><i class="el-icon-plus"></i></span>
                           <span class="select_add" :class="lengg?'hidden':''">选规格</span>
                           <div class="clean"></div>
                         </div>
@@ -90,7 +90,7 @@
             <span>
               服务态度
               <el-rate
-                v-model="assess.service_score.toFixed(1)*1"
+                v-model="cpj"
                 disabled
                 disabled-void-color="#ccc"
                 show-score
@@ -101,7 +101,7 @@
               <span>
               菜品评价
               <el-rate
-                v-model="assess.food_score.toFixed(1)*1"
+                v-model="spj"
                 disabled
                 disabled-void-color="#ccc"
                 show-score
@@ -180,6 +180,8 @@
             assinfo:'',
             pindex:'',
             second:'',
+            cpj:0,
+            spj:0,
             //头像
             avimg1:'',
             avimg2:'',
@@ -210,16 +212,13 @@
             }
             /*加购和选规格*/
               for(let pro of i.specfoods){
-                // if(pro.specs.length===0 || pro.specs.length===1 && pro.specs[0].value==='默认'){
-                //   this.isadd=true;
-                //   this.issele=false;
+                // if(pro.specs.length===1){
+                //   this.lengg='+'
                 // }else {
-                //   // console.log('sssssssssssssssssss');
-                //   this.isadd=false;
-                //   this.issele=true;
+                //   this.lengg='选规格'
                 // }
+                this.lengg = pro.specs.length;
                 // console.log(pro.name,pro.specs);
-                this.lengg= pro.specs.length===0 || pro.specs.length===1 && pro.specs[0].value==='默认';
               }
   
             /*招牌--新品*/
@@ -255,6 +254,12 @@
           // console.log(footdata);
           this.$store.state.nfootPro=footdata;
         },
+        
+        /*购物车*/
+        //直接加购
+        addShopCart(cart1){
+        //传16、获取食品列表 specfoods数组
+        }
       },
       created(){
             for(let data1 of this.eval){
@@ -262,6 +267,9 @@
               Vue.axios.get(`https://elm.cangdu.org/ugc/v2/restaurants/${data1.restaurant_id}/ratings/scores`).then((res)=>{
                 // console.log(res.data);
                 this.assess=res.data;
+                this.cpj=Number(this.assess.service_score.toFixed(1));
+                this.spj=Number(this.assess.food_score.toFixed(1));
+                // console.log(typeof this.cpj,typeof this.spj);
               }).catch((error)=>{
                 console.log('请求错误!',error);
               });

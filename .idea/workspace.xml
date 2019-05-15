@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e8f68a5b-6be7-413c-b99a-093a55c9af6d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/latterProject/src/nComponents/Nprodes.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/latterProject/src/L-components/L-citys.vue" beforeDir="false" afterPath="$PROJECT_DIR$/latterProject/src/L-components/L-citys.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/latterProject/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/latterProject/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/latterProject/src/nComponents/Ndetails.vue" beforeDir="false" afterPath="$PROJECT_DIR$/latterProject/src/nComponents/Ndetails.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/latterProject/src/nComponents/Nfoot.vue" beforeDir="false" afterPath="$PROJECT_DIR$/latterProject/src/nComponents/Nfoot.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/latterProject/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/latterProject/src/router/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -57,21 +52,21 @@
         <counts>
           <entry key="js" value="357" />
           <entry key="json" value="1" />
-          <entry key="vue" value="19716" />
+          <entry key="vue" value="19949" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="1" />
           <entry key="JavaScript" value="357" />
-          <entry key="Vue.js" value="19716" />
+          <entry key="Vue.js" value="19949" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="2" />
           <entry key="jpg" value="1" />
-          <entry key="js" value="11" />
+          <entry key="js" value="13" />
           <entry key="json" value="5" />
           <entry key="vue" value="32" />
         </counts>
@@ -81,7 +76,7 @@
           <entry key="CSS" value="2" />
           <entry key="Image" value="1" />
           <entry key="JSON" value="5" />
-          <entry key="JavaScript" value="11" />
+          <entry key="JavaScript" value="13" />
           <entry key="Vue.js" value="32" />
         </counts>
       </usages-collector>
@@ -104,8 +99,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/latterProject/src/components/first.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3198">
-              <caret line="126" column="37" selection-start-line="126" selection-start-column="37" selection-end-line="126" selection-end-column="37" />
+            <state relative-caret-position="1543">
+              <caret line="208" column="7" selection-start-line="208" selection-start-column="3" selection-end-line="208" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -113,8 +108,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/latterProject/src/nComponents/Nfoot.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="92" column="50" selection-start-line="92" selection-start-column="46" selection-end-line="92" selection-end-column="56" />
+            <state relative-caret-position="364">
+              <caret line="66" column="77" selection-start-line="66" selection-start-column="77" selection-end-line="66" selection-end-column="77" />
             </state>
           </provider>
         </entry>
@@ -198,6 +193,7 @@
       <find>img_text</find>
       <find>hidden</find>
       <find>price</find>
+      <find>near</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -255,10 +251,10 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="248" />
-    <option name="y" value="7" />
+    <option name="x" value="251" />
+    <option name="y" value="18" />
     <option name="width" value="1271" />
-    <option name="height" value="920" />
+    <option name="height" value="915" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -345,12 +341,12 @@
       <workItem from="1557643714609" duration="12619000" />
       <workItem from="1557708854844" duration="37726000" />
       <workItem from="1557794043881" duration="36821000" />
-      <workItem from="1557880924611" duration="407000" />
+      <workItem from="1557880924611" duration="5777000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="249515000" />
+    <option name="totallyTimeSpent" value="254885000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -362,10 +358,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="248" y="7" width="1271" height="920" extended-state="1" />
+    <frame x="251" y="18" width="1271" height="915" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.22656886" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.18581907" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -582,41 +578,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/latterProject/src/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="36" column="12" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/latterProject/src/components/first.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3198">
-          <caret line="126" column="37" selection-start-line="126" selection-start-column="37" selection-end-line="126" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/latterProject/src/nComponents/Nprodes.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/latterProject/src/nComponents/Ndetails.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/latterProject/src/nComponents/Nshowactive.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1196">
-          <caret line="46" column="12" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/latterProject/src/components/Order.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
@@ -651,10 +612,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/latterProject/src/nComponents/Nprodes.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/latterProject/src/nComponents/Ndetails.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/latterProject/src/nComponents/Nshowactive.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1196">
+          <caret line="46" column="12" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/latterProject/src/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="38" selection-start-line="38" selection-end-line="38" selection-end-column="17" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#140#161#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/latterProject/src/components/first.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1543">
+          <caret line="208" column="7" selection-start-line="208" selection-start-column="3" selection-end-line="208" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/latterProject/src/nComponents/Nfoot.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="92" column="50" selection-start-line="92" selection-start-column="46" selection-end-line="92" selection-end-column="56" />
+        <state relative-caret-position="364">
+          <caret line="66" column="77" selection-start-line="66" selection-start-column="77" selection-end-line="66" selection-end-column="77" />
         </state>
       </provider>
     </entry>
