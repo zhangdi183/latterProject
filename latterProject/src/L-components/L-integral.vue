@@ -9,7 +9,7 @@
         <!--这是的第一排-->
         <h5>
           <small class="pull-left">当前积分</small>
-          <small class="text-primary pull-right L_problem"><router-link :to="{path:'/lmBp'}">积分问题</router-link></small>
+          <small class="text-primary pull-right L_problem"><router-link :to="{path:'/Lcaption',query:{name:'积分问题',index:3}}">积分问题</router-link></small>
 
           <p class="clearfix"></p>
         </h5>

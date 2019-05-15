@@ -2,7 +2,7 @@
     <div class="Hongbao">
       <h5 class="Lmh5">
         <small>有<span class="markText">{{gift_amount}}</span>个红包即将到期</small>
-        <small class="text-primary pull-right L_problem"><router-link :to="{path:'/'}">红包问题</router-link></small>
+        <small class="text-primary pull-right L_problem"><router-link :to="{path:'/Lcaption',query:{name:'红包问题',index:12}}">红包问题</router-link></small>
       </h5>
       <!--这个是可用红包-->
       <div class="useHongBao"  v-for="(i,d) in Arr" :key="d">

@@ -39,6 +39,9 @@ import Nshowactive from '../nComponents/Nshowactive'
 import Ndetails from '../nComponents/Ndetails'
 
 import Nprodes from '../nComponents/Nprodes'
+
+import Lcaption from '../L-components/L-Caption'
+
 Vue.use(Router);
 
 export default new Router({
@@ -99,7 +102,9 @@ export default new Router({
     {path:'/addShoppingAddress',component:Laddshopping},
     //这个是选择具体地址的路由
     {path:'/LchooseAddress',component:Lchoose},
-  
     {path:'/nprodes',component:Nprodes},
+    //这个是跳转到所有问题的路由
+    {path:'/Lcaption',component:Lcaption}
+
   ]
 })

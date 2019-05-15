@@ -25,7 +25,7 @@
       <!--这是后台数据返回的热门城市-->
       <li class="text text-primary L_cityLi" v-for="(d,i) in LmHotCity" id="i" @click="LmCitysGet($event)"><router-link :to="{path:'/find',query:{Lcitysname:d.name,LMcityid:d.id}}">{{d.name}}</router-link></li>
     </div>
-    <div class="L_hotCity" v-for="(key,value) in LmAllCity">
+    <div class="L_hotCity" v-for="(key,value) in fc">
       <span class="L_city">{{value}}</span>
       <li class="text text-muted L_AllcityLi" v-for="data in key"><router-link :to="{path:'/find',query:{Lcitysname:data.name,LMcityid:data.id}}">{{data.name}}</router-link></li>
     </div>
@@ -41,7 +41,8 @@
         LmLocatingCity:{},
         LmHotCity:[],
         LmAllCity:{},
-        LmCityId:Number
+        LmCityId:Number,
+        newCity:{},
       }
     },
     methods:{
@@ -49,6 +50,20 @@
 
       }
     },
+    computed:{
+      fc() {
+        this.citykey = Object.keys(this.LmAllCity);
+        this.citykey.sort();
+        // console.log(this.citykey);
+        for (let i = 0; i < this.citykey.length;i++) {
+          const index = this.citykey[i];
+          this.newCity[index]=this.LmAllCity[index];
+        }
+        // console.log(this.newCity);
+        return this.newCity;
+      }
+    },
+
     created(){
       //这是当前定位城市返回的数据
       Vue.axios.get('https://elm.cangdu.org/v1/cities?type=guess').then((res)=>{
@@ -65,7 +80,7 @@
       });
       //这是所有城市返回的数据
       Vue.axios.get('https://elm.cangdu.org/v1/cities?type=group').then((res)=>{
-        this.LmAllCity = res.data
+        this.LmAllCity =res.data
       }).catch((err)=>{
         console.log('请求出错',err)
       });

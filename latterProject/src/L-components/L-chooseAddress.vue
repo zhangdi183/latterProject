@@ -43,7 +43,7 @@
           sure(){
             let a='https://elm.cangdu.org/v1/pois?city_id=32&'+'keyword='+this.V+'&type=search'
             Vue.axios.get(a).then((res)=>{
-              console.log(res.data)
+              // console.log(res.data)
               this.Arr=res.data
             });
             this.isShow=false

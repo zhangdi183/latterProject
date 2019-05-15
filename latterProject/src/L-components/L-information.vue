@@ -117,7 +117,6 @@
             }else{
               this.name=res.data.username
             }
-            console.log(res.data)
           });
       },
     }

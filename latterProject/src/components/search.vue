@@ -1,4 +1,4 @@
-<template>
+x<template>
     <div class="search">
       <!--顶部-->
       <mt-header title="搜索">

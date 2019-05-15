@@ -24,11 +24,10 @@
         },
         created(){
           Vue.axios.get('https://elm.cangdu.org/v3/profile/explain').then((res)=>{
-            console.log(res.data.balanceContent)
+            // console.log(res.data.balanceContent)
           }).catch((err)=>{
             console.log(err)
           })
-          console.log(111)
         }
     }
 </script>

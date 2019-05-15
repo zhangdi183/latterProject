@@ -1,7 +1,7 @@
 <template>
     <div class="daijinjuan">
         <h5>
-          <small class="text-primary pull-right L_problem"><router-link :to="{path:'/'}">商家代金卷说明</router-link></small>
+          <small class="text-primary pull-right L_problem"><router-link :to="{path:'/Lcaption',query:{name:'商家代金卷说明',index:17}}">商家代金卷说明</router-link></small>
         </h5>
       <!--这个是中间部分-->
       <div class="L_body">

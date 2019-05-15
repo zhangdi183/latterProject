@@ -3,13 +3,14 @@
       <div class="L_head">
         <span class="glyphicon glyphicon-menu-left pull-left" style="color: white;" @click="$router.go(-1)"></span>
         <span class="L_headDiv">编辑地址</span>
-        <span class="pull-right" style="margin-right: 0.5rem">编辑</span>
+        <span class="pull-right" style="margin-right: 0.5rem" @click="editor">{{titleText}}</span>
       </div>
       <div>
         <!--这个显示的是收货地址-->
         <div class="showAddress" v-for="data in dataArr">
           <span>{{data.address}}</span>
           <span>{{data.phone}}</span>
+          <span class="deleteAddress" v-if="isTrue" @click="deleteaddress(data.id)">X</span>
         </div>
         <hr>
        <router-link :to="{path:'/addShoppingAddress'}">
@@ -29,14 +30,42 @@
         name: "L-shoppingAddress",
       data(){
           return{
-            dataArr:[]
+            dataArr:[],
+            titleText:'编辑',
+            isTrue:false,
+            userid:Number
           }
+      },
+      methods:{
+        editor(){
+          if (this.titleText==='编辑'){
+            this.titleText='完成';
+            this.isTrue=true
+          }else if (this.titleText==='完成'){
+            this.titleText='编辑';
+            this.isTrue=false
+          }
+        },
+        deleteaddress(id){
+            Vue.axios.delete(`https://elm.cangdu.org/v1/users/${this.userid}/addresses/${id}`).then((res)=>{
+              if (res.data.success==='删除地址成功'){
+                Vue.axios.get('https://elm.cangdu.org/v1/user').then((res)=>{
+                  this.userid=res.data.user_id
+                  Vue.axios.get(`https://elm.cangdu.org/v1/users/${res.data.id}/addresses`).then((res)=>{
+                    let a=res.data.reverse()
+                    this.dataArr=a;
+                  })
+                })
+              }
+            })
+        }
       },
       created(){
           Vue.axios.get('https://elm.cangdu.org/v1/user').then((res)=>{
+            this.userid=res.data.user_id
             Vue.axios.get(`https://elm.cangdu.org/v1/users/${res.data.id}/addresses`).then((res)=>{
               let a=res.data.reverse()
-              this.dataArr=a
+              this.dataArr=a;
             })
           })
       }
@@ -73,6 +102,11 @@
     background: #FFF8C3;
     padding: 0.3rem;
     border-bottom: 0.05rem solid #9f9f9f;
+  }
+  .deleteAddress{
+    position: relative;
+    top: -1.4rem;
+    right: -14.25rem;
   }
 
 </style>

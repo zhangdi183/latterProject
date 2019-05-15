@@ -79,7 +79,7 @@
             phone_bk:this.inputPhoneStandby,
             tag_type:2
           }).then((res)=>{
-            console.log(res)
+            // console.log(res)
           })
         }
         },
@@ -90,7 +90,7 @@
           };
           Vue.axios.get('https://elm.cangdu.org/v1/user').then((res)=>{
             this.id=res.data.user_id
-            console.log(res)
+            // console.log(res)
           })
       }
     }

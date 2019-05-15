@@ -26,7 +26,7 @@
       <!--热门问题-->
       <div>
         <mt-cell-swipe title="热门问题" class="problem"></mt-cell-swipe>
-        <router-link to="/" v-for="(data,index,i) in array" :key="i" class="pro">
+        <router-link :to="{path:'/Lcaption',query:{index:index,name:data}}" v-for="(data,index) in array" :key="index" class="pro">
           <mt-cell-swipe :title="data" is-link></mt-cell-swipe>
         </router-link>
       </div>
@@ -68,10 +68,9 @@
               arr1.push(arr[i])
             }
           };
-
           for (let i in arr1){
             // console.log(i)
-            // console.log(res.data[arr2[i]])
+            // console.log(res.data[arr1[i]])
             this.array.push(res.data[arr1[i]])
           }
         }).catch((error)=>{
