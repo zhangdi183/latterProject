@@ -41,6 +41,8 @@ const store = new Vuex.Store({
     changeUsername:'',
     //评价分数
     neva:'',
+    //购物车列表
+    Z_shopTrolleyList:[],
   }
 });
 

@@ -34,7 +34,7 @@
         <div class="Z-biginDispatchs">
           <div class="Z-beginDispatch" v-if="Z_boolFootUp">还差￥{{Z_footUpMoney}}起送</div>
           <router-link to="/confirmorder">
-            <div class="Z-footUp" v-if="!Z_boolFootUp">去结算</div>
+            <div class="Z-footUp" v-if="!Z_boolFootUp" @click="Z_sendProList()">去结算</div>
           </router-link>
         </div>
       </div>
@@ -101,7 +101,7 @@
             Z_onePro.num=1;
             this.Z_shopTrolleyList.push(Z_onePro);
           }
-          console.log(this.Z_shopTrolleyList);
+          // console.log(this.Z_shopTrolleyList);
           this.getAllMoney();//计算总价
           this.getFootUpMoney();//计算起送价格
         },
@@ -123,6 +123,9 @@
           this.Z_shopTrolleyList=[];
           this.getAllMoney();//计算总价
           this.getFootUpMoney();//计算起送价格
+        },
+        Z_sendProList(){
+          this.$store.state.Z_shopTrolleyList=this.Z_shopTrolleyList;
         }
       }
     }
@@ -135,7 +138,7 @@
   .Z-mask{
     width: 16rem;
     height: 25rem;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.3);
   }
   ul,li{
     list-style: none;
