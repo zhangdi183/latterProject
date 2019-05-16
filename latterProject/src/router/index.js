@@ -39,7 +39,7 @@ import Nshowactive from '../nComponents/Nshowactive'
 import Ndetails from '../nComponents/Ndetails'
 import ZconfirmOrder from '../components/Z-confirmOrder'
 import Nprodes from '../nComponents/Nprodes'
-
+import Nbill from '../nComponents/Nbill'
 import Lcaption from '../L-components/L-Caption'
 import Llmsg from '../L-components/L-leaveMessage'
 
@@ -65,8 +65,8 @@ export default new Router({
     {path:'/nfoot',component:Nfoot},
     {path:'/nshowactive',component:Nshowactive},
     {path:'/ndetails',component:Ndetails},
-  
-    {path:'/nprodes',component:Nprodes},
+    {path:'/ndetails',component:Ndetails},
+    {path:'/nbill',component:Nbill},
     //这是优惠界面 包含二级路由
     {path:'/preferential',component:Lpreferential,children:[
         {path:'',redirect:{

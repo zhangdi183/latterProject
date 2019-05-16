@@ -7,92 +7,92 @@
         </transition>
       </div>
       <!--商家详情-->
-        <div class="top" v-if="tophide">
-          <span class="glyphicon glyphicon-chevron-left back" aria-hidden="true" @click="$router.back(-1)"></span>
-          <img :src="'//elm.cangdu.org/img/'+top.image_path" alt="" class="img">
-          <div class="top_right">
-            <strong>{{top.name}}</strong><br>
-            <span>商家配送 / 分钟送达 / {{top.piecewise_agent_fee.tips}}</span><br>
-            <span>公告: {{top.promotion_info}}</span>
-          </div>
-          <div class="clean"></div>
-          <div class="res" >
-            <router-link to="/nshowactive" class="rl">
-              <span class="red_res">{{top.activities[0].icon_name}}</span>
-              <span>{{top.activities[0].description}}</span>
-              <span>(APP专享)</span>
-              <span class="res_right">{{len}}个活动<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>
-              <span class="clean"></span>
-            </router-link>
-          </div>
-          <router-link to="/ndetails" class="right_next">
-            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-            <span class="clean"></span>
-          </router-link>
-        </div>
-        <img :src="'//elm.cangdu.org/img/'+top.image_path" alt="" class="bgimg" v-if="tophide">
-      <!--头部选项卡-->
-      <el-tabs v-model="activeName" id="tab">
-        <el-tab-pane name="ss1" disabled></el-tab-pane>
-        <el-tab-pane name="ss2" disabled></el-tab-pane>
-        <el-tab-pane label="商品" name="first">
-          <div class="middle">
-            <ul>
-              <li v-for="data in $store.state.nfoot" :class="{'selected':lidata.id===data.id?true:false}" @click="showInfo(data)" class="middle_left">{{data.name}}</li>
-            </ul>
-            <!--右边-->
-            <div class="right">
-              <div class="title">{{lidata.name}}
-                <span> {{lidata.description}}</span>
-                <span class="more">
+         <div class="aaa">
+           <div class="top" v-if="tophide">
+             <span class="glyphicon glyphicon-chevron-left back" aria-hidden="true" @click="$router.back(-1)"></span>
+             <img :src="'//elm.cangdu.org/img/'+top.image_path" alt="" class="img">
+             <div class="top_right">
+               <strong>{{top.name}}</strong><br>
+               <span>商家配送 / 分钟送达 / {{top.piecewise_agent_fee.tips}}</span><br>
+               <span>公告: {{top.promotion_info}}</span>
+             </div>
+             <div class="clean"></div>
+             <div class="res" >
+               <router-link to="/nshowactive" class="rl">
+                 <span class="red_res">{{top.activities[0].icon_name}}</span>
+                 <span>{{top.activities[0].description}}</span>
+                 <span>(APP专享)</span>
+                 <span class="res_right">{{len}}个活动<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>
+                 <span class="clean"></span>
+               </router-link>
+             </div>
+             <router-link to="/ndetails" class="right_next">
+               <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+               <span class="clean"></span>
+             </router-link>
+           </div>
+           <img :src="'//elm.cangdu.org/img/'+top.image_path" alt="" class="bgimg" v-if="tophide">
+           <!--头部选项卡-->
+           <el-tabs v-model="activeName" id="tab">
+             <el-tab-pane name="ss1" disabled></el-tab-pane>
+             <el-tab-pane name="ss2" disabled></el-tab-pane>
+             <el-tab-pane label="商品" name="first">
+               <div class="middle">
+                 <ul>
+                   <li v-for="data in $store.state.nfoot" :class="{'selected':lidata.id===data.id?true:false}" @click="showInfo(data)" class="middle_left">{{data.name}}</li>
+                 </ul>
+                 <!--右边-->
+                 <div class="right">
+                   <div class="title">{{lidata.name}}
+                     <span> {{lidata.description}}</span>
+                     <span class="more">
                   <el-tooltip class="item" effect="dark" :content="lidata.name+' '+lidata.description" placement="bottom-end">
                 <i class="el-icon-more"></i>
               </el-tooltip>
                 </span>
-                <span class="clean"></span>
-              </div>
-              <!--右边--返回的商品数据-->
-              <ul>
-                  <li v-for="data1 in lidata.foods" class="middle_right">
-                    <div @click="sendFoot(data1)">
-                      <router-link to="/nprodes">
-                      <img :src="'//elm.cangdu.org/img/'+data1.image_path" alt="">
-                      <span class="new" v-if="newshow"><span>新品</span></span>
-                        </router-link>
-                      <div class="middle_r_r">
+                     <span class="clean"></span>
+                   </div>
+                   <!--右边--返回的商品数据-->
+                   <ul>
+                     <li v-for="data1 in lidata.foods" class="middle_right">
+                       <div @click="sendFoot(data1)">
+                         <router-link to="/nprodes">
+                           <img :src="'//elm.cangdu.org/img/'+data1.image_path" alt="">
+                           <span class="new" v-if="newshow"><span>新品</span></span>
+                         </router-link>
+                         <div class="middle_r_r">
                       <span>
                         <strong>{{data1.name}}</strong>
                         <span class="pinp" v-if="zp">招牌</span>
                         <span class="clean"></span>
                       </span>
-                        <div class="txt_des">{{data1.description}}</div>
-                        <div class="rate">{{data1.tips.split(" ")[1]}}<span> 好评率{{data1.satisfy_rate}}%</span></div>
-                        <div class="img_text" :class="data1.activity.image_text===''?'hid':''">{{data1.activity.image_text}}</div>
-                        <div class="price">
-                          <strong v-for="data2 in data1.specfoods">¥{{data2.price}}</strong>
-                          <span class="add" :class="lengg?'':'hidden'" @click="addShopCart(data1.specfoods)"><i class="el-icon-plus"></i></span>
-                          <span class="select_add" :class="lengg?'hidden':''">选规格</span>
-                          <div class="clean"></div>
-                        </div>
-                      </div>
-                      <div class="clean"></div>
-                    </div>
-                  </li>
-              </ul>
-            </div>
-          </div>
-          <div class="clean"></div>
-        </el-tab-pane>
-        <el-tab-pane name="ss3" disabled></el-tab-pane>
-        <el-tab-pane name="ss4" disabled></el-tab-pane>
-        <!--评价-->
-        <el-tab-pane label="评价" name="second" class="tab">
-            <div class="rect_left">
-              <p>{{Math.floor(assess.overall_score * 10) / 10}}</p>
-              <span>综合评价</span><br>
-              <span class="small">高于周边商家{{Math.floor(assess.compare_rating*100 * 10) / 10}}%</span>
-            </div>
-            <div class="rect_right">
+                           <div class="txt_des">{{data1.description}}</div>
+                           <div class="rate">{{data1.tips.split(" ")[1]}}<span> 好评率{{data1.satisfy_rate}}%</span></div>
+                           <div class="img_text" :class="data1.activity.image_text===''?'hid':''">{{data1.activity.image_text}}</div>
+                           <div class="price" v-for="data2 in data1.specfoods">
+                             <strong>¥{{data2.price}}</strong>
+                             <span class="select_add" @click="addShopCart(data1.specfoods,getSj(data2))">{{getSj(data2)}}</span>
+                             <div class="clean"></div>
+                           </div>
+                         </div>
+                         <div class="clean"></div>
+                       </div>
+                     </li>
+                   </ul>
+                 </div>
+               </div>
+               <div class="clean"></div>
+             </el-tab-pane>
+             <el-tab-pane name="ss3" disabled></el-tab-pane>
+             <el-tab-pane name="ss4" disabled></el-tab-pane>
+             <!--评价-->
+             <el-tab-pane label="评价" name="second" class="tab">
+               <div class="rect_left">
+                 <p>{{Math.floor(assess.overall_score * 10) / 10}}</p>
+                 <span>综合评价</span><br>
+                 <span class="small">高于周边商家{{Math.floor(assess.compare_rating*100 * 10) / 10}}%</span>
+               </div>
+               <div class="rect_right">
             <span>
               服务态度
               <el-rate
@@ -104,7 +104,7 @@
                 class="ele">
                </el-rate>
             </span>
-              <span>
+                 <span>
               菜品评价
               <el-rate
                 v-model="spj"
@@ -115,21 +115,21 @@
                 class="ele">
                </el-rate>
             </span>
-              <span>送达时间 <span class="small">{{assess.deliver_time}}分钟</span></span>
-            </div>
-            <span class="clean"></span>
-            <!--评价-->
-            <ul>
-              <li class="first">
-                <span v-for="(data,i) in tags" :class="pindex===i?'selected':data.name==='不满意'?'grey':'blue'" @click="getSelect(i)">{{data.name}}({{data.count}})</span>
-              </li>
-              <li v-for="data1 in assinfo">
-                <img :src="data1.avatar===''?avimg1:avimg2" alt="" class="tx">
-                <div class="pj_right">
+                 <span>送达时间 <span class="small">{{assess.deliver_time}}分钟</span></span>
+               </div>
+               <span class="clean"></span>
+               <!--评价-->
+               <ul>
+                 <li class="first">
+                   <span v-for="(data,i) in tags" :class="pindex===i?'selected':data.name==='不满意'?'grey':'blue'" @click="getSelect(i)">{{data.name}}({{data.count}})</span>
+                 </li>
+                 <li v-for="data1 in assinfo">
+                   <img :src="data1.avatar===''?avimg1:avimg2" alt="" class="tx">
+                   <div class="pj_right">
                   <span>{{data1.username}}
                     <span class="time">{{data1.rated_at}}</span>
                   </span><br>
-                  <span>
+                     <span>
                     <el-rate
                       v-model="data1.rating_star"
                       disabled
@@ -138,22 +138,44 @@
                   </el-rate>
                     {{data1.time_spent_desc}}
                   </span>
-                  <div class="center" v-if="ispj">
-                    <div class="middle" v-if="ispjimg" v-for="pj in data1.item_ratings">
-                      <img :src="pjimg+pj.image_hash.slice(0,1)+'/'+pj.image_hash.slice(1,3)+'/'+pj.image_hash.slice(3)+'.jpeg'" alt="">
-                      <div class="clean"></div>
-                    </div>
-                    <div class="clean"></div>
-                    <div class="bq" v-for="dor in data1.item_ratings">
-                      <span>{{dor.food_name}}</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="clean"></div>
-              </li>
-            </ul>
-        </el-tab-pane>
-      </el-tabs>
+                     <div class="center" v-if="ispj">
+                       <div class="middle" v-if="ispjimg" v-for="pj in data1.item_ratings">
+                         <img :src="pjimg+pj.image_hash.slice(0,1)+'/'+pj.image_hash.slice(1,3)+'/'+pj.image_hash.slice(3)+'.jpeg'" alt="">
+                         <div class="clean"></div>
+                       </div>
+                       <div class="clean"></div>
+                       <div class="bq" v-for="dor in data1.item_ratings">
+                         <span>{{dor.food_name}}</span>
+                       </div>
+                     </div>
+                   </div>
+                   <div class="clean"></div>
+                 </li>
+               </ul>
+             </el-tab-pane>
+           </el-tabs>
+         </div>
+         <div class="alert_img" v-if="ishide" @click="closeThis">
+           <div class="box" @click.stop>
+             <div v-for="data in btndata">
+               <p class="box_tit">{{data.name}}
+                 <span @click="closeThis"><i class="el-icon-close"></i></span>
+                 <span class="clean"></span>
+               </p>
+               <div class="space">
+                 <p>规格</p>
+                 <span v-for="(data1,i) in data.specs" class="sel" :class="ggselected===i?'seled':''" @click="willSeleced(i)">{{data1.value}}</span>
+               </div>
+               <div class="box_bottom">
+                 <p>
+                   <span class="fh">¥ </span>{{data.price}}
+                   <span class="add_cart" @click="willAddCart(btndata)"><el-button type="primary" size="small">加入购物车</el-button></span>
+                   <span class="clean"></span>
+                 </p>
+               </div>
+             </div>
+           </div>
+         </div>
       <ZShopTrolley></ZShopTrolley>
     </div>
 </template>
@@ -164,11 +186,12 @@
   import Loading from '../components/loading/trans'
   import ZShopTrolley from "../components/Z-shopTrolley";
   import totalVue from "../Z_total"
+  import Bottom from "../components/Bottom";
   Vue.component(Navbar.name, Navbar);
   Vue.component(TabItem.name, TabItem);
     export default {
         name: "Nfoot",
-      components:{ Loading,ZShopTrolley },
+      components:{Bottom, Loading,ZShopTrolley },
       data(){
           return{
             activeName: 'first',
@@ -181,8 +204,8 @@
             len:this.$store.state.nshoplist.activities.length,
             tophide:true,
             //加购 选规格的变量
-            isadd:false,
-            issele:false,
+            isadd:true,
+            issele:true,
             lengg:'',
           //  评价定义的变量
             eval:this.$store.state.nfoot,
@@ -203,19 +226,61 @@
             ispj:true,
             //无限滚动
   
-            isLoading: true
+            isLoading: true,
+            ishide:false,
+            btndata:'',
+            ggselected:'',
           }
       },
       mounted(){
-        const me = this
+        const me = this;
         // 初始化页面数据
-        me.loadPageData()
+        me.loadPageData();
+        
+        
       },
       //配合first页面,将无活动的店铺筛选过滤,并将top隐藏
       beforeMount(){
         for(let arr of this.top.activities){
           if(arr.icon_name === '无活动'){
             this.tophide=false;
+          }
+        }
+      },
+      //-----------------------------------------------------
+      created(){
+        for(let a of this.$store.state.nfoot){
+          this.lidata=a;
+          for (let i of a.foods) {
+            //描述
+            if (i.activity === null) {
+              i.activity = {'image_text': ''};
+              // let v=i.activity.hasOwnProperty('image_text');
+            }
+    
+            /*招牌--新品*/
+            let v = i.attributes;
+            for (let food of v) {
+              if(food === null) {
+                this.zp = false;
+                this.newshow = false;
+              } else if (v.length === 2) {
+                this.zp = true;
+                this.newshow = true;
+              } else if (v.length === 1 && food.icon_name === "招牌") {
+                this.zp = true;
+                this.newshow = false;
+              } else if (v.length === 1 && food.icon_name === "新") {
+                this.newshow = true;
+                this.zp = false;
+              }
+            }
+            // console.log(v.length,v);
+    
+            let hash = {};
+            i.specfoods = i.specfoods.reduce((preVal, curVal) => {
+              hash[curVal.id] ? '' : hash[curVal.id] = true && preVal.push(curVal); return preVal
+            }, []);
           }
         }
       },
@@ -228,16 +293,6 @@
               i.activity = {'image_text': ''};
               // let v=i.activity.hasOwnProperty('image_text');
             }
-            /*加购和选规格*/
-              for(let pro of i.specfoods){
-                // if(pro.specs.length===1){
-                //   this.lengg='+'
-                // }else {
-                //   this.lengg='选规格'
-                // }
-                this.lengg = pro.specs.length;
-                // console.log(pro.name,pro.specs);
-              }
   
             /*招牌--新品*/
             let v = i.attributes;
@@ -273,11 +328,34 @@
           this.$store.state.nfootPro=footdata;
         },
         
+        getSj(e){
+          if(e.specs.length===0){
+            return '+'
+          }else {
+            return '选规格'
+          }
+        },
         /*购物车*/
-        //直接加购
-        addShopCart(cart1){
-        //传16、获取食品列表 specfoods数组
-          totalVue.$emit("Z_shopTrolley-event", cart1);
+        addShopCart(cart1,eve){
+          // console.log(cart1);
+          if(eve==='+'){
+            totalVue.$emit("Z_shopTrolley-event", cart1);
+          }
+          if(eve==='选规格'){
+            //传16、获取食品列表 specfoods数组
+            this.ishide=true;
+            this.btndata=cart1;
+          }
+        },
+        closeThis(){
+          this.ishide=false;
+        },
+        willSeleced(index){
+          this.ggselected=index;
+        },
+        //加入购物车的点击事件
+        willAddCart(cart2){
+          this.ishide=false;
         },
         /*过渡动画*/
     loadPageData: function() {
@@ -333,9 +411,6 @@
       }
     },
       },
-      created(){
-      
-      },
     }
 </script>
 
@@ -345,6 +420,9 @@
   }
   li{
     list-style: none;
+  }
+  .aaa{
+    margin-bottom: 1.7rem;
   }
   .middle_left{
     box-sizing: border-box;
@@ -473,7 +551,7 @@
     display: inline-block;
     font-size: .55rem;
     color: #fff;
-    padding: .06rem .1rem;
+    padding: .06rem .2rem;
     background-color: #3190e8;
     border-radius: .2rem;
     border: 1px solid #3190e8;
@@ -682,5 +760,75 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+  }
+  .alert_img{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .alert_img .box{
+    width: 12rem;
+    background-color: #fff;
+    border-radius: .3rem;
+  }
+  .alert_img .box .box_tit{
+    margin: 0;
+    font-size: .7rem;
+    color: #222;
+    font-weight: 400;
+    text-align: center;
+    padding: .5rem;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+  .alert_img .box .box_tit span{
+    float: right;
+    font-size: .8rem;
+    color: #999;
+  }
+  .alert_img .box .space{
+    box-sizing: border-box;
+    padding: .9rem .5rem;
+  }
+  .alert_img .box .space p{
+    font-size: .6rem;
+    color: #666;
+  }
+  .alert_img .box .space .sel{
+    font-size: .6rem;
+    padding: .3rem .5rem;
+    border: .025rem solid #ddd;
+    border-radius: .2rem;
+    margin-right: .5rem;
+    margin-bottom: .2rem;
+  }
+  .alert_img .box .box_bottom{
+    background-color: #f9f9f9;
+    padding: .4rem;
+    border: 1px;
+    border-bottom-left-radius: .2rem;
+    border-bottom-right-radius: .2rem;
+  }
+  .alert_img .box .box_bottom p{
+    color: #ff6000;
+    font-size: .75rem;
+    font-weight: 700;
+  }
+  .alert_img .box .box_bottom .fh{
+    font-size: .5rem;
+  }
+  .alert_img .box .box_bottom .add_cart{
+    float: right;
+  }
+  .alert_img .box .space .seled{
+    border-color: #3199e8;
+    color: #3199e8;
   }
 </style>

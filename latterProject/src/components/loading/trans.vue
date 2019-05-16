@@ -24,8 +24,8 @@
     z-index: 1000;
   }
   .center{
-    width: 4rem;
-    height: 4rem;
+    width: 3.5rem;
+    height: 3.5rem;
     position: relative;
     top: 40%;
     left: 37%;
