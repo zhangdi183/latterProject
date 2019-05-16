@@ -7,13 +7,16 @@
             <use xlink:href="#iconsousuo"></use>
           </svg>
         </router-link>
-          <mt-button slot="right">
-            <router-link to="/nmine">
-            <svg class="icon" aria-hidden="true">
+        <mt-button slot="right">
+          <router-link to="/nmine_load">
+            <svg class="icon" aria-hidden="true" v-if="isshow">
               <use xlink:href="#icongerenzhongxinyonghu01"></use>
             </svg>
-            </router-link>
-          </mt-button>
+          </router-link>
+          <router-link :to="{path:'/login'}">
+            <span style="color: white" v-if="isfalse">登录|注册</span>
+          </router-link>
+        </mt-button>
       </mt-header>
       <!--轮播-->
       <div class="swiper-container">
@@ -106,7 +109,9 @@
           return{
             pic:'',
             pic1:'',
-            shop:''
+            shop:'',
+            isshow:Boolean,
+            isfalse:Boolean,
           }
       },
       mounted(){
@@ -133,6 +138,17 @@
         }).catch((error)=>{
           console.log('请求错误!',error);
         });
+      },
+      created(){
+        Vue.axios.get('https://elm.cangdu.org/v1/user').then((res)=>{
+          if (res.data.message==='通过session获取用户信息失败'){
+            this.isfalse=true;
+            this.isshow=false;
+          }else{
+            this.isshow=true;
+            this.isfalse=false;
+          }
+        })
       },
       methods:{
         sendTitle(tit){

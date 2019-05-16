@@ -32,7 +32,7 @@
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icongerenzhongxinyonghu01"></use>
             </svg><br>
-            <span>我的</span>
+            <span @click="toMine">我的</span>
             </router-link>
           </mt-tab-item>
       </mt-tabbar>
@@ -48,6 +48,17 @@
   
     export default {
         name: "Bottom",
+      methods:{
+        toMine(){
+          Vue.axios.get('https://elm.cangdu.org/v1/user').then((res)=>{
+            if (res.data.message==='通过session获取用户信息失败'){
+              this.$router.push({path:'/nmine'})
+            }else{
+              this.$router.push({path:'/nmine_load'})
+            }
+          })
+        }
+      }
     }
 </script>
 

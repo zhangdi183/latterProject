@@ -1,5 +1,11 @@
 <template>
     <div>
+      <!--过渡动画-->
+      <div>
+        <transition name="fade">
+          <loading v-if="isLoading"></loading>
+        </transition>
+      </div>
       <!--商家详情-->
         <div class="top" v-if="tophide">
           <span class="glyphicon glyphicon-chevron-left back" aria-hidden="true" @click="$router.back(-1)"></span>
@@ -47,11 +53,12 @@
               </div>
               <!--右边--返回的商品数据-->
               <ul>
-                <router-link to="/nprodes">
                   <li v-for="data1 in lidata.foods" class="middle_right">
                     <div @click="sendFoot(data1)">
+                      <router-link to="/nprodes">
                       <img :src="'//elm.cangdu.org/img/'+data1.image_path" alt="">
                       <span class="new" v-if="newshow"><span>新品</span></span>
+                        </router-link>
                       <div class="middle_r_r">
                       <span>
                         <strong>{{data1.name}}</strong>
@@ -71,7 +78,6 @@
                       <div class="clean"></div>
                     </div>
                   </li>
-                </router-link>
               </ul>
             </div>
           </div>
@@ -148,16 +154,21 @@
             </ul>
         </el-tab-pane>
       </el-tabs>
+      <ZShopTrolley></ZShopTrolley>
     </div>
 </template>
 
 <script>
   import { Navbar, TabItem } from 'mint-ui';
   import Vue from 'vue'
+  import Loading from '../components/loading/trans'
+  import ZShopTrolley from "../components/Z-shopTrolley";
+  import totalVue from "../Z_total"
   Vue.component(Navbar.name, Navbar);
   Vue.component(TabItem.name, TabItem);
     export default {
         name: "Nfoot",
+      components:{ Loading,ZShopTrolley },
       data(){
           return{
             activeName: 'first',
@@ -178,7 +189,7 @@
             assess:'',
             tags:'',
             assinfo:'',
-            pindex:'',
+            pindex:0,
             second:'',
             cpj:0,
             spj:0,
@@ -191,7 +202,14 @@
             ispjimg:true,
             ispj:true,
             //无限滚动
+  
+            isLoading: true
           }
+      },
+      mounted(){
+        const me = this
+        // 初始化页面数据
+        me.loadPageData()
       },
       //配合first页面,将无活动的店铺筛选过滤,并将top隐藏
       beforeMount(){
@@ -259,56 +277,64 @@
         //直接加购
         addShopCart(cart1){
         //传16、获取食品列表 specfoods数组
-        }
+          totalVue.$emit("Z_shopTrolley-event", cart1);
+        },
+        /*过渡动画*/
+    loadPageData: function() {
+      for(let data1 of this.eval){
+        //获取评价的分数的请求
+        Vue.axios.get(`https://elm.cangdu.org/ugc/v2/restaurants/${data1.restaurant_id}/ratings/scores`).then((res)=>{
+          this.isLoading = false;
+          // console.log(res.data);
+          this.assess=res.data;
+          this.cpj=Number(this.assess.service_score.toFixed(1));
+          this.spj=Number(this.assess.food_score.toFixed(1));
+          // console.log(typeof this.cpj,typeof this.spj);
+        }).catch((error)=>{
+          console.log('请求错误!',error);
+        });
+        //获取评价分类
+        Vue.axios.get(`https://elm.cangdu.org/ugc/v2/restaurants/${data1.restaurant_id}/ratings/tags`).then((res)=>{
+          this.isLoading = false;
+          // console.log(res.data);
+          this.tags=res.data;
+        }).catch((error)=>{
+          console.log('请求错误!',error);
+        });
+        //获取评价信息
+        Vue.axios.get(`https://elm.cangdu.org/ugc/v2/restaurants/${data1.restaurant_id}/ratings?offset=0&limit=10`).then((res)=>{
+          this.isLoading = false;
+          // console.log(res.data);
+          this.assinfo=res.data;
+          for(let img of this.assinfo){
+            //头像图片获取
+            let urlimg='https://fuss10.elemecdn.com/';
+            if(img.avatar!==''){
+              this.avimg2=urlimg+img.avatar.slice(0,1)+'/'+img.avatar.slice(1,3)+'/'+img.avatar.slice(3)+'.jpeg'
+            }else {
+              this.avimg1='//elm.cangdu.org/img/default.jpg';
+            }
+            //判断评价是否有图片
+            for(let is of img.item_ratings){
+              if(is===null){
+                this.ispj=false;
+              }else {
+                let arr=[];
+                arr.push(is.image_hash);
+                if(arr===null){
+                  this.ispjimg=false;
+                }
+              }
+            }
+          }
+        }).catch((error)=>{
+          console.log('请求错误!',error);
+        });
+      }
+    },
       },
       created(){
-            for(let data1 of this.eval){
-              //获取评价的分数的请求
-              Vue.axios.get(`https://elm.cangdu.org/ugc/v2/restaurants/${data1.restaurant_id}/ratings/scores`).then((res)=>{
-                // console.log(res.data);
-                this.assess=res.data;
-                this.cpj=Number(this.assess.service_score.toFixed(1));
-                this.spj=Number(this.assess.food_score.toFixed(1));
-                // console.log(typeof this.cpj,typeof this.spj);
-              }).catch((error)=>{
-                console.log('请求错误!',error);
-              });
-              //获取评价分类
-              Vue.axios.get(`https://elm.cangdu.org/ugc/v2/restaurants/${data1.restaurant_id}/ratings/tags`).then((res)=>{
-                // console.log(res.data);
-                this.tags=res.data;
-              }).catch((error)=>{
-                console.log('请求错误!',error);
-              });
-              //获取评价信息
-              Vue.axios.get(`https://elm.cangdu.org/ugc/v2/restaurants/${data1.restaurant_id}/ratings?offset=0&limit=10`).then((res)=>{
-                // console.log(res.data);
-                this.assinfo=res.data;
-                for(let img of this.assinfo){
-                  //头像图片获取
-                  let urlimg='https://fuss10.elemecdn.com/';
-                  if(img.avatar!==''){
-                    this.avimg2=urlimg+img.avatar.slice(0,1)+'/'+img.avatar.slice(1,3)+'/'+img.avatar.slice(3)+'.jpeg'
-                  }else {
-                    this.avimg1='//elm.cangdu.org/img/default.jpg';
-                  }
-                  //判断评价是否有图片
-                  for(let is of img.item_ratings){
-                    if(is===null){
-                      this.ispj=false;
-                    }else {
-                      let arr=[];
-                      arr.push(is.image_hash);
-                      if(arr===null){
-                        this.ispjimg=false;
-                      }
-                    }
-                  }
-                }
-              }).catch((error)=>{
-                console.log('请求错误!',error);
-              });
-            }
+      
       },
     }
 </script>

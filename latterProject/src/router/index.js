@@ -37,10 +37,11 @@ import Laddshopping from '../L-components/L-addShoppingAddress'
 import Lchoose from '../L-components/L-chooseAddress'
 import Nshowactive from '../nComponents/Nshowactive'
 import Ndetails from '../nComponents/Ndetails'
-
+import ZconfirmOrder from '../components/Z-confirmOrder'
 import Nprodes from '../nComponents/Nprodes'
 
 import Lcaption from '../L-components/L-Caption'
+import Llmsg from '../L-components/L-leaveMessage'
 
 Vue.use(Router);
 
@@ -104,7 +105,10 @@ export default new Router({
     {path:'/LchooseAddress',component:Lchoose},
     {path:'/nprodes',component:Nprodes},
     //这个是跳转到所有问题的路由
-    {path:'/Lcaption',component:Lcaption}
-
+    {path:'/Lcaption',component:Lcaption},
+    //Z订单确认页面
+    {path:'/confirmorder',component:ZconfirmOrder},
+    //这个是订单留言的路由
+    {path:'/Lleavemessage',component:Llmsg}
   ]
 })
