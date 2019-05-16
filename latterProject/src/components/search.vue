@@ -16,7 +16,7 @@ x<template>
       <!--搜索历史-->
       <div class="his_all" :class="{hidden:hide}">
         <div class="history">搜索历史</div>
-        <mt-cell-swipe v-for="(his,index) in vals" :title="his" class="his">
+        <mt-cell-swipe v-for="(his,index) in vals" :title="his" class="his" :key="index">
           <span class="glyphicon glyphicon-remove" aria-hidden="true" @click="delHis(index)"></span>
         </mt-cell-swipe>
         <div class="qk" @click="delAll">清空历史记录</div>
