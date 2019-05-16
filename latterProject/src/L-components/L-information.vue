@@ -1,7 +1,9 @@
 <template>
     <div>
       <div class="L_head">
-        <span class="glyphicon glyphicon-menu-left pull-left" style="color: white;" @click="$router.go(-1)"></span>
+        <router-link :to="{path:'/nmine_load'}">
+          <span class="glyphicon glyphicon-menu-left pull-left" style="color: white;" ></span>
+        </router-link>
         <span class="L_headDiv">账户信息</span>
       </div>
       <!--这个是账户信息内容主体部分-->

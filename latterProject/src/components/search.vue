@@ -9,7 +9,7 @@ x<template>
       <!--搜索-->
       <div class="top">
         <mt-search v-model="value" cancel-text="" class="left" aria-hidden="true" placeholder="请输入商家或美食名称" style="width:80%;height:auto;"></mt-search>
-        <span class="glyphicon glyphicon-remove del_btn" aria-hidden="true" @click="delVal"></span>
+        <span class="glyphicon glyphicon-remove del_btn posi" aria-hidden="true" @click="delVal"></span>
         <mt-button size="small" type="primary" class="btn" @click="getVal">提交</mt-button>
         <div class="clean"></div>
       </div>
@@ -180,5 +180,10 @@ x<template>
     left: 11.2rem;
     top: 2.35rem;
     color: #999;
+  }
+  .posi{
+    position: absolute;
+    top: 2.75rem;
+    left: 10.7rem;
   }
 </style>

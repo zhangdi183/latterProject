@@ -1,7 +1,9 @@
 <template>
     <div >
       <div class="L_head">
-        <span class="glyphicon glyphicon-menu-left pull-left" style="color: white;" @click="$router.go(-1)"></span>
+        <router-link :to="{path:'/Linformation'}">
+          <span class="glyphicon glyphicon-menu-left pull-left" style="color: white;"></span>
+        </router-link>
         <span class="L_headDiv">编辑地址</span>
         <span class="pull-right" style="margin-right: 0.5rem" @click="editor">{{titleText}}</span>
       </div>

@@ -42,6 +42,7 @@ import Nprodes from '../nComponents/Nprodes'
 import Nbill from '../nComponents/Nbill'
 import Lcaption from '../L-components/L-Caption'
 import Llmsg from '../L-components/L-leaveMessage'
+import Lorderdetails from '../L-components/L-orderdetails'
 
 Vue.use(Router);
 
@@ -109,6 +110,8 @@ export default new Router({
     //Z订单确认页面
     {path:'/confirmorder',component:ZconfirmOrder},
     //这个是订单留言的路由
-    {path:'/Lleavemessage',component:Llmsg}
+    {path:'/Lleavemessage',component:Llmsg},
+    //这个是订单详情的路由
+    {path:'/Lorderdetails',component:Lorderdetails}
   ]
 })

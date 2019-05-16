@@ -43,6 +43,8 @@ const store = new Vuex.Store({
     neva:'',
     //购物车列表
     Z_shopTrolleyList:[],
+    //这个存的是备注信息
+    LmLeaveMsg:''
   }
 });
 

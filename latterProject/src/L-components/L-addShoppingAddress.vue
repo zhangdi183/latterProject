@@ -1,14 +1,16 @@
 <template>
     <div>
       <div class="L_head">
-        <span class="glyphicon glyphicon-menu-left pull-left" style="color: white;" @click="$router.go(-1)"></span>
+        <router-link :to="{path:'/LshoppingAdd'}">
+          <span class="glyphicon glyphicon-menu-left pull-left" style="color: white;"></span>
+        </router-link>
         <span class="L_headDiv">新增地址</span>
       </div>
       <div class="input">
         <input type="text" placeholder="请填写你的名字" v-model="inputName">
         <input type="text" :placeholder="alert" v-model="inputAddress" @click="chooseAddress">
         <input type="text" placeholder="请填写详细送餐地址" v-model="inputDetailed" :style="style1" @blur="detail">
-        <p style="color: red;font-size: 0.5rem;position: relative;left: -4rem; top: 0.3rem;" v-if="isfalse">送餐地址太短了,不能辨识</p>
+        <!--<p style="color: red;font-size: 0.5rem;position: relative;left: -4rem; top: 0.3rem;" v-if="isfalse">送餐地址太短了,不能辨识</p>-->
         <input type="text" placeholder="请填写能够联系到您的电话" :style="style1" v-model="inputPhoneNum" @blur="inputPhoneNum1">
         <p style="color: red;font-size: 0.5rem;position: relative;left: -4.65rem; top: 0.3rem;" v-if="isFalse">{{alertText}}</p>
         <input type="text" placeholder="备用联系电话(选填)" v-model="inputPhoneStandby">
@@ -59,16 +61,15 @@
           this.$router.push({path:'/LchooseAddress'})
         },
         detail(){
-          if (this.inputDetailed.length<5){
+          if (this.inputDetailed.length<1){
             this.style1.border='0.05rem solid red'
             this.isfalse=true
-          }else if(this.inputPhoneNum>=5){
+          }else if(this.inputPhoneNum>=1){
             this.isfalse=false;
             }
           },
         add(){
           Vue.axios.post(`https://elm.cangdu.org/v1/users/${this.id}/addresses`,{
-
             address:this.inputAddress,
             address_detail:this.inputDetailed,
             geohash:this.geohash,
@@ -79,7 +80,9 @@
             phone_bk:this.inputPhoneStandby,
             tag_type:2
           }).then((res)=>{
-            // console.log(res)
+            if(res.data.success==='添加地址成功'){
+              this.$router.push({path:'LshoppingAdd'})
+            }
           })
         }
         },
