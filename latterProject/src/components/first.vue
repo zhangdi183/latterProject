@@ -1,5 +1,10 @@
 <template>
     <div>
+      <div>
+        <transition name="fade">
+          <loading v-if="isLoading"></loading>
+        </transition>
+      </div>
       <!--标题-->
       <mt-header :title="this.$store.state.cityinfo.name" class="tit">
         <router-link to="/search" slot="left">
@@ -100,11 +105,12 @@
   import Vue from 'vue'
   import Swiper from "swiper"
   import Bottom from './Bottom'
+  import Loading from '../components/loading/trans'
   
   Vue.component(Header.name, Header);
     export default {
         name: "first",
-      components: {Bottom},
+      components: {Bottom, Loading},
       data(){
           return{
             pic:'',
@@ -112,6 +118,7 @@
             shop:'',
             isshow:Boolean,
             isfalse:Boolean,
+            isLoading: true
           }
       },
       mounted(){
@@ -123,21 +130,24 @@
             type: 'fraction',
           },
         });
-        //食品分类列表
-        Vue.axios.get('https://elm.cangdu.org/v2/index_entry').then((res)=>{
-          // console.log(res.data);
-          this.pic=res.data.slice(0,8);
-          this.pic1=res.data.slice(8,16);
-        }).catch((error)=>{
-          console.log('请求错误!',error);
-        });
-        //商铺列表
-        Vue.axios.get('https://elm.cangdu.org/shopping/restaurants?latitude=this.$store.state.cityinfo.latitude&longitude=this.$store.state.cityinfo.longitude').then((res)=>{
-           // console.log(res.data);
-           this.shop=res.data;
-        }).catch((error)=>{
-          console.log('请求错误!',error);
-        });
+        const me = this;
+        me.loadPageData();
+        
+      //   //食品分类列表
+      //   Vue.axios.get('https://elm.cangdu.org/v2/index_entry').then((res)=>{
+      //     // console.log(res.data);
+      //     this.pic=res.data.slice(0,8);
+      //     this.pic1=res.data.slice(8,16);
+      //   }).catch((error)=>{
+      //     console.log('请求错误!',error);
+      //   });
+      //   //商铺列表
+      //   Vue.axios.get('https://elm.cangdu.org/shopping/restaurants?latitude=this.$store.state.cityinfo.latitude&longitude=this.$store.state.cityinfo.longitude').then((res)=>{
+      //      // console.log(res.data);
+      //      this.shop=res.data;
+      //   }).catch((error)=>{
+      //     console.log('请求错误!',error);
+      //   });
       },
       created(){
         Vue.axios.get('https://elm.cangdu.org/v1/user').then((res)=>{
@@ -151,6 +161,26 @@
         })
       },
       methods:{
+        loadPageData: function() {
+          //食品分类列表
+          Vue.axios.get('https://elm.cangdu.org/v2/index_entry').then((res)=>{
+            this.isLoading = false;
+            // console.log(res.data);
+            this.pic=res.data.slice(0,8);
+            this.pic1=res.data.slice(8,16);
+          }).catch((error)=>{
+            console.log('请求错误!',error);
+          });
+          //商铺列表
+          Vue.axios.get('https://elm.cangdu.org/shopping/restaurants?latitude=this.$store.state.cityinfo.latitude&longitude=this.$store.state.cityinfo.longitude').then((res)=>{
+            this.isLoading = false;
+            // console.log(res.data);
+            this.shop=res.data;
+          }).catch((error)=>{
+            console.log('请求错误!',error);
+          });
+        },
+        
         sendTitle(tit){
           this.$store.state.shopcart=tit;
         },
