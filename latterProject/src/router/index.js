@@ -44,6 +44,8 @@ import Lcaption from '../L-components/L-Caption'
 import Llmsg from '../L-components/L-leaveMessage'
 import Lorderdetails from '../L-components/L-orderdetails'
 import LshopcarAddress from '../L-components/LshopcarAddress'
+import Lchoose1 from '../L-components/L-chooseAddress1'
+import chooseShopCarADD from '../L-components/L-chooseShopCarADD'
 
 Vue.use(Router);
 
@@ -115,6 +117,11 @@ export default new Router({
     //这个是订单详情的路由
     {path:'/Lorderdetails',component:Lorderdetails},
     //购物车选择收货地址
+    //收货地址
+    {path:'/ZconsigneeAddress',component:ZconsigneeAddress},
+    //购物车选择收货地址配套路由
     {path:'/Lshopcaraddress',component:LshopcarAddress},
+    {path:'/LchooseAddress1',component:Lchoose1},
+    {path:'/chooseShopCarADD',component:chooseShopCarADD}
   ]
 })

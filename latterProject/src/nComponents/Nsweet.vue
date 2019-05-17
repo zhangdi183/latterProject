@@ -251,7 +251,7 @@
         orderBy(name){
              if (name==='智能排序'){
                Vue.axios.get(`https://elm.cangdu.org/shopping/restaurants?latitude=${this.$store.state.LmFindCitysHis[0].latitude}&longitude=${this.$store.state.LmFindCitysHis[0].longitude}&order_by=4`).then((res)=>{
-                 console.log(res)
+                 this.shop=res.data
                });
              }else if(name==='距离最近'){
                Vue.axios.get(`https://elm.cangdu.org/shopping/restaurants?latitude=${this.$store.state.LmFindCitysHis[0].latitude}&longitude=${this.$store.state.LmFindCitysHis[0].longitude}&order_by=5`).then((res)=>{
@@ -274,6 +274,7 @@
                  this.shop=res.data
                });
              }
+             this.isspan2=!this.isspan2
         },
         span2(){
             this.isFalse1=!this.isFalse1
@@ -403,7 +404,7 @@
         btn2(){
             this.isspan3=!this.isspan3
           Vue.axios.get(`https://elm.cangdu.org/shopping/restaurants?latitude=${this.$store.state.cityinfo.latitude}&longitude=${this.$store.state.cityinfo.longitude}&delivery_mode[]=${this.a}`).then((res)=>{
-          console.log(res.data)
+          this.shop=res.data
           }).catch((err)=>{
             console.log(err,'请求错误')
           })

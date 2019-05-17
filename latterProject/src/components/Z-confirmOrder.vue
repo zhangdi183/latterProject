@@ -5,17 +5,22 @@
       <span class="glyphicon glyphicon-menu-left pull-left" style="color: white;" @click="$router.go(-1)"></span>
       <span class="L_headDiv">订单备注</span>
       <router-link to="/nmine">
-        <svg class="icon iconR" aria-hidden="true">
+        <svg class="icon iconR" aria-hidden="true" style="color: white">
           <use xlink:href="#icongerenzhongxinyonghu01" class="icon1"></use>
         </svg>
       </router-link>
     </div>
-    <router-link to="/">
+    <router-link to="/chooseShopCarADD">
       <div class="Z-addAddress Z-bgcWhite">
-        <svg class="icon iconL" aria-hidden="true">
-          <use xlink:href="#iconjuli" class="icon1"></use>
-        </svg>
-        <span>请添加一个收货地址</span>
+       <div v-if="showADD">
+         <svg class="icon iconL" aria-hidden="true">
+           <use xlink:href="#iconjuli" class="icon1"></use>
+         </svg>
+         <span>请添加一个收货地址</span>
+       </div>
+        <div v-if="!showADD">
+          <span>{{$route.query.data}}</span>
+        </div>
       </div>
     </router-link>
     <div class="Z-arrivalTime Z-bgcWhite">
@@ -81,21 +86,30 @@
 <script>
     export default {
         name: "Z-confirmOrder",
+      data(){
+        return{
+          Z_proList: [],
+          Z_allMoney:0,
+          Z_boolPayMode:false,
+          //显示收货地址
+          showADD:true,
+          text:''
+        }
+      },
       // 在组件实例化完毕之后立刻监听Z_proList-event事件获取购物车列表
       created(){
         this.Z_proList=this.$store.state.Z_shopTrolleyList[0];
+        //判断收货地址是否传递过来
+        if (this.$route.query.data!=''){
+            this.showADD=!this.showADD;
+            console.log(111,this.showADD)
+        }
         for (let i=0;i<this.Z_proList.length;i++){
           this.Z_allMoney+=this.Z_proList[i].price*this.Z_proList[i].num;
         }
         console.log(this.Z_allMoney);
       },
-      data(){
-          return{
-            Z_proList: [],
-            Z_allMoney:0,
-            Z_boolPayMode:false,
-          }
-      },
+
       methods:{
 
       }
@@ -144,6 +158,7 @@
     background-image: url(../L-imgs/address_bottom.png);
     background-repeat: repeat-x;
     background-position: bottom;
+    background-size: 0.8rem;
     margin-bottom: 0.5rem;
     padding: 0 0.5rem;
     margin-top: 2rem;
@@ -170,7 +185,7 @@
     float: left;
   }
   .Z-arrivalTimeP{
-    color: blue;
+    color: #3190E8;
     line-height: 1rem;
     text-align: right;
     margin-top: 0.8rem;
@@ -178,13 +193,13 @@
   .Z-arrivalTimeSpan{
     display: inline-block;
     padding: 0 0.5rem;
-    border-left: 1px solid blue;
+    border-left: 1px solid  #3190E8;
     margin-left: 0.5rem;
   }
   .Z-fnzs{
     width: 3rem;
     height: 1rem;
-    background-color: blue;
+    background-color:  #3190E8;
     color: white;
     border-radius: 5px;
     font-size: 12px;
@@ -263,7 +278,7 @@
   }
   .Z-shopList{
     width: 16rem;
-    color: black;
+    color: #e1e1e1;
     background-color: white;
     overflow: hidden;
     z-index: 100;
@@ -312,19 +327,21 @@
   .Z-footerWaitPay{
     width: 11rem;
     height: 2rem;
-    background-color: rgb(100,100,100);
+    background-color: #3C3C3C;
     box-sizing: border-box;
     padding-left: 0.5rem;
     line-height: 2rem;
     float: left;
+    color: white;
   }
   .Z-firmOrder{
     width: 5rem;
     height: 2rem;
     line-height: 2rem;
-    background-color: greenyellow;
+    background-color: #56D176;
     float: left;
     text-align: center;
+    color: white;
   }
   .Z-invoice{
     margin-bottom: 2.5rem;
