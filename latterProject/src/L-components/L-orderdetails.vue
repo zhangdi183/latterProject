@@ -7,23 +7,27 @@
       <!--这个是展示头像和再来一单的页面的-->
       <div class="showHead">
           <div class="showimg">
-            <img src="../L-imgs/22.png"/>
+            <img :src="imgSrc" alt="">
           </div>
         <div class="againOrder">
-          <span>再来一单</span>
+         <router-link to="/nfoot">
+           <span @click="toAnain">再来一单</span>
+         </router-link>
         </div>
       </div>
       <!--这个是第二部分的页面-->
       <div class="secondPage">
-          <div class="two">
-            <img src="../L-imgs/fenxiang.png" alt="">
-            <span>商铺名</span>
-            <span class="glyphicon glyphicon-menu-right span1"></span>
-          </div>
-        <div class="two">
-         <span>不知道这是个啥</span>
-          <span class="pull-right" style="margin-right: 0.4rem">￥咱也不敢问</span>
-          <span class="text-muted pull-right" style="margin-right: 0.3rem">x1</span>
+         <router-link to="/nfoot">
+           <div class="two" @click="toFoot">
+             <img :src="imgSrc" alt="">
+             <span style="margin-left: 0.5rem">{{shopName}}</span>
+             <span class="glyphicon glyphicon-menu-right pull-right"></span>
+           </div>
+         </router-link>
+        <div class="two" v-for="d in orderDetailArr">
+         <span>{{d.name}}</span>
+          <span class="pull-right" style="margin-right: 0.4rem">￥{{d.price}}</span>
+          <span class="text-muted pull-right" style="margin-right: 0.3rem">x{{d.num}}</span>
           <div class="clearfix"></div>
         </div>
         <div class="two">
@@ -32,7 +36,7 @@
           <div class="clearfix"></div>
         </div>
         <div class="two">
-          <span class="pull-right" style="margin-right: 0.4rem;font-weight: bold;color: #FB6B23">实付13452532</span>
+          <span class="pull-right" style="margin-right: 0.4rem;font-weight: bold;color: #FB6B23">实付{{countMoney}}</span>
           <div class="clearfix"></div>
         </div>
       </div>
@@ -45,7 +49,7 @@
           <p class="text-muted">送达时间:尽快送达</p>
           <p class="text-muted">
             <span>送货地址:</span>
-            <span>123 <div style="position: relative;top: 0;left: 2.5rem">手机号</div>
+            <span>123 <div style="position: relative;top: 0;left: 2.65rem">手机号</div>
             </span>
           </p>
           <p class="text-muted">配送方式:蜂鸟专送</p>
@@ -69,7 +73,67 @@
 
 <script>
     export default {
-        name: "L-orderdetails"
+        name: "L-orderdetails",
+      data(){
+          return{
+            orderDetailArr:[],
+            //总计价格
+            countMoney:Number,
+            //图片地址
+            imgSrc:'',
+            //店铺名称
+            shopName:'',
+            //店铺id
+            shopiD:Number,
+          }
+      },
+      methods:{
+        toAnain(){
+          Vue.axios.get(`https://elm.cangdu.org/shopping/v2/menu?restaurant_id=${this.shopiD}`).then((res)=>{
+            // console.log(res.data);
+            this.$store.state.nfoot=res.data;
+            console.log(this.$store.state.nfoot);
+          }).catch((error)=>{
+            console.log('请求错误!',error);
+          });
+          //判断数组是否长度为0
+          if(item.activities.length === 0){
+            item.activities.push({'icon_name':'无活动'});
+          }
+          this.$store.state.nshoplist=item;
+          // console.log(item);
+        },
+        toFoot(){
+          Vue.axios.get(`https://elm.cangdu.org/shopping/v2/menu?restaurant_id=${this.shopiD}`).then((res)=>{
+            // console.log(res.data);
+            this.$store.state.nfoot=res.data;
+            console.log(this.$store.state.nfoot);
+          }).catch((error)=>{
+            console.log('请求错误!',error);
+          });
+          //判断数组是否长度为0
+          if(item.activities.length === 0){
+            item.activities.push({'icon_name':'无活动'});
+          }
+          this.$store.state.nshoplist=item;
+          // console.log(item);
+        }
+      },
+      created(){
+          console.log(this.$store.state.LmItem)
+          this.imgSrc="https://elm.cangdu.org/img/"+this.$store.state.LmItem.image_path
+          this.shopiD=this.$store.state.LmItem.id
+          this.shopName=this.$store.state.LmItem.name
+          //价格,计数 总计
+          let allMoney=0
+          console.log(this.$store.state.Z_shopTrolleyList);
+          this.orderDetailArr=this.$store.state.Z_shopTrolleyList;
+          for (let i in this.orderDetailArr){
+            console.log(this.orderDetailArr[i].price)
+            allMoney+=parseInt(this.orderDetailArr[i].num)*parseInt(this.orderDetailArr[i].price)
+          }
+          this.countMoney=allMoney+4+17348
+      }
     }
 </script>
 
@@ -80,7 +144,6 @@
     background: rgb(49,144,232);
     color: white;
     text-align: center;
-
   }
   .showHead{
     background: white;
@@ -119,10 +182,7 @@
   .two img{
     width: 1.5rem;
     height: 1.5rem;
-  }
-  .span1{
-    position: relative;
-    right: -10.5rem;
+    border-radius:50%;
   }
   .two:last-child{
     border:0;

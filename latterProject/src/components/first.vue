@@ -171,6 +171,7 @@
           this.$store.state.shopcart=tit;
         },
         sendId(id,item){
+          this.$store.state.LmItem=item
           //获取食品列表
           Vue.axios.get(`https://elm.cangdu.org/shopping/v2/menu?restaurant_id=${id}`).then((res)=>{
             // console.log(res.data);

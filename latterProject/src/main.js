@@ -45,6 +45,8 @@ const store = new Vuex.Store({
     Z_shopTrolleyList:[],
     //这个存的是备注信息
     LmLeaveMsg:'',
+    //获取商家信息
+    LmItem:''
   }
 });
 

@@ -186,6 +186,23 @@
           }
       },
       methods:{
+        sendId(id,item){
+          this.$store.state.LmItem=item
+          //获取食品列表
+          Vue.axios.get(`https://elm.cangdu.org/shopping/v2/menu?restaurant_id=${id}`).then((res)=>{
+            // console.log(res.data);
+            this.$store.state.nfoot=res.data;
+            console.log(this.$store.state.nfoot);
+          }).catch((error)=>{
+            console.log('请求错误!',error);
+          });
+          //判断数组是否长度为0
+          if(item.activities.length === 0){
+            item.activities.push({'icon_name':'无活动'});
+          }
+          this.$store.state.nshoplist=item;
+          // console.log(item);
+        },
           //这是第一个点击事件
           ifName(e){
             Vue.axios.get(`https://elm.cangdu.org/shopping/v2/restaurant/category`).then((res)=>{

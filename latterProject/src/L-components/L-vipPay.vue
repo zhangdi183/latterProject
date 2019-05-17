@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="L_head">
-        <router-link :to="{path:'/vip'}"><span class="glyphicon glyphicon-menu-left pull-left" style="color: white;"></span></router-link>
+        <span class="glyphicon glyphicon-menu-left pull-left" style="color: white;" @click="$router.go(-1)"></span>
         <span class="L_headDiv">在线支付</span>
       </div>
       <!--支付计时器-->
