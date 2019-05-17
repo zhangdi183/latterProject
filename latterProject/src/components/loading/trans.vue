@@ -28,7 +28,7 @@
     height: 3.5rem;
     position: relative;
     top: 40%;
-    left: 37%;
+    left: 39%;
     animation: ani 1s linear 0s infinite;
   }
   .bgi{

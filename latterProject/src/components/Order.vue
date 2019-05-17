@@ -31,7 +31,9 @@
           </router-link>
           <!--剩余支付时间-->
           <li class="tird">
-            <span class="topay" @click="payPro">去支付(还剩{{minutes}}分{{seconds}}秒)</span>
+            <span class="topay" @click="payPro">
+              <span><Nroot :endTime='endTime' class="time_res"></Nroot></span>
+            </span>
             <span class="clean"></span>
           </li>
         </ul>
@@ -52,43 +54,26 @@
 
 <script>
   import Bottom from './Bottom'
+  import Nroot from './Nroot'
     export default {
         name: "Order",
-      components: {Bottom},
+      components: {Nroot, Bottom},
       data(){
           return{
             isShow:false,
             order:this.$store.state.Z_shopTrolleyList,
             //剩余支付时间
-            minutes: 15,
-            seconds: 0,
+            // endTime : '2019-05-17 17:32:00'
+            endTime:'2019-05-17 17:50:00'.split(':')[0]+':'+('2019-05-17 17:50:00'.split(':')[1]+15)%60+':'+'2019-05-17 17:50:00'.split(':')[2],
           }
       },
       methods:{
         payPro(){
           this.isShow=true;
         },
-        //计时器
-        timedowm(){
-          let _this=this;
-          let timer= setInterval(function () {
-            _this.seconds-=1;
-            if (_this.seconds<0){
-              _this.seconds=59;
-              _this.minutes-=1
-            }else if (_this.minutes===0 &&_this.seconds===0){
-              clearInterval(timer);
-              _this.isShow=!this.isShow;
-              _this.alertMsg='支付超时';
-            }
-          },1000)
-        },
       },
       created(){
-          console.log(this.order);
-      },
-      mounted(){
-        this.timedowm();
+          console.log(this.endTime);
       },
     }
 </script>
@@ -174,6 +159,9 @@
     letter-spacing:.03rem;
     float: right;
     margin-top: .4rem;
+  }
+  .one ul .topay .time_res Nroot{
+    background-color: blue;
   }
   .warn{
     position: fixed;

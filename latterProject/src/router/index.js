@@ -118,7 +118,7 @@ export default new Router({
     {path:'/Lorderdetails',component:Lorderdetails},
     //购物车选择收货地址
     //收货地址
-    {path:'/ZconsigneeAddress',component:ZconsigneeAddress},
+    // {path:'/ZconsigneeAddress',component:ZconsigneeAddress},
     //购物车选择收货地址配套路由
     {path:'/Lshopcaraddress',component:LshopcarAddress},
     {path:'/LchooseAddress1',component:Lchoose1},
