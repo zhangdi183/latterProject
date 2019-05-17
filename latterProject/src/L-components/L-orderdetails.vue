@@ -20,6 +20,49 @@
             <span>商铺名</span>
             <span class="glyphicon glyphicon-menu-right span1"></span>
           </div>
+        <div class="two">
+         <span>不知道这是个啥</span>
+          <span class="pull-right" style="margin-right: 0.4rem">￥咱也不敢问</span>
+          <span class="text-muted pull-right" style="margin-right: 0.3rem">x1</span>
+          <div class="clearfix"></div>
+        </div>
+        <div class="two">
+          <span class="text-muted">配送费</span>
+          <span class="pull-right" style="margin-right: 0.4rem">4</span>
+          <div class="clearfix"></div>
+        </div>
+        <div class="two">
+          <span class="pull-right" style="margin-right: 0.4rem;font-weight: bold;color: #FB6B23">实付13452532</span>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <!--这个是配送信息页-->
+      <div class="shoppingInfor">
+        <div class="infor">
+          <span>配送信息</span>
+        </div>
+        <div class="infor1">
+          <p class="text-muted">送达时间:尽快送达</p>
+          <p class="text-muted">
+            <span>送货地址:</span>
+            <span>123 <div style="position: relative;top: 0;left: 2.5rem">手机号</div>
+            </span>
+          </p>
+          <p class="text-muted">配送方式:蜂鸟专送</p>
+        </div>
+      </div>
+      <!--这个是订单信息-->
+      <div class="shoppingInfor">
+        <div class="infor">
+          <span>订单信息</span>
+        </div>
+        <div class="infor1">
+          <p class="text-muted">订单号:1235</p>
+          <p class="text-muted">
+            <span>支付方式:在线支付</span>
+          </p>
+          <p class="text-muted">下单时间:2019-05-15</p>
+        </div>
       </div>
     </div>
 </template>
@@ -70,7 +113,8 @@
   }
   .two{
     font-size: 0.6rem;
-    padding: 0.2rem 0.3rem;
+    padding: 0.5rem ;
+    border-bottom: 0.05rem solid #e1e1e1;
   }
   .two img{
     width: 1.5rem;
@@ -78,6 +122,22 @@
   }
   .span1{
     position: relative;
-    right: -11.1rem;
+    right: -10.5rem;
+  }
+  .two:last-child{
+    border:0;
+  }
+  .shoppingInfor{
+    background: white;
+    margin-top: 0.5rem;
+  }
+  .infor{
+    padding: 0.5rem;
+    font-size: 0.65rem;
+    border-bottom: 0.05rem solid #e1e1e1;
+  }
+  .infor1{
+    padding: 0.5rem;
+    font-size: 0.6rem;
   }
 </style>
