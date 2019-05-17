@@ -132,22 +132,7 @@
         });
         const me = this;
         me.loadPageData();
-        
-      //   //食品分类列表
-      //   Vue.axios.get('https://elm.cangdu.org/v2/index_entry').then((res)=>{
-      //     // console.log(res.data);
-      //     this.pic=res.data.slice(0,8);
-      //     this.pic1=res.data.slice(8,16);
-      //   }).catch((error)=>{
-      //     console.log('请求错误!',error);
-      //   });
-      //   //商铺列表
-      //   Vue.axios.get('https://elm.cangdu.org/shopping/restaurants?latitude=this.$store.state.cityinfo.latitude&longitude=this.$store.state.cityinfo.longitude').then((res)=>{
-      //      // console.log(res.data);
-      //      this.shop=res.data;
-      //   }).catch((error)=>{
-      //     console.log('请求错误!',error);
-      //   });
+       
       },
       created(){
         Vue.axios.get('https://elm.cangdu.org/v1/user').then((res)=>{
@@ -189,6 +174,7 @@
           Vue.axios.get(`https://elm.cangdu.org/shopping/v2/menu?restaurant_id=${id}`).then((res)=>{
             // console.log(res.data);
             this.$store.state.nfoot=res.data;
+            console.log(this.$store.state.nfoot);
           }).catch((error)=>{
             console.log('请求错误!',error);
           });

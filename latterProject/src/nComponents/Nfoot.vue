@@ -237,7 +237,6 @@
         // 初始化页面数据
         me.loadPageData();
         
-        
       },
       //配合first页面,将无活动的店铺筛选过滤,并将top隐藏
       beforeMount(){
@@ -249,19 +248,20 @@
       },
       //-----------------------------------------------------
       created(){
-        for(let a of this.$store.state.nfoot){
-          this.lidata=a;
-          for (let i of a.foods) {
+        console.log(this.eval[0]);
+        this.lidata = this.eval[0];
+        for(let e of this.eval) {
+          for (let i of e.foods) {
             //描述
             if (i.activity === null) {
               i.activity = {'image_text': ''};
               // let v=i.activity.hasOwnProperty('image_text');
             }
-    
+      
             /*招牌--新品*/
             let v = i.attributes;
             for (let food of v) {
-              if(food === null) {
+              if (food === null) {
                 this.zp = false;
                 this.newshow = false;
               } else if (v.length === 2) {
@@ -276,10 +276,11 @@
               }
             }
             // console.log(v.length,v);
-    
+      
             let hash = {};
             i.specfoods = i.specfoods.reduce((preVal, curVal) => {
-              hash[curVal.id] ? '' : hash[curVal.id] = true && preVal.push(curVal); return preVal
+              hash[curVal.id] ? '' : hash[curVal.id] = true && preVal.push(curVal);
+              return preVal
             }, []);
           }
         }
