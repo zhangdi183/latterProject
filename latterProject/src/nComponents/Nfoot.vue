@@ -39,7 +39,7 @@
              <el-tab-pane label="商品" name="first">
                <div class="middle">
                  <ul>
-                   <li v-for="data in $store.state.nfoot" :class="{'selected':lidata.id===data.id?true:false}" @click="showInfo(data)" class="middle_left">{{data.name}}</li>
+                   <li v-for="data in this.$store.state.nfoot" :class="{'selected':lidata.id===data.id?true:false}" @click="showInfo(data)" class="middle_left">{{data.name}}</li>
                  </ul>
                  <!--右边-->
                  <div class="right">
@@ -248,16 +248,16 @@
       },
       //-----------------------------------------------------
       created(){
-        console.log(this.eval[0]);
-        this.lidata = this.eval[0];
-        for(let e of this.eval) {
+        console.log(this.$store.state.nfoot[0]);
+        this.lidata = this.$store.state.nfoot[0];
+        for(let e of this.$store.state.nfoot) {
           for (let i of e.foods) {
             //描述
             if (i.activity === null) {
               i.activity = {'image_text': ''};
               // let v=i.activity.hasOwnProperty('image_text');
             }
-      
+
             /*招牌--新品*/
             let v = i.attributes;
             for (let food of v) {
@@ -276,7 +276,7 @@
               }
             }
             // console.log(v.length,v);
-      
+
             let hash = {};
             i.specfoods = i.specfoods.reduce((preVal, curVal) => {
               hash[curVal.id] ? '' : hash[curVal.id] = true && preVal.push(curVal);

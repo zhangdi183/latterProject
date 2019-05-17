@@ -8,7 +8,7 @@
     </mt-header>
     <div>
       <!--遍历数据-->
-      <div class="one">
+      <div class="one" v-for="data in order">
         <!--图片请求-->
         <img src="../L-imgs/8.png" alt="暂无图片">
         <ul>
@@ -16,7 +16,7 @@
             <li class="first">
               <!--商品名字-->
               <span class="proname">
-              猜猜我是谁<i class="el-icon-arrow-right icon"></i>
+              {{data.name}}<i class="el-icon-arrow-right icon"></i>
             </span>
               <span class="pay">等待支付</span><br>
               <span class="clean"></span>
@@ -31,7 +31,7 @@
           </router-link>
           <!--剩余支付时间-->
           <li class="tird">
-            <span class="topay" @click="payPro">去支付(还剩00分00秒)</span>
+            <span class="topay" @click="payPro">去支付(还剩{{minutes}}分{{seconds}}秒)</span>
             <span class="clean"></span>
           </li>
         </ul>
@@ -39,8 +39,8 @@
       </div>
     </div>
     <!--这是个警告框-->
-    <div class="warn">
-      <div class="alert alert-warning text-center LmAlert bounceIn" v-if="isShow">
+    <div class="warn" v-if="isShow">
+      <div class="alert alert-warning text-center LmAlert bounceIn">
         <img src="../L-imgs/感叹号.png" height="100" width="100"/>
         <p>暂不开放支付功能</p>
         <button class="btn btn-success btn-group btn-block" @click="isShow=false">确认</button>
@@ -58,13 +58,38 @@
       data(){
           return{
             isShow:false,
+            order:this.$store.state.Z_shopTrolleyList,
+            //剩余支付时间
+            minutes: 15,
+            seconds: 0,
           }
       },
       methods:{
         payPro(){
           this.isShow=true;
-        }
-      }
+        },
+        //计时器
+        timedowm(){
+          let _this=this;
+          let timer= setInterval(function () {
+            _this.seconds-=1;
+            if (_this.seconds<0){
+              _this.seconds=59;
+              _this.minutes-=1
+            }else if (_this.minutes===0 &&_this.seconds===0){
+              clearInterval(timer);
+              _this.isShow=!this.isShow;
+              _this.alertMsg='支付超时';
+            }
+          },1000)
+        },
+      },
+      created(){
+          console.log(this.order);
+      },
+      mounted(){
+        this.timedowm();
+      },
     }
 </script>
 
@@ -79,6 +104,7 @@
     background-color: #fff;
     box-sizing: border-box;
     padding: .5rem .5rem 0 .5rem;
+    margin-bottom: .5rem;
   }
   .one img{
     width: 2.3rem;
@@ -150,6 +176,12 @@
     margin-top: .4rem;
   }
   .warn{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
