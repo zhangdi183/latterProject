@@ -39,7 +39,10 @@
              <el-tab-pane label="商品" name="first">
                <div class="middle">
                  <ul>
-                   <li v-for="data in this.$store.state.nfoot" :class="{'selected':lidata.id===data.id?true:false}" @click="showInfo(data)" class="middle_left">{{data.name}}</li>
+                   <li v-for="(data,index) in this.$store.state.nfoot" :class="{'selected':lidata.id===data.id?true:false}" @click="showInfo(data)" class="middle_left">
+                     {{data.name}}
+                     <el-badge :value="Z_addTrolleyNum[index]" class="item" v-if="Z_TrolleyNum[index]"></el-badge>
+                     </li>
                  </ul>
                  <!--右边-->
                  <div class="right">
@@ -54,7 +57,7 @@
                    </div>
                    <!--右边--返回的商品数据-->
                    <ul>
-                     <li v-for="data1 in lidata.foods" class="middle_right">
+                     <li v-for="(data1,index) in lidata.foods" class="middle_right">
                        <div @click="sendFoot(data1)">
                          <router-link to="/nprodes">
                            <img :src="'//elm.cangdu.org/img/'+data1.image_path" alt="">
@@ -71,7 +74,9 @@
                            <div class="img_text" :class="data1.activity.image_text===''?'hid':''">{{data1.activity.image_text}}</div>
                            <div class="price" v-for="data2 in data1.specfoods">
                              <strong>¥{{data2.price}}</strong>
-                             <span class="select_add" @click="addShopCart(data1.specfoods,getSj(data2))">{{getSj(data2)}}</span>
+                             <span class="select_add" @click="addShopCart(data1.specfoods,getSj(data2),index)">{{getSj(data2)}}</span>
+                               <span class="select_add" v-if="Z_boolPerNum[index]">{{Z_perNum[index]}}</span>
+                               <span class="select_add" v-if="Z_boolPerNum[index]">-</span>
                              <div class="clean"></div>
                            </div>
                          </div>
@@ -230,6 +235,14 @@
             ishide:false,
             btndata:'',
             ggselected:'',
+            //小红圈数字
+            Z_addTrolleyNum:[],
+            //控制小红圈显隐
+            Z_TrolleyNum:[],
+            //商品购买数量
+            Z_perNum:[],
+            //商品数量的显隐
+            Z_boolPerNum:[],
           }
       },
       mounted(){
@@ -248,7 +261,7 @@
       },
       //-----------------------------------------------------
       created(){
-        console.log(this.$store.state.nfoot[0]);
+        // console.log(this.$store.state.nfoot[0]);
         this.lidata = this.$store.state.nfoot[0];
         for(let e of this.$store.state.nfoot) {
           for (let i of e.foods) {
@@ -284,9 +297,16 @@
             }, []);
           }
         }
+        for (let i=0;i<this.$store.state.nfoot.length;i++){
+          this.Z_addTrolleyNum[i]=0;
+        }
+        for (let i=0;i<this.lidata.foods.length;i++){
+          this.Z_perNum[i]=0;
+        }
       },
       methods:{
         showInfo(e) {
+          // console.log(this.$store.state.nfoot);
           this.lidata = e;
           for (let i of e.foods) {
             //描述
@@ -336,11 +356,29 @@
             return '选规格'
           }
         },
+        //分类按钮小红圈数字改变
+        Z_shopTrolleyNumChange(cart){
+          console.log(this.$store.state.nfoot);
+          console.log(cart);
+          for (let i=0;i<this.$store.state.nfoot.length;i++){
+            for (let j=0;j<this.$store.state.nfoot[i].foods.length;j++) {
+              if (this.$store.state.nfoot[i].foods[j].item_id==cart[0].item_id) {
+                this.Z_addTrolleyNum[i]++;
+                this.Z_TrolleyNum[i]=true;
+              }
+            }
+          } 
+        },
         /*购物车*/
-        addShopCart(cart1,eve){
+        addShopCart(cart1,eve,index){
           // console.log(cart1);
           if(eve==='+'){
+            // console.log(this.$store.state.Z_shopTrolleyList);
             totalVue.$emit("Z_shopTrolley-event", cart1);
+            this.Z_shopTrolleyNumChange(cart1);
+            this.Z_perNum[index]++;
+            this.Z_boolPerNum[index]=true;
+            this.$forceUpdate();
           }
           if(eve==='选规格'){
             //传16、获取食品列表 specfoods数组
@@ -357,6 +395,10 @@
         //加入购物车的点击事件
         willAddCart(cart2){
           this.ishide=false;
+          totalVue.$emit("Z_shopTrolley-event", cart2);
+          this.Z_shopTrolleyNumChange(cart2);
+          // console.log(this.$store.state.nfootPro);
+          // console.log(this.lidata);
         },
         /*过渡动画*/
     loadPageData: function() {

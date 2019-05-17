@@ -10,7 +10,7 @@
         </svg>
       </router-link>
     </div>
-    <router-link to="/ZconsigneeAddress">
+    <router-link to="/">
       <div class="Z-addAddress Z-bgcWhite">
         <svg class="icon iconL" aria-hidden="true">
           <use xlink:href="#iconjuli" class="icon1"></use>
@@ -83,7 +83,7 @@
         name: "Z-confirmOrder",
       // 在组件实例化完毕之后立刻监听Z_proList-event事件获取购物车列表
       created(){
-        this.Z_proList=this.$store.state.Z_shopTrolleyList;
+        this.Z_proList=this.$store.state.Z_shopTrolleyList[0];
         for (let i=0;i<this.Z_proList.length;i++){
           this.Z_allMoney+=this.Z_proList[i].price*this.Z_proList[i].num;
         }
@@ -103,6 +103,9 @@
 </script>
 
 <style scoped>
+  ul,li{
+    list-style: none;
+  }
   .Z-bgcWhite{
     background-color: white;
   }

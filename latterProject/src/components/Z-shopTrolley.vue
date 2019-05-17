@@ -1,6 +1,6 @@
 <template>
     <div class="Z-shopTrolleys">
-      <div class="Z-mask" v-if="Z_boolShopList"></div>
+      <div class="Z-mask" v-if="Z_boolShopList" @click="Z_maskClick()"></div>
       <ul class="Z-shopList" v-if="Z_boolShopList">
         <div class="Z-shopListHead">
           <span class="shopListHead floatLeft">购物车</span>
@@ -17,11 +17,13 @@
         </li>
       </ul>
       <!--小红点显示商品数量-->
-      <div class="Z-shopTrolleyLogo">
+      <div class="Z-shopTrolleyLogo"  @click="Z_getShopTrolleyList()">
         <el-badge :value="Z_shopTrolleyListLength" class="item" :hidden="Z_shopTrolleyListLength?false:true">
         </el-badge>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#iconchat-gray"></use>
+        </svg>
       </div>
-
       <div class="Z-shopTrolley">
         <div class="Z-moneys" @click="Z_getShopTrolleyList()">
           <div class="Z-money">
@@ -48,7 +50,6 @@
       // 在组件实例化完毕之后立刻监听Z_shopTrolley-event事件
       created(){
         totalVue.$on("Z_shopTrolley-event", this.getNfootMsg);
-        console.log(this.Z_shoplist);
       },
       data(){
           return{
@@ -84,20 +85,26 @@
           }
         },
         getNfootMsg(data){
+          let now = new Date( );
+          let tempObj={name:"",price:0,num:0,imgPath:"",storeName:"",now:now};
+          tempObj.name=data[0].name;
+          tempObj.price=data[0].price;
+          tempObj.imgPath= this.Z_shoplist.image_path;
+          tempObj.storeName= this.Z_shoplist.name;
           if (this.Z_shopTrolleyList==null){
-            this.Z_shopTrolleyList.push(data[0]);
+            this.Z_shopTrolleyList.push(tempObj);
             this.Z_shopTrolleyList[0].num++;
           } else {
             for (let i =0;i<this.Z_shopTrolleyList.length;i++){
-              if (this.Z_shopTrolleyList[i].name==data[0].name) {
+              if (this.Z_shopTrolleyList[i].name==tempObj.name) {
                 this.Z_shopTrolleyList[i].num++;
                 this.getAllMoney();//计算总价
                 this.getFootUpMoney();//计算起送价格
                 return 0;
               }
             }
-            this.Z_shopTrolleyList.push(data[0]);
-            this.Z_shopTrolleyList[this.Z_shopTrolleyList.length-1].num=1;
+            tempObj.num++;
+            this.Z_shopTrolleyList.push(tempObj);
           }
           // console.log(this.Z_shopTrolleyList);
           this.getAllMoney();//计算总价
@@ -123,15 +130,12 @@
           this.getFootUpMoney();//计算起送价格
         },
         Z_sendProList(){
-          let result={};
-          result = JSON.parse(JSON.stringify(this.$store.state.nshoplist));
-          let now = new Date( );
           //存入已添加进购物车的商品列表
-          result.Z_ProList=this.Z_shopTrolleyList;
-          result.Z_placeTime=now;
-          this.$store.state.Z_shopTrolleyList.push(result);
+          this.$store.state.Z_shopTrolleyList.push(this.Z_shopTrolleyList);
           // console.log(this.$store.state.Z_shopTrolleyList);
-          // console.log(this.$store.state.nshoplist);
+        },
+        Z_maskClick(){
+          this.Z_boolShopList=false;
         }
       }
     }
@@ -139,7 +143,9 @@
 
 <style scoped>
   .item {
-    margin-left: 25px;
+    position: absolute;
+    left: 1.4rem;
+    bottom: 1rem;
   }
   .Z-mask{
     width: 16rem;
@@ -148,6 +154,13 @@
   }
   ul,li{
     list-style: none;
+  }
+  .icon {
+    width: 1.5rem; height: 1.5rem;
+    vertical-align: -0.15rem;
+    fill: currentColor;
+    overflow: hidden;
+    margin-top: 0.3rem;
   }
   .Z-shopTrolleys{
     width: 16rem;
