@@ -88,7 +88,8 @@
                   <span class="qs">
               ¥{{item.float_minimum_order_amount}}起送 / {{item.piecewise_agent_fee.tips}}
               <span class="dis">{{item.distance}} / <span class="time">{{item.order_lead_time}}</span></span>
-            </span>
+                    <span class="clean"></span>
+                  </span>
                 </div>
               </div>
               <div class="clean"></div>
@@ -174,7 +175,7 @@
           Vue.axios.get(`https://elm.cangdu.org/shopping/v2/menu?restaurant_id=${id}`).then((res)=>{
             // console.log(res.data);
             this.$store.state.nfoot=res.data;
-            console.log(this.$store.state.nfoot);
+            // console.log(this.$store.state.nfoot);
           }).catch((error)=>{
             console.log('请求错误!',error);
           });
@@ -236,10 +237,10 @@
     display: block;
     border-bottom: 1px solid #ccc;
     box-sizing: border-box;
-    padding: .9rem .4rem;
+    padding: .9rem .4rem 1.3rem .4rem;
   }
   .near{
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.8rem;
   }
   .bottom .img{
     width: 3rem;
@@ -313,15 +314,18 @@
     border-radius: .08rem;
   }
   .right .qs{
-    transform: scale(.9);
-    font-size: .55rem;
+    /*background-color: yellow;*/
+    display: inline-block;
+    width: 11rem;
+    padding: .2rem 0;
+    font-size: .5rem;
     color: #666;
     word-wrap:break-word
   }
   .right .dis{
     color: #999;
     font-weight: 400;
-    margin-left: 2rem;
+    float: right;
   }
   .right .time{
     color: #3190e8;
