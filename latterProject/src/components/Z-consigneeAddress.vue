@@ -2,7 +2,7 @@
   <div >
     <div class="L_head">
         <span class="glyphicon glyphicon-menu-left pull-left" style="color: white;" @click="$router.go(-1)"></span>
-      <span class="L_headDiv">编辑地址</span>
+      <span class="L_headDiv">选择地址</span>
       <span class="pull-right" style="margin-right: 0.5rem" @click="editor">{{titleText}}</span>
     </div>
     <div>
@@ -12,15 +12,14 @@
         <span>{{data.phone}}</span>
         <span class="deleteAddress" v-if="isTrue" @click="deleteaddress(data.id)">X</span>
       </div>
-      <hr>
-      <router-link :to="{path:'/addShoppingAddress'}">
-        <div class="add">
-          <span>新增地址</span>
-          <span class="glyphicon glyphicon-menu-right pull-right"></span>
-          <div class="clearfix"></div>
-        </div>
-      </router-link>
     </div>
+    <router-link :to="{path:'/addShoppingAddress'}">
+      <div class="add">
+        <span>新增地址</span>
+        <span class="glyphicon glyphicon-menu-right pull-right"></span>
+        <div class="clearfix"></div>
+      </div>
+    </router-link>
   </div>
 </template>
 

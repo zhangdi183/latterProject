@@ -48,6 +48,7 @@
       // 在组件实例化完毕之后立刻监听Z_shopTrolley-event事件
       created(){
         totalVue.$on("Z_shopTrolley-event", this.getNfootMsg);
+        console.log(this.Z_shoplist);
       },
       data(){
           return{
@@ -98,7 +99,7 @@
             this.Z_shopTrolleyList.push(data[0]);
             this.Z_shopTrolleyList[this.Z_shopTrolleyList.length-1].num=1;
           }
-          console.log(this.Z_shopTrolleyList);
+          // console.log(this.Z_shopTrolleyList);
           this.getAllMoney();//计算总价
           this.getFootUpMoney();//计算起送价格
         },
@@ -122,7 +123,15 @@
           this.getFootUpMoney();//计算起送价格
         },
         Z_sendProList(){
-          this.$store.state.Z_shopTrolleyList=this.Z_shopTrolleyList;
+          let result={};
+          result = JSON.parse(JSON.stringify(this.$store.state.nshoplist));
+          let now = new Date( );
+          //存入已添加进购物车的商品列表
+          result.Z_ProList=this.Z_shopTrolleyList;
+          result.Z_placeTime=now;
+          this.$store.state.Z_shopTrolleyList.push(result);
+          // console.log(this.$store.state.Z_shopTrolleyList);
+          // console.log(this.$store.state.nshoplist);
         }
       }
     }

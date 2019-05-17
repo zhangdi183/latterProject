@@ -1,9 +1,10 @@
 <template>
     <div>
       <div class="L_head">
-        <router-link :to="{path:'/LshoppingAdd'}">
-          <span class="glyphicon glyphicon-menu-left pull-left" style="color: white;"></span>
-        </router-link>
+        <!--<router-link :to="{path:'/LshoppingAdd'}">-->
+          <!--<span class="glyphicon glyphicon-menu-left pull-left" style="color: white;"></span>-->
+        <!--</router-link>-->
+        <span class="glyphicon glyphicon-menu-left pull-left" style="color: white;" @click="$router.go(-1)"></span>
         <span class="L_headDiv">新增地址</span>
       </div>
       <div class="input">
