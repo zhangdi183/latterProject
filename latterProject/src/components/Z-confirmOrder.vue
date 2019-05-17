@@ -10,7 +10,7 @@
         </svg>
       </router-link>
     </div>
-    <router-link to="/">
+    <router-link to="/ZconsigneeAddress">
       <div class="Z-addAddress Z-bgcWhite">
         <svg class="icon iconL" aria-hidden="true">
           <use xlink:href="#iconjuli" class="icon1"></use>
@@ -57,14 +57,18 @@
         <div>￥{{Z_allMoney}}</div>
       </div>
     </div>
-    <div class="Z-payMode Z-bgcWhite">
-      <div>订单备注</div>
-      <div>口味,偏好等&nbsp></div>
-    </div>
-    <div class="Z-payMode Z-bgcWhite Z-invoice">
-      <div>发票抬头</div>
-      <div>不需要开发票&nbsp></div>
-    </div>
+    <router-link to="/Lleavemessage">
+      <div class="Z-payMode Z-bgcWhite">
+        <div>订单备注</div>
+        <div>口味,偏好等&nbsp></div>
+      </div>
+    </router-link>
+    <router-link to="/nbill">
+      <div class="Z-payMode Z-bgcWhite Z-invoice">
+        <div>发票抬头</div>
+        <div>不需要开发票&nbsp></div>
+      </div>
+    </router-link>
     <div class="Z-footer">
       <div class="Z-footerWaitPay">待支付￥{{Z_allMoney}}</div>
       <router-link to="/vipPay">

@@ -83,11 +83,8 @@
           }
         },
         getNfootMsg(data){
-          let Z_onePro = {name:"",price:0,num:0};
-          Z_onePro.name = data[0].name;
-          Z_onePro.price = data[0].price;
           if (this.Z_shopTrolleyList==null){
-            this.Z_shopTrolleyList.push(Z_onePro);
+            this.Z_shopTrolleyList.push(data[0]);
             this.Z_shopTrolleyList[0].num++;
           } else {
             for (let i =0;i<this.Z_shopTrolleyList.length;i++){
@@ -98,10 +95,10 @@
                 return 0;
               }
             }
-            Z_onePro.num=1;
-            this.Z_shopTrolleyList.push(Z_onePro);
+            this.Z_shopTrolleyList.push(data[0]);
+            this.Z_shopTrolleyList[this.Z_shopTrolleyList.length-1].num=1;
           }
-          // console.log(this.Z_shopTrolleyList);
+          console.log(this.Z_shopTrolleyList);
           this.getAllMoney();//计算总价
           this.getFootUpMoney();//计算起送价格
         },
