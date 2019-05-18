@@ -8,36 +8,38 @@
     </mt-header>
     <div>
       <!--遍历数据-->
-      <div class="one" v-for="data in order">
-        <!--图片请求-->
-        <img src="../L-imgs/8.png" alt="暂无图片">
-        <ul>
-          <router-link to="/">
-            <li class="first">
-              <!--商品名字-->
-              <span class="proname">
-              {{data.name}}<i class="el-icon-arrow-right icon"></i>
+      <div class="one" v-for="(data,index) in order" @click="sendOrder(order)">
+        <!--<div v-for="data1 in z_price">-->
+          <!--图片请求-->
+          <img :src="'//elm.cangdu.org/img/'+data[0].imgPath" alt="暂无图片">
+          <ul>
+            <router-link to="/">
+              <li class="first">
+                <!--商品名字-->
+                <span class="proname">
+              {{data[0].storeName}}<i class="el-icon-arrow-right icon"></i>
             </span>
-              <span class="pay">等待支付</span><br>
-              <span class="clean"></span>
-              <!--下单时间-->
-              <span class="time">2019-05-16 18:01</span>
-            </li>
-            <!--商品名称,数量,价格-->
-            <li class="sencod">
-              <span class="num">的味道切尔奇二群翁 等4件商品</span>
-              <span class="price">¥99999</span>
-            </li>
-          </router-link>
-          <!--剩余支付时间-->
-          <li class="tird">
+                <span class="pay">等待支付</span><br>
+                <span class="clean"></span>
+                <!--下单时间-->
+                <span class="time">{{data[0].now}}</span>
+              </li>
+              <!--商品名称,数量,价格-->
+              <li class="sencod">
+                <span class="num">{{data[0].name}} 等{{data.length}}件商品</span>
+                <span class="price">¥{{z_price[index]}}</span>
+              </li>
+            </router-link>
+            <!--剩余支付时间-->
+            <li class="tird">
             <span class="topay" @click="payPro">
               <span><Nroot :endTime='endTime' class="time_res"></Nroot></span>
             </span>
-            <span class="clean"></span>
-          </li>
-        </ul>
-        <div class="clean"></div>
+              <span class="clean"></span>
+            </li>
+          </ul>
+          <div class="clean"></div>
+        <!--</div>-->
       </div>
     </div>
     <!--这是个警告框-->
@@ -61,19 +63,31 @@
       data(){
           return{
             isShow:false,
-            order:this.$store.state.Z_shopTrolleyList,
+            order:this.$store.state.Z_tempList,
+            z_price:[],
             //剩余支付时间
             // endTime : '2019-05-17 17:32:00'
-            endTime:'2019-05-17 17:50:00'.split(':')[0]+':'+('2019-05-17 17:50:00'.split(':')[1]+15)%60+':'+'2019-05-17 17:50:00'.split(':')[2],
+            // endTime:'2019-05-17 17:50:00'.split(':')[0]+':'+('2019-05-17 17:50:00'.split(':')[1]+15)%60+':'+'2019-05-17 17:50:00'.split(':')[2],
           }
       },
       methods:{
         payPro(){
           this.isShow=true;
         },
+        sendOrder(data){
+          console.log(data);
+        }
       },
       created(){
-          console.log(this.endTime);
+          console.log(this.order);
+          let aa=0;
+          for(let i=0;i<this.order.length;i++){
+            for(let b of this.order[i]){
+              aa += b.price*b.num;
+            }
+            this.z_price[i]=aa;
+            aa=0;
+          }
       },
     }
 </script>

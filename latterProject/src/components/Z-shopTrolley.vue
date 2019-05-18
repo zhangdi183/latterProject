@@ -86,8 +86,28 @@
           }
         },
         getNfootMsg(data){
+          // this.$store.state.Z_tempList=[];
           let now = new Date( );
-          let tempObj={name:"",price:0,num:0,imgPath:"",storeName:"",now:now};
+          var year = now.getFullYear();//年
+          var month = now.getMonth()+1;//月  (注意：月份+1)
+          var date = now.getDate();//日
+          var hours = now.getHours();//小时
+          var minutes = now.getMinutes();//分钟
+          if(month<10){
+            month = "0"+month;
+          }
+          if(date<10){
+            date = "0"+date;
+          }
+          if(hours<10){
+            hours = "0"+hours;
+          }
+          if(minutes<10){
+            minutes = "0"+minutes;
+          }
+          const nowtime=year+'-'+month+'-'+date+' '+hours+':'+minutes;
+          
+          let tempObj={name:"",price:0,num:0,imgPath:"",storeName:"",now:nowtime};
           tempObj.name=data[0].name;
           tempObj.price=data[0].price;
           tempObj.imgPath= this.Z_shoplist.image_path;
@@ -97,7 +117,7 @@
             this.Z_shopTrolleyList[0].num++;
           } else {
             for (let i =0;i<this.Z_shopTrolleyList.length;i++){
-              if (this.Z_shopTrolleyList[i].name==tempObj.name) {
+              if (this.Z_shopTrolleyList[i].name===tempObj.name) {
                 this.Z_shopTrolleyList[i].num++;
                 this.getAllMoney();//计算总价
                 this.getFootUpMoney();//计算起送价格
