@@ -19,7 +19,7 @@
          <span>请添加一个收货地址</span>
        </div>
         <div v-if="!showADD">
-          <span>{{$route.query.data}}</span>
+          <span>{{$route.query.data1}}</span>
         </div>
       </div>
     </router-link>
@@ -100,8 +100,9 @@
       // 在组件实例化完毕之后立刻监听Z_proList-event事件获取购物车列表
       created(){
         this.Z_proList=this.$store.state.Z_tempData;
+
         //判断收货地址是否传递过来
-        if (this.$route.query.data!=null){
+        if (this.$route.query.data1!=null){
             this.showADD=false;
         }else {
           this.showADD=true;
@@ -115,7 +116,9 @@
       methods:{
         Z_confirmOrder(){
           for (let k=0;k<this.Z_proList.length;k++){
-            this.Z_proList[k].receiveAddress=this.$route.query.data;
+            this.Z_proList[k].receiveAddress=this.$route.query.data1;
+            console.log(this.$route.query.data1)
+            console.log(this.Z_proList,111)
           }
           this.$store.state.Z_tempList.push(this.Z_proList);
           for (let i=0;i<this.Z_proList.length;i++){

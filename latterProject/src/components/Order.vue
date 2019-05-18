@@ -13,7 +13,6 @@
           <!--图片请求-->
           <img :src="'//elm.cangdu.org/img/'+data[0].imgPath" alt="暂无图片">
           <ul>
-            <router-link to="/">
               <li class="first">
                 <!--商品名字-->
                 <span class="proname">
@@ -29,7 +28,6 @@
                 <span class="num">{{data[0].name}} 等{{data.length}}件商品</span>
                 <span class="price">¥{{z_price[index]}}</span>
               </li>
-            </router-link>
             <!--剩余支付时间-->
             <li class="tird">
             <span class="topay" @click="payPro">
@@ -76,6 +74,7 @@
         },
         sendOrder(data){
           console.log(data);
+          this.$router.push({path:'/Lorderdetails',query:{LmData:data}})
         }
       },
       created(){

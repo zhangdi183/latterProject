@@ -24,10 +24,10 @@
              <span class="glyphicon glyphicon-menu-right pull-right"></span>
            </div>
          </router-link>
-        <div class="two" v-for="d in orderDetailArr">
-         <span>{{d.name}}</span>
-          <span class="pull-right" style="margin-right: 0.4rem">￥{{d.price}}</span>
-          <span class="text-muted pull-right" style="margin-right: 0.3rem">x{{d.num}}</span>
+        <div class="two" v-for="data in $route.query.LmData[0]">
+         <span>{{data.name}}</span>
+          <span class="pull-right" style="margin-right: 0.4rem">￥{{data.price}}</span>
+          <span class="text-muted pull-right" style="margin-right: 0.3rem">x{{data.num}}</span>
           <div class="clearfix"></div>
         </div>
         <div class="two">
@@ -49,7 +49,7 @@
           <p class="text-muted">送达时间:尽快送达</p>
           <p class="text-muted">
             <span>送货地址:</span>
-            <span>123 <div style="position: relative;top: 0;left: 2.65rem">手机号</div>
+            <span>{{$route.query.LmData[0][0].receiveAddress}} <div style="position: relative;top: 0;left: 2.65rem">15938412527</div>
             </span>
           </p>
           <p class="text-muted">配送方式:蜂鸟专送</p>
@@ -120,19 +120,24 @@
         }
       },
       created(){
-          console.log(this.$store.state.LmItem)
-          this.imgSrc="https://elm.cangdu.org/img/"+this.$store.state.LmItem.image_path
-          this.shopiD=this.$store.state.LmItem.id
-          this.shopName=this.$store.state.LmItem.name
-          //价格,计数 总计
+          console.log(this.$route.query.LmData[0],111)
+          this.imgSrc="https://elm.cangdu.org/img/"+this.$route.query.LmData[0][0].imgPath
+          this.shopiD=this.$route.query.LmData[0][0].id
+          this.shopName=this.$route.query.LmData[0][0].storeName
+          // //价格,计数 总计
+          // let allMoney=0
+          // console.log(this.$store.state.Z_shopTrolleyList);
+          // this.orderDetailArr=this.$store.state.Z_shopTrolleyList;
+          // for (let i in this.orderDetailArr){
+          //   console.log(this.orderDetailArr[i].price)
+          //   allMoney+=parseInt(this.orderDetailArr[i].num)*parseInt(this.orderDetailArr[i].price)
+          // }
           let allMoney=0
-          console.log(this.$store.state.Z_shopTrolleyList);
-          this.orderDetailArr=this.$store.state.Z_shopTrolleyList;
-          for (let i in this.orderDetailArr){
-            console.log(this.orderDetailArr[i].price)
-            allMoney+=parseInt(this.orderDetailArr[i].num)*parseInt(this.orderDetailArr[i].price)
+          for(let i in this.$route.query.LmData[0]){
+            allMoney=parseInt(this.$route.query.LmData[0][i].num)* parseInt(this.$route.query.LmData[0][i].price)
           }
           this.countMoney=allMoney+4+17348
+        console.log(this.countMoney,444)
       }
     }
 </script>

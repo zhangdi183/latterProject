@@ -86,8 +86,8 @@
           }
         },
         getNfootMsg(data){
-          // this.$store.state.Z_tempList=[];
-          let now = new Date( );
+          this.$store.state.Z_tempList=[];
+          let now = new Date();
           var year = now.getFullYear();//年
           var month = now.getMonth()+1;//月  (注意：月份+1)
           var date = now.getDate();//日
@@ -106,12 +106,12 @@
             minutes = "0"+minutes;
           }
           const nowtime=year+'-'+month+'-'+date+' '+hours+':'+minutes;
-          
-          let tempObj={name:"",price:0,num:0,imgPath:"",storeName:"",now:nowtime};
+          let tempObj={name:"",price:0,num:0,imgPath:"",storeName:"",now:nowtime,id:0};
           tempObj.name=data[0].name;
           tempObj.price=data[0].price;
           tempObj.imgPath= this.Z_shoplist.image_path;
           tempObj.storeName= this.Z_shoplist.name;
+          tempObj.id=this.Z_shoplist.id;
           if (this.Z_shopTrolleyList==null){
             this.Z_shopTrolleyList.push(tempObj);
             this.Z_shopTrolleyList[0].num++;
