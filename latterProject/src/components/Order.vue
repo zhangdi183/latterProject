@@ -67,7 +67,7 @@
             z_price:[],
             //剩余支付时间
             // endTime : '2019-05-17 17:32:00'
-            // endTime:'2019-05-17 17:50:00'.split(':')[0]+':'+('2019-05-17 17:50:00'.split(':')[1]+15)%60+':'+'2019-05-17 17:50:00'.split(':')[2],
+            endTime:'',
           }
       },
       methods:{
@@ -80,6 +80,15 @@
       },
       created(){
           console.log(this.order);
+        for(let i=0;i<this.$store.state.Z_tempList.length;i++){
+          if(this.$store.state.Z_tempList[i].length===0){
+            this.$store.state.Z_tempList.splice(i,1);
+          }
+        }
+        this.order=this.$store.state.Z_tempList;
+        console.log(this.order)
+        // console.log(this.order);
+          /*价格*/
           let aa=0;
           for(let i=0;i<this.order.length;i++){
             for(let b of this.order[i]){
@@ -88,6 +97,13 @@
             this.z_price[i]=aa;
             aa=0;
           }
+          
+          /*时间*/
+        for(let data of this.order){
+          // '2019-05-17 17:50:00'.split(':')[0]+':'+('2019-05-17 17:50:00'.split(':')[1]+15)%60+':'+'2019-05-17 17:50:00'.split(':')[2]
+          this.endTime=data[0].now.split(':')[0]+':'+(data[0].now.split(':')[1]+15)%60+':'+'00';
+          console.log(this.endTime);
+        }
       },
     }
 </script>

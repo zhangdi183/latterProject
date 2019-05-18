@@ -33,7 +33,8 @@
       props : {
         endTime : {
           type : String
-        }
+        },
+        
       },
       methods : {
         timeDown () {
@@ -46,6 +47,7 @@
             this.flag = true;
             this.isShowcs=true;
             this.isShow=false;
+            this.$store.state.Z_tempList=[];
             this.$emit('time-end');
           }
           this.time = `去支付(还剩 ${m}分${s}秒)`
