@@ -142,6 +142,9 @@
     display: inline-block;
     vertical-align: center;
   }
+  .L_cityLi:nth-child(4n+1){
+    border-right: 0;
+  }
   .L_AllcityLi{
     width: 4rem;
     list-style: none;
