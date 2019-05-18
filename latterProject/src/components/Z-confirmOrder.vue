@@ -47,8 +47,9 @@
       <div class="floatLeft">红包</div>
       <div class="floatRight">暂时只在饿了么app中支持</div>
     </div>
-    <div class="Z-toShow">效果演示</div>
+
     <ul class="Z-shopList">
+      <div class="Z-toShow">{{Z_proList[0].storeName}}</div>
       <li v-for="prodata in Z_proList">
         <div class="proName floatLeft">{{prodata.name}}</div>
         <div class="proNum floatLeft">*{{prodata.num}}</div>
@@ -77,7 +78,7 @@
     <div class="Z-footer">
       <div class="Z-footerWaitPay">待支付￥{{Z_allMoney}}</div>
       <router-link to="/vipPay">
-        <div class="Z-firmOrder">确认下单</div>
+        <div class="Z-firmOrder" @click="Z_confirmOrder()">确认下单</div>
       </router-link>
     </div>
   </div>
@@ -98,20 +99,32 @@
       },
       // 在组件实例化完毕之后立刻监听Z_proList-event事件获取购物车列表
       created(){
-        this.Z_proList=this.$store.state.Z_shopTrolleyList[0];
+        this.Z_proList=this.$store.state.Z_tempData;
         //判断收货地址是否传递过来
-        if (this.$route.query.data!=''){
-            this.showADD=!this.showADD;
-            console.log(111,this.showADD)
+        if (this.$route.query.data!=null){
+            this.showADD=false;
+        }else {
+          this.showADD=true;
         }
         for (let i=0;i<this.Z_proList.length;i++){
           this.Z_allMoney+=this.Z_proList[i].price*this.Z_proList[i].num;
         }
-        console.log(this.Z_allMoney);
+        // console.log(this.Z_allMoney);
       },
 
       methods:{
-
+        Z_confirmOrder(){
+          for (let k=0;k<this.Z_proList.length;k++){
+            this.Z_proList[k].receiveAddress=this.$route.query.data;
+          }
+          this.$store.state.Z_tempList.push(this.Z_proList);
+          for (let i=0;i<this.Z_proList.length;i++){
+            for (let j=0;j<this.$store.state.Z_tempList.length-1;j++){
+              this.$store.state.Z_tempList[j].pop();
+            }
+          }
+          // console.log(this.$store.state.Z_tempList);
+        }
       }
     }
 </script>
@@ -278,7 +291,7 @@
   }
   .Z-shopList{
     width: 16rem;
-    color: #e1e1e1;
+    color: rgb(150,150,150);
     background-color: white;
     overflow: hidden;
     z-index: 100;
