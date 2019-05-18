@@ -8,7 +8,7 @@
     </mt-header>
     <div>
       <!--遍历数据-->
-      <div class="one">
+      <div class="one" v-for="data in order">
         <!--图片请求-->
         <img src="../L-imgs/8.png" alt="暂无图片">
         <ul>
@@ -16,7 +16,7 @@
             <li class="first">
               <!--商品名字-->
               <span class="proname">
-              {{order.name}}<i class="el-icon-arrow-right icon"></i>
+              {{data.name}}<i class="el-icon-arrow-right icon"></i>
             </span>
               <span class="pay">等待支付</span><br>
               <span class="clean"></span>
@@ -63,8 +63,8 @@
             isShow:false,
             order:this.$store.state.Z_shopTrolleyList,
             //剩余支付时间
-            endTime : '2019-05-18 10:00:00'
-            // endTime:'2019-05-17 17:50:00'.split(':')[0]+':'+('2019-05-17 17:50:00'.split(':')[1]+15)%60+':'+'2019-05-17 17:50:00'.split(':')[2],
+            // endTime : '2019-05-17 17:32:00'
+            endTime:'2019-05-17 17:50:00'.split(':')[0]+':'+('2019-05-17 17:50:00'.split(':')[1]+15)%60+':'+'2019-05-17 17:50:00'.split(':')[2],
           }
       },
       methods:{
@@ -73,7 +73,7 @@
         },
       },
       created(){
-          console.log(this.order);
+          console.log(this.endTime);
       },
     }
 </script>

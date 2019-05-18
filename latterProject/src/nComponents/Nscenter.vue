@@ -3,18 +3,18 @@
     <div>
       <div class="serve">
         <mt-header fixed title="服务中心">
-          <router-link to="/nmine" slot="left">
-            <mt-button icon="back"></mt-button>
-          </router-link>
+          <span slot="left">
+            <mt-button icon="back" @click="$router.back(-1)"></mt-button>
+          </span>
         </mt-header>
       </div>
       <div class="two">
-        <router-link to="/" class="surplus">
-          <svg class="icon icon1" aria-hidden="true">
+        <div class="surplus">
+          <svg class="icon icon1" aria-hidden="true"  @click="hotLine">
             <use xlink:href="#iconfuwuzhongxin"></use>
           </svg><br>
           <span>在线客服</span>
-        </router-link>
+        </div>
         <div class="surplus" @click="hotLine">
           <svg class="icon icon2" aria-hidden="true">
             <use xlink:href="#icondianhua"></use>

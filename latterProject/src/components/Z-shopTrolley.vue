@@ -10,9 +10,9 @@
           <div class="proName floatLeft">{{prodata.name}}</div>
           <div class="proPrice floatLeft">{{prodata.price}}</div>
           <div class="proNums floatLeft">
-            <span class="proNum" @click="proNumsub(prodata,index)">-</span>
+            <span class="proNum" @click="proNumsub(index)">-</span>
             <span>{{prodata.num}}</span>
-            <span class="proNum" @click="proNumadd(prodata,index)">+</span>
+            <span class="proNum" @click="proNumadd(index)">+</span>
           </div>
         </li>
       </ul>
@@ -50,7 +50,6 @@
       // 在组件实例化完毕之后立刻监听Z_shopTrolley-event事件
       created(){
         totalVue.$on("Z_shopTrolley-event", this.getNfootMsg);
-        totalVue.$on("Z_subShopTrolley-event", this.getNfootMsg2);
       },
       data(){
           return{
@@ -111,22 +110,7 @@
           this.getAllMoney();//计算总价
           this.getFootUpMoney();//计算起送价格
         },
-        getNfootMsg2(data){
-            for (let i =0;i<this.Z_shopTrolleyList.length;i++){
-              if (this.Z_shopTrolleyList[i].name==data[0].name) {
-                this.Z_shopTrolleyList[i].num--;
-                if (this.Z_shopTrolleyList[i].num<=0){
-                  this.Z_shopTrolleyList[i].num=0;
-                  this.Z_shopTrolleyList.slice(i,1);
-                }
-                this.getAllMoney();//计算总价
-                this.getFootUpMoney();//计算起送价格
-                this.$forceUpdate();
-                return 0;
-              }
-            }
-        },
-        proNumsub(cart,index){
+        proNumsub(index){
           if (this.Z_shopTrolleyList[index].num>1){
             this.Z_shopTrolleyList[index].num--;
           } else {
@@ -134,23 +118,21 @@
           }
           this.getAllMoney();//计算总价
           this.getFootUpMoney();//计算起送价格
-          totalVue.$emit("Z_subShopT-event", cart);
         },
-        proNumadd(cart,index){
+        proNumadd(index){
           this.Z_shopTrolleyList[index].num++;
           this.getAllMoney();//计算总价
           this.getFootUpMoney();//计算起送价格
-          totalVue.$emit("Z_addShopT-event", cart);
         },
         empty(){
           this.Z_shopTrolleyList=[];
           this.getAllMoney();//计算总价
           this.getFootUpMoney();//计算起送价格
-          totalVue.$emit("Z_emptyShopT-event");
         },
         Z_sendProList(){
           //存入已添加进购物车的商品列表
-          this.$store.state.Z_tempData=this.Z_shopTrolleyList;
+          this.$store.state.Z_shopTrolleyList.push(this.Z_shopTrolleyList);
+          // console.log(this.$store.state.Z_shopTrolleyList);
         },
         Z_maskClick(){
           this.Z_boolShopList=false;

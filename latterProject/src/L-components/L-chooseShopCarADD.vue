@@ -40,7 +40,7 @@
       methods:{
         toShopCar(d){
           this.$router.push({path:'/confirmorder',query:{
-              data:d.address
+              data1:d.address
             }})
         }
       },

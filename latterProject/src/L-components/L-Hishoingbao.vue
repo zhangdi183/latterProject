@@ -68,7 +68,7 @@
     height: 0.3rem;
     background-size: contain;
     position: relative;
-    top: -0.45rem;
+    top: -0.5rem;
     left: -0.3rem;
     border-radius: 0.2rem 0.2rem 0 0;
   }

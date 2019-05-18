@@ -170,11 +170,9 @@
   #coad{
     width: 3rem;
     line-height: 1rem;
-    padding: 0.5rem;
-    border: 0.01rem black solid;
     text-align: center;
     position: absolute;
-    background: rgba(0,0,0,0.1);
+    background: white;
     top: 6.55rem;
     right: 3rem;
     color:darkred;
@@ -187,7 +185,8 @@
     left:20%;
   }
   .img{
-    width: 100%;
+    width: 3rem;
+    height: 2rem;
   }
   .Lcantsee{
     position: absolute;

@@ -8,7 +8,7 @@
     </mt-header>
     <!--信息 >-->
     <div class="infor">
-      <router-link to="/" class="info">
+      <router-link to="/login" class="info">
         <div class="head">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icontouxiang-kong"></use>
@@ -31,15 +31,15 @@
     </div>
     <!--余额-->
     <div>
-        <router-link to="/" class="surplus">
+        <router-link to="/balance" class="surplus">
           <span><span class="num">0.00</span>&nbsp;元</span><br>
           <span>我的余额</span>
         </router-link>
-        <router-link to="/" class="surplus">
+        <router-link to="/preferential" class="surplus">
           <span><span class="num num1">0</span>&nbsp;个</span><br>
           <span>我的优惠</span>
         </router-link>
-        <router-link to="/" class="surplus">
+        <router-link to="/nintegral" class="surplus">
           <span><span class="num num2">0</span>&nbsp;分</span><br>
           <span>我的积分</span>
         </router-link>

@@ -17,12 +17,12 @@
         </router-link>
       </div>
       <!--这是搜索历史页面-->
-      <div class="LmFindHis" v-if="true">
+      <div class="LmFindHis" v-if="LmIsTrue1">
         <h5><small>搜索历史</small></h5>
         <router-link :to="{path:'/first'}">
           <h5 v-for="data in LmHistory" @click="getdata1(data)" style="font-size: 0.65rem">{{data.name}}<small class="center-block">{{data.address}}</small></h5>
         </router-link>
-        <p style="text-align: center" @click="LmDeleteData" v-if="LmIsTrue">清空所有历史</p>
+        <p style="text-align: center;font-size: 0.5rem" @click="LmDeleteData" v-if="LmIsTrue">清空所有历史</p>
       </div>
     </div>
 </template>
@@ -40,7 +40,7 @@
             LmHistory:[],
             isTrue:false,
             LmIsTrue:false,
-
+            LmIsTrue1:true,
           }
         },
       methods:{
@@ -49,6 +49,9 @@
           let LmStr= 'https://elm.cangdu.org/v1/pois'+'?'+'city_id'+'='+this.LmSubmitId+'&'+'keyword='+ this.LmInputV+'&type=search';
           Vue.axios.get(LmStr).then((res)=>{
             this.LmFindCitysArr = res.data
+            if (this.LmFindCitysArr.length>0){
+              this.LmIsTrue1=!this.LmIsTrue1
+            }
           }).catch((err)=>{
             console.log('请求出错',err)
           });
@@ -62,24 +65,24 @@
         //这是搜索到的内容
         LmGetData(data){
           this.$store.state.LmFindCitysHis.push(data);
-          this.LmHistory.push(data);
           this.$store.state.cityinfo=data;
         },
         //这是清除所有历史数据
         LmDeleteData(){
-         this.LmHistory.splice(0)
+          this.$store.state.LmFindCitysHis.splice(0)
+          this.LmIsTrue = false
         },
       },
         created(){
           this.LmHistory = this.$store.state.LmFindCitysHis
-          // console.log(this.$route.query)0
+          // console.log(this.$route.query)
           this.LmSubmitName=this.$route.query.Lcitysname;
           this.LmSubmitId=this.$route.query.LMcityid;
           //判断历史记录是否为空
-          if (this.LmHistory.length===0){
-            this.LmIsTrue = false
-          } else {
+          if (this.$store.state.LmFindCitysHis.length>0){
             this.LmIsTrue = true
+          } else {
+            this.LmIsTrue = false
           }
         }
     }

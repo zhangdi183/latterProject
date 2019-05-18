@@ -16,12 +16,10 @@ x<template>
       <!--搜索历史-->
       <div class="his_all" :class="{hidden:hide}">
         <div class="history">搜索历史</div>
-        <ul>
-          <li v-for="(his,index) in vals" class="his" :key="index" @click="senSearch(his)">{{his}}
-            <span class="glyphicon glyphicon-remove icon" aria-hidden="true" @click.stop="delHis(index)"></span>
-          </li>
-          <li class="qk" @click="delAll">清空历史记录</li>
-        </ul>
+        <mt-cell-swipe v-for="(his,index) in vals" :title="his" class="his" :key="index">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true" @click="delHis(index)"></span>
+        </mt-cell-swipe>
+        <div class="qk" @click="delAll">清空历史记录</div>
       </div>
       <!--返回数据-->
       <div class="back" :class="{hidden:hide1}">
@@ -70,7 +68,6 @@ x<template>
       },
       methods:{
           getVal(){
-            this.hide=true;
             if(this.value!==''){
               this.vals.push(this.value);
               this.hide1=false;
@@ -78,29 +75,19 @@ x<template>
               Vue.axios.get(`https://elm.cangdu.org/v4/restaurants?geohash=${this.$store.state.cityinfo.geohash}&keyword=${this.value}`).then((res)=>{
                 // console.log(res.data);
                 if(this.back.message==='搜索餐馆数据失败'){
-                  alert('很抱歉,无搜索结果!');
                   this.hide=true;
                   this.hide1=true;
+                  alert('很抱歉,无搜索结果!');
                 }
                 this.back=res.data;
               }).catch((error)=>{
                 console.log('请求错误!',error);
               });
             }
-            this.vals=Array.from(
-              new Set(this.vals)
-            );
-            
-            if(this.vals.length===0){
-              this.hide=true;
-            }
           },
         delHis(i){
         //删除元素
           this.vals.splice(i,1);
-          if(this.vals.length===0){
-            this.hide=true;
-          }
         },
         //清空历史记录
         delAll(){
@@ -111,33 +98,6 @@ x<template>
           this.value='';
           this.hide=false;
           this.hide1=true;
-        },
-        senSearch(data){
-            this.value=data;
-          this.hide=true;
-          if(this.value!==''){
-            this.vals.push(this.value);
-            this.hide1=false;
-            //发起请求
-            Vue.axios.get(`https://elm.cangdu.org/v4/restaurants?geohash=${this.$store.state.cityinfo.geohash}&keyword=${this.value}`).then((res)=>{
-              // console.log(res.data);
-              if(this.back.message==='搜索餐馆数据失败'){
-                alert('很抱歉,无搜索结果!');
-                this.hide=true;
-                this.hide1=true;
-              }
-              this.back=res.data;
-            }).catch((error)=>{
-              console.log('请求错误!',error);
-            });
-          }
-          this.vals=Array.from(
-            new Set(this.vals)
-          );
-  
-          if(this.vals.length===0){
-            this.hide=true;
-          }
         }
       },
       mounted(){
@@ -221,21 +181,9 @@ x<template>
     top: 2.35rem;
     color: #999;
   }
-  /*.posi{*/
-    /*position: absolute;*/
-    /*top: 2.75rem;*/
-    /*left: 10.7rem;*/
-  /*}*/
-  .his_all .his{
-    box-sizing: border-box;
-    padding: .5rem .3rem;
-    border-top: 1px solid #ccc;
-    font-size: .8rem;
-  }
-  .his_all .his .icon{
-    float: right;
-    font-size: .7rem;
-    color: #999;
-    margin-top: .2rem;
+  .posi{
+    position: absolute;
+    top: 2.75rem;
+    left: 10.7rem;
   }
 </style>

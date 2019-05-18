@@ -33,7 +33,7 @@
       </div>
       <div class="startVip">
         <!--这个跳转到兑换会员-->
-      <router-link :to="{path:'/vipexchange'}">
+      <router-link :to="{path:'/vipexchange',query:{name:name}}">
         <h5 style="">兑换会员<small class="pull-right">使用卡号密码</small></h5>
       </router-link>
     </div>

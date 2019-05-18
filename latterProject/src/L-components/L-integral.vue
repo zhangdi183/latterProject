@@ -2,7 +2,7 @@
 
   <div class="L_head">
     <div class="L_money">
-      <router-link :to="{path:'/nmine'}"><span class="glyphicon glyphicon-menu-left pull-left" style="color: white;"></span></router-link>
+      <router-link :to="{path:'/nmine_load'}"><span class="glyphicon glyphicon-menu-left pull-left" style="color: white;"></span></router-link>
       <span class="">我的积分</span>
       <!--这是余额展示-->
       <div class="L_body">

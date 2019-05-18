@@ -4,7 +4,7 @@
         <router-link :to="{path:'/vip'}"><span class="glyphicon glyphicon-menu-left pull-left" style="color: white;"></span></router-link>
         <span class="L_headDiv">兑换会员</span>
       </div>
-      <h5 style="margin-left: 0.5rem;"><small>成功兑换后将关联当前账号:</small><span>233</span></h5>
+      <h5 style="margin-left: 0.5rem;"><small>成功兑换后将关联当前账号:</small><span>{{$route.query.name}}</span></h5>
       <div class="form">
         <input type="text" placeholder="请输入10位卡号" maxlength="10" v-model="V">
         <input type="password" placeholder="请输入6位卡密"maxlength="6" v-model="P" @input="inputP">

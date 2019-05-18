@@ -20,11 +20,11 @@
             <span style="color: red; position: relative; top: -2.4rem; right: 0.16rem;">剩3日</span>
           </div>
       </div>
-      <h4><small>限品类:快餐便当,特色菜系,小吃夜宵,甜品饮品,异国料理</small></h4>
+      <h4><small style="position: relative;bottom: 0.5rem;">限品类:快餐便当,特色菜系,小吃夜宵,甜品饮品,异国料理</small></h4>
       <!--这里是查看过期红包-->
       <div class="text-center">
         <router-link :to="{path:'/Hishongbao'}">
-          <span class="text-muted">查看过期红包 <span class="glyphicon glyphicon-menu-right"></span></span>
+          <span class="text-muted" style="font-size: 0.5rem">查看过期红包 <span class="glyphicon glyphicon-menu-right"></span></span>
         </router-link>
       </div>
       <!--这里是底部的路由-->

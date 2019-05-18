@@ -9,7 +9,9 @@
       <!--商家详情-->
          <div class="aaa">
            <div class="top" v-if="tophide">
-             <span class="glyphicon glyphicon-chevron-left back" aria-hidden="true" @click="$router.back(-1)"></span>
+            <router-link to="/first">
+              <span class="glyphicon glyphicon-chevron-left back" aria-hidden="true"></span>
+            </router-link>
              <img :src="'//elm.cangdu.org/img/'+top.image_path" alt="" class="img">
              <div class="top_right">
                <strong>{{top.name}}</strong><br>
@@ -41,7 +43,7 @@
                  <ul>
                    <li v-for="(data,index) in this.$store.state.nfoot" :class="{'selected':lidata.id===data.id?true:false}" @click="showInfo(data)" class="middle_left">
                      {{data.name}}
-                     <el-badge :value="Z_addTrolleyNum[index]" class="item item2" v-if="Z_TrolleyNum[index]"></el-badge>
+                     <el-badge :value="Z_addTrolleyNum[index]" class="item" v-if="Z_TrolleyNum[index]"></el-badge>
                      </li>
                  </ul>
                  <!--右边-->
@@ -76,7 +78,7 @@
                              <strong>¥{{data2.price}}</strong>
                              <span class="select_add" @click="addShopCart(data1.specfoods,getSj(data2),index)">{{getSj(data2)}}</span>
                                <span class="select_add" v-if="Z_boolPerNum[index]">{{Z_perNum[index]}}</span>
-                               <span class="select_add" v-if="Z_boolPerNum[index]" @click="Z_subShopCart(data1.specfoods,index)">-</span>
+                               <span class="select_add" v-if="Z_boolPerNum[index]">-</span>
                              <div class="clean"></div>
                            </div>
                          </div>
@@ -303,9 +305,6 @@
         for (let i=0;i<this.lidata.foods.length;i++){
           this.Z_perNum[i]=0;
         }
-        totalVue.$on("Z_subShopT-event", this.getShopTMsgSub);
-        totalVue.$on("Z_addShopT-event", this.getShopTMsgAdd);
-        totalVue.$on("Z_emptyShopT-event", this.getShopTMsgEmpty);
       },
       methods:{
         showInfo(e) {
@@ -359,10 +358,10 @@
             return '选规格'
           }
         },
-        //分类按钮小红圈数字增大
+        //分类按钮小红圈数字改变
         Z_shopTrolleyNumChange(cart){
-          // console.log(this.$store.state.nfoot);
-          // console.log(cart);
+          console.log(this.$store.state.nfoot);
+          console.log(cart);
           for (let i=0;i<this.$store.state.nfoot.length;i++){
             for (let j=0;j<this.$store.state.nfoot[i].foods.length;j++) {
               if (this.$store.state.nfoot[i].foods[j].item_id==cart[0].item_id) {
@@ -371,20 +370,6 @@
               }
             }
           } 
-        },
-        //分类按钮小红圈数字减小
-        Z_shopTrolleyNumSub(cart){
-          for (let i=0;i<this.$store.state.nfoot.length;i++){
-            for (let j=0;j<this.$store.state.nfoot[i].foods.length;j++) {
-              if (this.$store.state.nfoot[i].foods[j].item_id==cart[0].item_id) {
-                this.Z_addTrolleyNum[i]--;
-                if (this.Z_addTrolleyNum[i]<=0){
-                  this.Z_addTrolleyNum[i]=0;
-                  this.Z_TrolleyNum[i]=false;
-                }
-              }
-            }
-          }
         },
         /*购物车*/
         addShopCart(cart1,eve,index){
@@ -403,16 +388,6 @@
             this.btndata=cart1;
           }
         },
-        Z_subShopCart(cart3,index){
-          totalVue.$emit("Z_subShopTrolley-event", cart3);
-          this.Z_shopTrolleyNumSub(cart3);
-          this.Z_perNum[index]--;
-          if (this.Z_perNum[index]<=0) {
-            this.Z_perNum[index]=0;
-            this.Z_boolPerNum[index]=false;
-          }
-          this.$forceUpdate();
-        },
         closeThis(){
           this.ishide=false;
         },
@@ -426,49 +401,6 @@
           this.Z_shopTrolleyNumChange(cart2);
           // console.log(this.$store.state.nfootPro);
           // console.log(this.lidata);
-        },
-        getShopTMsgSub(cart){
-          for (let i=0;i<this.$store.state.nfoot.length;i++){
-            for (let j=0;j<this.$store.state.nfoot[i].foods.length;j++) {
-              if (this.$store.state.nfoot[i].foods[j].name==cart.name) {
-                this.Z_addTrolleyNum[i]--;
-                if (this.Z_addTrolleyNum[i]<=0){
-                  this.Z_addTrolleyNum[i]=0;
-                  this.Z_TrolleyNum[i]=false;
-                }
-                this.Z_perNum[j]--;
-                if (this.Z_perNum[j]<=0){
-                  this.Z_perNum[j]=0;
-                  this.Z_boolPerNum[j]=false;
-                }
-              }
-            }
-          }
-          this.$forceUpdate();
-        },
-        getShopTMsgAdd(cart){
-          for (let i=0;i<this.$store.state.nfoot.length;i++){
-            for (let j=0;j<this.$store.state.nfoot[i].foods.length;j++) {
-              if (this.$store.state.nfoot[i].foods[j].name==cart.name) {
-                this.Z_addTrolleyNum[i]++;
-                this.Z_TrolleyNum[i]=true;
-                this.Z_perNum[j]++;
-                this.Z_boolPerNum[j]=true;
-              }
-            }
-          }
-          this.$forceUpdate();
-        },
-        //清空购物车
-        getShopTMsgEmpty(){
-          for (let i=0;i<this.$store.state.nfoot.length;i++){
-            this.Z_addTrolleyNum[i]=0;
-          }
-          for (let i=0;i<this.lidata.foods.length;i++){
-            this.Z_perNum[i]=0;
-          }
-          this.Z_TrolleyNum=[];
-          this.Z_boolPerNum=[];
         },
         /*过渡动画*/
     loadPageData: function() {
@@ -943,9 +875,5 @@
   .alert_img .box .space .seled{
     border-color: #3199e8;
     color: #3199e8;
-  }
-  .item2{
-    position: absolute;
-    left: 2.5rem;
   }
 </style>

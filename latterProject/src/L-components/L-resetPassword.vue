@@ -37,7 +37,7 @@
       return{
         //这是span标签的样式
         LmSpan1:{
-          background:'#9f9f9f',
+          background:'#e1e1e1',
           borderRadius: '0.5rem',
           padding:' 0 0.4rem',
           color:'white',
@@ -112,7 +112,7 @@
 <style scoped>
 
   .Llogin{
-    background:rgba(0,0,0,0.1);
+    background:#e1e1e1;
     position: relative;
   }
   .L_head{
@@ -153,12 +153,10 @@
   #coad{
     width: 3rem;
     line-height: 1rem;
-    padding: 0.5rem;
-    border: 0.01rem black solid;
     text-align: center;
     position: absolute;
-    background: rgba(0,0,0,0.1);
-    top: 10.6rem;
+    background: white;
+    top: 10.65rem;
     right: 3rem;
     color:darkred;
     display: inline-block;
@@ -172,7 +170,8 @@
     left:20%;
   }
   #coad img{
-    width: 100%;
+   width: 3rem;
+    height: 2rem;
   }
   .Lcantsee{
     position: absolute;
