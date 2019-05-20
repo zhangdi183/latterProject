@@ -114,6 +114,9 @@ x<template>
   }
   .top{
     background-color: #d9d9d9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .left, .btn{
     float: left;
@@ -176,14 +179,8 @@ x<template>
   }
   .del_btn{
     z-index: 99;
-    position: absolute;
-    left: 11.2rem;
-    top: 2.35rem;
+    position: relative;
+    right: 1.5rem;
     color: #999;
-  }
-  .posi{
-    position: absolute;
-    top: 2.75rem;
-    left: 10.7rem;
   }
 </style>

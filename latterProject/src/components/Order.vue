@@ -8,12 +8,15 @@
     </mt-header>
     <div>
       <!--遍历数据-->
-      <div class="one" v-for="(data,index) in order" @click="sendOrder(order)">
+      <div class="one" v-for="(data,index) in order">
         <!--<div v-for="data1 in z_price">-->
           <!--图片请求-->
-          <img :src="'//elm.cangdu.org/img/'+data[0].imgPath" alt="暂无图片">
+        <router-link to="/Lorderdetails">
+          <img :src="'//elm.cangdu.org/img/'+data[0].imgPath" alt="暂无图片" @click="sendOrder(order)">
+        </router-link>
           <ul>
-              <li class="first">
+            <router-link to="/Lorderdetails">
+              <li class="first" @click="sendOrder(order)">
                 <!--商品名字-->
                 <span class="proname">
               {{data[0].storeName}}<i class="el-icon-arrow-right icon"></i>
@@ -24,10 +27,11 @@
                 <span class="time">{{data[0].now}}</span>
               </li>
               <!--商品名称,数量,价格-->
-              <li class="sencod">
+              <li class="sencod" @click="sendOrder(order)">
                 <span class="num">{{data[0].name}} 等{{data.length}}件商品</span>
                 <span class="price">¥{{z_price[index]}}</span>
               </li>
+        </router-link>
             <!--剩余支付时间-->
             <li class="tird">
             <span class="topay" @click="payPro">
@@ -64,7 +68,6 @@
             order:this.$store.state.Z_tempList,
             z_price:[],
             //剩余支付时间
-            // endTime : '2019-05-17 17:32:00'
             endTime:'',
           }
       },
@@ -85,7 +88,7 @@
           }
         }
         this.order=this.$store.state.Z_tempList;
-        console.log(this.order)
+        console.log(this.order);
         // console.log(this.order);
           /*价格*/
           let aa=0;
@@ -99,8 +102,7 @@
           
           /*时间*/
         for(let data of this.order){
-          // '2019-05-17 17:50:00'.split(':')[0]+':'+('2019-05-17 17:50:00'.split(':')[1]+15)%60+':'+'2019-05-17 17:50:00'.split(':')[2]
-          this.endTime=data[0].now.split(':')[0]+':'+(data[0].now.split(':')[1]+15)%60+':'+'00';
+          this.endTime=data[0].now.split(':')[0]+':'+(Number(data[0].now.split(':')[1])+15)%60+':'+'00';
           console.log(this.endTime);
         }
       },

@@ -105,6 +105,7 @@
   import { Header } from 'mint-ui';
   import Vue from 'vue'
   import Swiper from "swiper"
+  import 'swiper/dist/css/swiper.min.css';
   import Bottom from './Bottom'
   import Loading from '../components/loading/trans'
   
@@ -123,17 +124,11 @@
           }
       },
       mounted(){
-        new Swiper ('.swiper-container', {
-          loop: true,
-          pagination: {
-            el: '.swiper-pagination',
-            // type: 'bullets',
-            type: 'fraction',
-          },
-        });
+          //调用轮播
+        this.swiperInit();
+        
         const me = this;
         me.loadPageData();
-       
       },
       created(){
         Vue.axios.get('https://elm.cangdu.org/v1/user').then((res)=>{
@@ -152,8 +147,12 @@
           Vue.axios.get('https://elm.cangdu.org/v2/index_entry').then((res)=>{
             this.isLoading = false;
             // console.log(res.data);
-            this.pic=res.data.slice(0,8);
-            this.pic1=res.data.slice(8,16);
+            //等待数据加载完毕之后再初始化轮播并处理数据
+            if(!!res.data){
+              this.swiperInit();
+              this.pic=res.data.slice(0,8);
+              this.pic1=res.data.slice(8,16);
+            }
           }).catch((error)=>{
             console.log('请求错误!',error);
           });
@@ -186,6 +185,18 @@
           }
           this.$store.state.nshoplist=item;
           // console.log(item);
+        },
+        
+        //轮播图的基本配置
+        swiperInit(){
+          this.$nextTick(function() {
+            new Swiper('.swiper-container', {
+              loop: true,
+              pagination: {
+                el: '.swiper-pagination',
+              },
+            });
+          });
         }
       }
     }
