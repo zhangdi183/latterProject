@@ -76,7 +76,7 @@
                            <div class="img_text" :class="data1.activity.image_text===''?'hid':''">{{data1.activity.image_text}}</div>
                            <div class="price" v-for="data2 in data1.specfoods">
                              <strong>¥{{data2.price}}</strong>
-                             <span class="select_add" @click="addShopCart(data1.specfoods,getSj(data2),index)">{{getSj(data2)}}</span>
+                               <span class="select_add" @click="addShopCart(data1.specfoods,getSj(data2),index)">{{getSj(data2)}}</span>
                                <span class="select_add" v-if="Z_boolPerNum[index]">{{Z_perNum[index]}}</span>
                                <span class="select_add" v-if="Z_boolPerNum[index]" @click="Z_subShopCart(data1.specfoods,index)">-</span>
                              <div class="clean"></div>
@@ -183,6 +183,14 @@
              </div>
            </div>
          </div>
+      <!--这是个警告框-->
+      <div class="warn" v-if="isShow">
+        <div class="alert alert-warning text-center LmAlert bounceIn">
+          <img src="../L-imgs/感叹号.png" height="100" width="100"/>
+          <p>暂不开放支付功能</p>
+          <button class="btn btn-success btn-group btn-block" @click="Z_isShow()">确认</button>
+        </div>
+      </div>
       <ZShopTrolley></ZShopTrolley>
     </div>
 </template>
@@ -245,6 +253,7 @@
             Z_perNum:[],
             //商品数量的显隐
             Z_boolPerNum:[],
+            isShow:false,
           }
       },
       mounted(){
@@ -390,20 +399,26 @@
         },
         /*购物车*/
         addShopCart(cart1,eve,index){
-          // console.log(cart1);
-          if(eve==='+'){
-            // console.log(this.$store.state.Z_shopTrolleyList);
-            totalVue.$emit("Z_shopTrolley-event", cart1);
-            this.Z_shopTrolleyNumChange(cart1);
-            this.Z_perNum[index]++;
-            this.Z_boolPerNum[index]=true;
-            this.$forceUpdate();
-          }
-          if(eve==='选规格'){
-            //传16、获取食品列表 specfoods数组
-            this.ishide=true;
-            this.btndata=cart1;
-          }
+          Vue.axios.get('https://elm.cangdu.org/v1/user').then((res)=>{
+            if (res.data.message==='通过session获取用户信息失败'){
+              this.isShow=true;
+            }else{
+              // console.log(cart1);
+              if(eve==='+'){
+                // console.log(this.$store.state.Z_shopTrolleyList);
+                totalVue.$emit("Z_shopTrolley-event", cart1);
+                this.Z_shopTrolleyNumChange(cart1);
+                this.Z_perNum[index]++;
+                this.Z_boolPerNum[index]=true;
+                this.$forceUpdate();
+              }
+              if(eve==='选规格'){
+                //传16、获取食品列表 specfoods数组
+                this.ishide=true;
+                this.btndata=cart1;
+              }
+            }
+          });
         },
         Z_subShopCart(cart3,index){
           totalVue.$emit("Z_subShopTrolley-event", cart3);
@@ -525,6 +540,10 @@
         });
       }
     },
+        Z_isShow(){
+          this.isShow=false;
+          this.$router.push({path:'/login'});
+        }
       },
     }
 </script>
@@ -949,5 +968,23 @@
   .item2{
     position: absolute;
     left: 2.5rem;
+  }
+  .warn{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .LmAlert{
+    width: 13rem;
+    background: white;
+  }
+  .warn button{
+    margin-top: .5rem;
   }
 </style>
