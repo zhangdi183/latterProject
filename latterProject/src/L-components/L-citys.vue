@@ -27,7 +27,9 @@
     </div>
     <div class="L_hotCity" v-for="(key,value) in fc">
       <span class="L_city">{{value}}</span>
-      <li class="text text-muted L_AllcityLi" v-for="data in key"><router-link :to="{path:'/find',query:{Lcitysname:data.name,LMcityid:data.id}}">{{data.name}}</router-link></li>
+      <table class="table table-bordered">
+        <li class="text text-muted L_AllcityLi" v-for="data in key"><router-link :to="{path:'/find',query:{Lcitysname:data.name,LMcityid:data.id}}">{{data.name}}</router-link></li>
+      </table>
     </div>
   </div>
 </template>
@@ -146,16 +148,18 @@
     border-right: 0;
   }
   .L_AllcityLi{
-    width: 4rem;
+    width: 25%;
     list-style: none;
     text-align: center;
-    /*border-top: 0.03rem solid #9f9f9f;*/
-    /*border-right: 0.03rem solid #9f9f9f;*/
     font-size: 0.65rem;
     display: inline-block;
     line-height: 0.98rem;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap
+    white-space: nowrap;
+    border-bottom: .001rem solid #e1d4f1;
+    border-right: .001rem solid #e1d4f1;
+    box-sizing: border-box;
+    padding: .8rem 0;
   }
 </style>

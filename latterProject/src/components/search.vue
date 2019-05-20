@@ -14,15 +14,17 @@ x<template>
         <div class="clean"></div>
       </div>
       <!--搜索历史-->
-      <div class="his_all" :class="{hidden:hide}">
+      <div class="his_all" v-if="hide" v-cloak>
         <div class="history">搜索历史</div>
-        <mt-cell-swipe v-for="(his,index) in vals" :title="his" class="his" :key="index">
-          <span class="glyphicon glyphicon-remove" aria-hidden="true" @click="delHis(index)"></span>
-        </mt-cell-swipe>
-        <div class="qk" @click="delAll">清空历史记录</div>
+        <ul>
+          <li v-for="(his,index) in vals" class="his" :key="index" @click="senSearch(his)">{{his}}
+            <span class="glyphicon glyphicon-remove icon" aria-hidden="true" @click.stop="delHis(index)"></span>
+          </li>
+          <li class="qk" @click="delAll">清空历史记录</li>
+        </ul>
       </div>
       <!--返回数据-->
-      <div class="back" :class="{hidden:hide1}">
+      <div class="back" v-if="hide1" v-cloak>
         <div class="sj">商家</div>
         <ul>
           <li v-for="data in back">
@@ -38,6 +40,7 @@ x<template>
           </li>
         </ul>
       </div>
+      <div class="sorry" v-if="result" v-cloak>很抱歉,无搜索结果!</div>
       <Bottom></Bottom>
     </div>
     
@@ -61,43 +64,88 @@ x<template>
           return{
             value:'',
             vals:[],
-            hide:true,
-            hide1:true,
-            back:''
+            hide:false,
+            hide1:false,
+            back:'',
+            result:false
           }
       },
       methods:{
           getVal(){
+            this.hide=false;
+            this.result=false;
             if(this.value!==''){
               this.vals.push(this.value);
-              this.hide1=false;
+              this.hide1=true;
               //发起请求
               Vue.axios.get(`https://elm.cangdu.org/v4/restaurants?geohash=${this.$store.state.cityinfo.geohash}&keyword=${this.value}`).then((res)=>{
                 // console.log(res.data);
-                if(this.back.message==='搜索餐馆数据失败'){
-                  this.hide=true;
-                  this.hide1=true;
-                  alert('很抱歉,无搜索结果!');
-                }
                 this.back=res.data;
+                if(this.back.message==='搜索餐馆数据失败'){
+                  this.hide=false;
+                  this.hide1=false;
+                  this.result=true;
+                  // alert('很抱歉,无搜索结果!');
+                }
               }).catch((error)=>{
                 console.log('请求错误!',error);
               });
+            }
+            this.vals=Array.from(
+              new Set(this.vals)
+            );
+            
+            if(this.vals.length>0){
+              this.hide=true;
             }
           },
         delHis(i){
         //删除元素
           this.vals.splice(i,1);
+          if(this.vals.length>0){
+            this.hide=true;
+            this.result=false;
+          }
         },
         //清空历史记录
         delAll(){
             this.vals=[];
-            this.hide=true;
+            this.hide=false;
+          this.result=false;
         },
         delVal(){
           this.value='';
+          this.hide=true;
+          this.hide1=false;
+          this.result=false;
+        },
+        senSearch(data){
+            this.value=data;
           this.hide=false;
-          this.hide1=true;
+          this.result=false;
+          if(this.value!==''){
+            this.vals.push(this.value);
+            this.hide1=true;
+            //发起请求
+            Vue.axios.get(`https://elm.cangdu.org/v4/restaurants?geohash=${this.$store.state.cityinfo.geohash}&keyword=${this.value}`).then((res)=>{
+              // console.log(res.data);
+              if(this.back.message==='搜索餐馆数据失败'){
+                this.hide=false;
+                this.hide1=false;
+                this.result=true;
+              }
+              this.back=res.data;
+            }).catch((error)=>{
+              console.log('请求错误!',error);
+            });
+          }
+          this.vals=Array.from(
+            new Set(this.vals)
+          );
+  
+          if(this.vals.length>0){
+            this.hide=true;
+          }
         }
       },
       mounted(){
@@ -111,6 +159,9 @@ x<template>
   }
   li{
     list-style: none;
+  }
+  [v-cloak] {
+    display:none;
   }
   .top{
     background-color: #d9d9d9;
@@ -138,9 +189,6 @@ x<template>
     font-weight: 700;
     text-align: center;
     border-top: 1px solid #ccc;
-  }
-  .hidden{
-    display: none;
   }
   .back li{
     width: 100%;
@@ -180,8 +228,25 @@ x<template>
   .del_btn{
     z-index: 99;
     position: relative;
-    right: 1.5rem;
+    right: 1.7rem;
     color: #999;
   }
-
+  .his_all .his{
+    box-sizing: border-box;
+    padding: .5rem .3rem;
+    border-top: 1px solid #ccc;
+    font-size: .8rem;
+  }
+  .his_all .his .icon{
+    float: right;
+    font-size: .7rem;
+    color: #999;
+    margin-top: .2rem;
+  }
+  .sorry{
+    width: 100%;
+    background-color: #fff;
+    text-align: center;
+    padding: .5rem 0;
+  }
 </style>

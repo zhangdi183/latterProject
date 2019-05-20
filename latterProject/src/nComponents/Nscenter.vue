@@ -10,10 +10,12 @@
       </div>
       <div class="two">
         <div class="surplus">
-          <svg class="icon icon1" aria-hidden="true"  @click="hotLine">
-            <use xlink:href="#iconfuwuzhongxin"></use>
-          </svg><br>
-          <span>在线客服</span>
+          <a href="https://ecs-im.ele.me/">
+            <svg class="icon icon1" aria-hidden="true">
+              <use xlink:href="#iconfuwuzhongxin"></use>
+            </svg><br>
+            <span>在线客服</span>
+          </a>
         </div>
         <div class="surplus" @click="hotLine">
           <svg class="icon icon2" aria-hidden="true">

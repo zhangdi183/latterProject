@@ -158,7 +158,7 @@
   .showimg{
     width: 4rem;
     height: 4rem;
-    margin: 0rem auto;
+    margin: 0 auto;
     border-radius: 50%;
   }
   .showimg img{

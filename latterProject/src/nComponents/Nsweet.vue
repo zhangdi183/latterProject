@@ -1,6 +1,11 @@
 <!--外卖页轮播的分页面-->
 <template>
  <div>
+   <div>
+     <transition name="fade">
+       <loading v-if="isLoading"></loading>
+     </transition>
+   </div>
    <!--顶部-->
    <mt-header :title="this.$store.state.shopcart" class="nhead">
      <router-link to="" slot="left">
@@ -138,8 +143,10 @@
 
 <script>
   import Vue from 'vue'
+  import Loading from '../components/loading/trans'
     export default {
         name: "Nsweet",
+      components:{ Loading  },
       data(){
           return{
             meat:this.$store.state.shopcart,
@@ -183,11 +190,29 @@
             t6:'票',
             //这是个数组
             a:[],
+            isLoading: true
           }
       },
+      mounted(){
+        const me = this;
+        me.loadPageData();
+      },
       methods:{
+        loadPageData: function() {
+          Vue.axios.get(`https://elm.cangdu.org/shopping/v2/restaurant/category`).then((res)=>{
+            this.isLoading = false;
+            this.Arrdata=res.data[1].sub_categories
+          });
+          Vue.axios.get('https://elm.cangdu.org/shopping/restaurants?latitude=this.$store.state.cityinfo.latitude&longitude=this.$store.state.cityinfo.longitude').then((res)=>{
+            this.isLoading = false;
+            // console.log(res.data);
+            this.shop=res.data;
+          }).catch((error)=>{
+            console.log('请求错误!',error);
+          });
+        },
         sendId(id,item){
-          this.$store.state.LmItem=item
+          this.$store.state.LmItem=item;
           //获取食品列表
           Vue.axios.get(`https://elm.cangdu.org/shopping/v2/menu?restaurant_id=${id}`).then((res)=>{
             // console.log(res.data);
@@ -277,36 +302,36 @@
              this.isspan2=!this.isspan2
         },
         span2(){
-            this.isFalse1=!this.isFalse1
-            this.isspan2=!this.isspan2
+            this.isFalse1=!this.isFalse1;
+            this.isspan2=!this.isspan2;
           if (this.isspan1===true){
-            this.isspan1=false
+            this.isspan1=false;
             this.isFalse=!this.isFalse
           }else if (this.isspan3===true){
-            this.isFalse2=!this.isFalse2
+            this.isFalse2=!this.isFalse2;
             this.isspan3=!this.isspan3
           }
         },
         span3(){
-            this.isFalse2=!this.isFalse2
-            this.isspan3=!this.isspan3
+            this.isFalse2=!this.isFalse2;
+            this.isspan3=!this.isspan3;
           if(this.isspan1===true){
-            this.isspan1=false
+            this.isspan1=false;
             this.isFalse=!this.isFalse
           }else if (this.isspan2===true){
-            this.isspan2=false
+            this.isspan2=false;
             this.isFalse1=!this.isFalse1
           }
         },
         //以下是商家属性的点击操作
         choose1(){
             if (this.back1.background==='white'){
-              this.back1.background='#e1e1e1'
-              this.count+=1
+              this.back1.background='#e1e1e1';
+              this.count+=1;
               this.a.push(1)
             } else if(this.back1.background==='#e1e1e1'){
               this.back1.background='white';
-              this.a.pop()
+              this.a.pop();
               if (this.count>0){
                 this.count-=1
               }
@@ -314,12 +339,12 @@
         },
         choose2(){
           if (this.t1==='品'){
-            this.t1='√'
-            this.count+=1
+            this.t1='√';
+            this.count+=1;
             this.a.push(2)
           } else if(this.t1==='√'){
             this.t1='品';
-            this.a.pop()
+            this.a.pop();
             if (this.count>0){
               this.count-=1
             }
@@ -327,12 +352,12 @@
         },
         choose3(){
           if (this.t2==='保'){
-            this.t2='√'
-            this.count+=1
+            this.t2='√';
+            this.count+=1;
             this.a.push(7)
           } else if(this.t2==='√'){
             this.t2='保';
-            this.a.pop()
+            this.a.pop();
             if (this.count>0){
               this.count-=1
             }
@@ -340,12 +365,12 @@
         },
         choose4(){
           if (this.t3==='准'){
-            this.t3='√'
-            this.count+=1
+            this.t3='√';
+            this.count+=1;
             this.a.push(9)
           } else if(this.t3==='√'){
             this.t3='准';
-            this.a.pop()
+            this.a.pop();
             if (this.count>0){
               this.count-=1
             }
@@ -353,12 +378,12 @@
         },
         choose5(){
           if (this.t4==='新'){
-            this.t4='√'
-            this.count+=1
+            this.t4='√';
+            this.count+=1;
             this.a.push(8)
           } else if(this.t4==='√'){
             this.t4='新';
-            this.a.pop()
+            this.a.pop();
             if (this.count>0){
               this.count-=1
             }
@@ -366,12 +391,12 @@
         },
         choose6(){
           if (this.t5==='付'){
-            this.t5='√'
-            this.count+=1
+            this.t5='√';
+            this.count+=1;
             this.a.push(5)
           } else if(this.t5==='√'){
             this.t5='付';
-            this.a.pop()
+            this.a.pop();
             if (this.count>0){
               this.count-=1
             }
@@ -379,12 +404,12 @@
         },
         choose7(){
           if (this.t6==='票'){
-            this.t6='√'
-            this.count+=1
+            this.t6='√';
+            this.count+=1;
             this.a.push(4)
           } else if(this.t6==='√'){
             this.t6='票';
-            this.a.pop()
+            this.a.pop();
             if (this.count>0){
               this.count-=1
             }
@@ -411,23 +436,23 @@
           },
         //这个是查看具体商铺的点击事件
         rightDetail(data){
-            this.isspan1=!this.isspan1
+            this.isspan1=!this.isspan1;
            Vue.axios.get(`https://elm.cangdu.org/shopping/restaurants?latitude=${this.$store.state.cityinfo.latitude}&longitude=${this.$store.state.cityinfo.longitude}&restaurant_category_ids[]=${data.id}`).then((res)=>{
              this.shop=res.data
            })
         }
       },
-      created(){
-        Vue.axios.get(`https://elm.cangdu.org/shopping/v2/restaurant/category`).then((res)=>{
-          this.Arrdata=res.data[1].sub_categories
-        });
-        Vue.axios.get('https://elm.cangdu.org/shopping/restaurants?latitude=this.$store.state.cityinfo.latitude&longitude=this.$store.state.cityinfo.longitude').then((res)=>{
-          // console.log(res.data);
-          this.shop=res.data;
-        }).catch((error)=>{
-          console.log('请求错误!',error);
-        });
-      }
+      // created(){
+      //   Vue.axios.get(`https://elm.cangdu.org/shopping/v2/restaurant/category`).then((res)=>{
+      //     this.Arrdata=res.data[1].sub_categories
+      //   });
+      //   Vue.axios.get('https://elm.cangdu.org/shopping/restaurants?latitude=this.$store.state.cityinfo.latitude&longitude=this.$store.state.cityinfo.longitude').then((res)=>{
+      //     // console.log(res.data);
+      //     this.shop=res.data;
+      //   }).catch((error)=>{
+      //     console.log('请求错误!',error);
+      //   });
+      // }
     }
 </script>
 

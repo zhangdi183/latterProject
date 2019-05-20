@@ -6,7 +6,7 @@
       <div class="alert alert-warning text-center LmAlert bounceIn">
         <img src="../L-imgs/感叹号.png" height="100" width="100"/>
         <p>支付超时</p>
-        <button class="btn btn-success btn-group btn-block" @click="isShowcs=false">确认</button>
+        <button class="btn btn-success btn-group btn-block" @click="deleOrder">确认</button>
       </div>
     </div>
   </div>
@@ -47,9 +47,6 @@
             this.flag = true;
             this.isShowcs=true;
             this.isShow=false;
-            this.$store.state.Z_tempList=[];
-            //页面重新渲染
-            this.$forceUpdate();
             this.$emit('time-end');
           }
           this.time = `去支付(还剩 ${m}分${s}秒)`
@@ -60,6 +57,13 @@
           }else{
             return `0${time}`
           }
+        },
+        deleOrder(){
+          this.isShowcs=false;
+          this.isShow=false;
+          this.$store.state.Z_tempList=[];
+          //页面重新渲染
+          this.$forceUpdate();
         }
       }
     }
