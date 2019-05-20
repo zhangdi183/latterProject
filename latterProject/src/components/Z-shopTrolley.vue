@@ -17,7 +17,7 @@
         </li>
       </ul>
       <!--小红点显示商品数量-->
-      <div class="Z-shopTrolleyLogo"  @click="Z_getShopTrolleyList()">
+      <div class="Z-shopTrolleyLogo" id="badge" @click="Z_getShopTrolleyList()">
         <el-badge :value="Z_shopTrolleyListLength" class="item" :hidden="Z_shopTrolleyListLength?false:true">
         </el-badge>
         <svg class="icon" aria-hidden="true">
@@ -51,13 +51,15 @@
       created(){
         totalVue.$on("Z_shopTrolley-event", this.getNfootMsg);
         totalVue.$on("Z_subShopTrolley-event", this.getNfootMsg2);
+        this.getAllMoney();//计算总价
+        this.getFootUpMoney();//计算起送价格
       },
       data(){
           return{
             Z_boolFootUp:true,
             Z_boolShopList:false,
             Z_shoplist:this.$store.state.nshoplist,
-            Z_shopTrolleyList:[],
+            Z_shopTrolleyList:this.$store.state.Z_shopTrolleyList,
             allMoney:0,
             Z_footUpMoney:0,
             Z_shopTrolleyListLength:0
@@ -130,6 +132,7 @@
           // console.log(this.Z_shopTrolleyList);
           this.getAllMoney();//计算总价
           this.getFootUpMoney();//计算起送价格
+          this.$store.state.Z_shopTrolleyList=this.Z_shopTrolleyList;
         },
         getNfootMsg2(data){
             for (let i =0;i<this.Z_shopTrolleyList.length;i++){
@@ -145,6 +148,7 @@
                 return 0;
               }
             }
+          this.$store.state.Z_shopTrolleyList=this.Z_shopTrolleyList;
         },
         proNumsub(cart,index){
           if (this.Z_shopTrolleyList[index].num>1){
@@ -154,16 +158,19 @@
           }
           this.getAllMoney();//计算总价
           this.getFootUpMoney();//计算起送价格
+          this.$store.state.Z_shopTrolleyList=this.Z_shopTrolleyList;
           totalVue.$emit("Z_subShopT-event", cart);
         },
         proNumadd(cart,index){
           this.Z_shopTrolleyList[index].num++;
           this.getAllMoney();//计算总价
           this.getFootUpMoney();//计算起送价格
+          this.$store.state.Z_shopTrolleyList=this.Z_shopTrolleyList;
           totalVue.$emit("Z_addShopT-event", cart);
         },
         empty(){
           this.Z_shopTrolleyList=[];
+          this.$store.state.Z_shopTrolleyList=this.Z_shopTrolleyList;
           this.getAllMoney();//计算总价
           this.getFootUpMoney();//计算起送价格
           totalVue.$emit("Z_emptyShopT-event");

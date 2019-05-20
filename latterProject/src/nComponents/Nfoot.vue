@@ -76,14 +76,21 @@
                            <div class="img_text" :class="data1.activity.image_text===''?'hid':''">{{data1.activity.image_text}}</div>
                            <div class="price" v-for="data2 in data1.specfoods">
                              <strong>¥{{data2.price}}</strong>
+                             <div class="Z_positionA">
+                               <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+                                 <div class="Z_boll" v-show="Z_bollShow" ref="ball"></div>
+                               </transition>
                                <span class="select_add" @click="addShopCart(data1.specfoods,getSj(data2),index)">{{getSj(data2)}}</span>
                                <span class="select_add" v-if="Z_boolPerNum[index]">{{Z_perNum[index]}}</span>
                                <span class="select_add" v-if="Z_boolPerNum[index]" @click="Z_subShopCart(data1.specfoods,index)">-</span>
+                             </div>
                              <div class="clean"></div>
                            </div>
                          </div>
                          <div class="clean"></div>
                        </div>
+                       <!--小球移动动画-->
+
                      </li>
                    </ul>
                  </div>
@@ -254,6 +261,7 @@
             //商品数量的显隐
             Z_boolPerNum:[],
             isShow:false,
+            Z_bollShow:false,
           }
       },
       mounted(){
@@ -399,6 +407,7 @@
         },
         /*购物车*/
         addShopCart(cart1,eve,index){
+          this.Z_bollShow=!this.Z_bollShow;
           Vue.axios.get('https://elm.cangdu.org/v1/user').then((res)=>{
             if (res.data.message==='通过session获取用户信息失败'){
               this.isShow=true;
@@ -543,6 +552,24 @@
         Z_isShow(){
           this.isShow=false;
           this.$router.push({path:'/login'});
+        },
+        beforeEnter(el){
+          el.style.transform="translate(0,0)";
+        },
+        enter(el,done){
+          el.offsetWidth;
+          // console.log(111);
+          const ballPosition = el.getBoundingClientRect();
+          // console.log(ballPosition);
+          const badgePosition = document.getElementById("badge").getBoundingClientRect();
+          const xDist = badgePosition.left-ballPosition.left;
+          const yDist = badgePosition.top- ballPosition.top;
+          el.style.transform=`translate(${xDist}rem,${yDist}rem)`;
+          el.style.transition = "all 0.5s ease";
+          done()
+        },
+        afterEnter(el){
+          this.Z_bollShow=!this.Z_bollShow;
         }
       },
     }
@@ -986,5 +1013,19 @@
   }
   .warn button{
     margin-top: .5rem;
+  }
+  .Z_boll{
+    width: 1rem;
+    height: 1rem;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    left: 0rem;
+    top: 0rem;
+    z-index: 1000;
+    transform: translate(0rem,0rem);
+  }
+  .Z_positionA{
+    position: relative;
   }
 </style>

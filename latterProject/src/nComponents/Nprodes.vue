@@ -29,12 +29,15 @@
           <span>好评率 {{footlist.satisfy_rate}}%</span>
         </p>
       </div>
+      <ZShopTrolley></ZShopTrolley>
     </div>
 </template>
 
 <script>
+  import ZShopTrolley from "../components/Z-shopTrolley";
     export default {
         name: "Nprodes",
+      components: {ZShopTrolley},
       data(){
           return{
             footlist:this.$store.state.nfootPro,
