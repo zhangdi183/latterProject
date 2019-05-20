@@ -72,6 +72,7 @@
 </template>
 
 <script>
+  import  Vue from 'vue'
     export default {
         name: "L-orderdetails",
       data(){
@@ -92,30 +93,30 @@
           Vue.axios.get(`https://elm.cangdu.org/shopping/v2/menu?restaurant_id=${this.shopiD}`).then((res)=>{
             // console.log(res.data);
             this.$store.state.nfoot=res.data;
-            console.log(this.$store.state.nfoot);
+            // console.log(this.$store.state.nfoot);
           }).catch((error)=>{
             console.log('请求错误!',error);
           });
           //判断数组是否长度为0
-          if(item.activities.length === 0){
-            item.activities.push({'icon_name':'无活动'});
-          }
-          this.$store.state.nshoplist=item;
+          // if(item.activities.length === 0){
+          //   item.activities.push({'icon_name':'无活动'});
+          // }
+          // this.$store.state.nshoplist=item;
           // console.log(item);
         },
         toFoot(){
           Vue.axios.get(`https://elm.cangdu.org/shopping/v2/menu?restaurant_id=${this.shopiD}`).then((res)=>{
             // console.log(res.data);
             this.$store.state.nfoot=res.data;
-            console.log(this.$store.state.nfoot);
+            // console.log(this.$store.state.nfoot);
           }).catch((error)=>{
             console.log('请求错误!',error);
           });
           //判断数组是否长度为0
-          if(item.activities.length === 0){
-            item.activities.push({'icon_name':'无活动'});
-          }
-          this.$store.state.nshoplist=item;
+          // if(item.activities.length === 0){
+          //   item.activities.push({'icon_name':'无活动'});
+          // }
+          // this.$store.state.nshoplist=item;
           // console.log(item);
         }
       },
@@ -137,7 +138,7 @@
             allMoney=parseInt(this.$route.query.LmData[0][i].num)* parseInt(this.$route.query.LmData[0][i].price)
           }
           this.countMoney=allMoney+4+17348
-        console.log(this.countMoney,444)
+        // console.log(this.countMoney,444)
       }
     }
 </script>

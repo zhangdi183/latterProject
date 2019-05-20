@@ -9,7 +9,9 @@
       <!--商家详情-->
          <div class="aaa">
            <div class="top" v-if="tophide">
-             <span class="glyphicon glyphicon-chevron-left back" aria-hidden="true" @click="$router.back(-1)"></span>
+            <router-link to="/first">
+              <span class="glyphicon glyphicon-chevron-left back" aria-hidden="true"></span>
+            </router-link>
              <img :src="'//elm.cangdu.org/img/'+top.image_path" alt="" class="img">
              <div class="top_right">
                <strong>{{top.name}}</strong><br>

@@ -66,7 +66,7 @@
     <router-link to="/Lleavemessage">
       <div class="Z-payMode Z-bgcWhite">
         <div>订单备注</div>
-        <div>口味,偏好等&nbsp></div>
+        <div>{{orderText}}</div>
       </div>
     </router-link>
     <router-link to="/nbill">
@@ -85,6 +85,7 @@
 </template>
 
 <script>
+  import Vue from 'vue'
     export default {
         name: "Z-confirmOrder",
       data(){
@@ -94,7 +95,9 @@
           Z_boolPayMode:false,
           //显示收货地址
           showADD:true,
-          text:''
+          text:'',
+          //订单备注
+          orderText:'口味,偏好等  >'
         }
       },
       // 在组件实例化完毕之后立刻监听Z_proList-event事件获取购物车列表
@@ -111,6 +114,12 @@
           this.Z_allMoney+=this.Z_proList[i].price*this.Z_proList[i].num;
         }
         // console.log(this.Z_allMoney);
+        //判断订单信息是否存在
+        if(this.$store.state. LmLeaveMsg===''){
+          this.orderText='口味,偏好等  >'
+        }else{
+          this.orderText=this.$store.state. LmLeaveMsg
+        }
       },
 
       methods:{
@@ -127,8 +136,10 @@
             }
           }
           // console.log(this.$store.state.Z_tempList);
+          //清空订单备注的信息
+          this.$store.state.LmLeaveMsg=''
         }
-      }
+      },
     }
 </script>
 

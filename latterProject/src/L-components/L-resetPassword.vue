@@ -156,7 +156,7 @@
     text-align: center;
     position: absolute;
     background: white;
-    top: 10.65rem;
+    top: 10.58rem;
     right: 3rem;
     color:darkred;
     display: inline-block;
@@ -171,7 +171,7 @@
   }
   #coad img{
    width: 3rem;
-    height: 2rem;
+    height: 1.9rem;
   }
   .Lcantsee{
     position: absolute;
