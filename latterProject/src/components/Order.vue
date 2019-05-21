@@ -102,7 +102,7 @@
           
           /*时间*/
         for(let data of this.order){
-          this.endTime=data[0].now.split(':')[0]+':'+(Number(data[0].now.split(':')[1])+15)%60+':'+'00';
+          this.endTime=data[0].now.split(':')[0]+':'+(Number(data[0].now.split(':')[1])+20)%60+':'+'00';
           console.log(this.endTime);
         }
       },

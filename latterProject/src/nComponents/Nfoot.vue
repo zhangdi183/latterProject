@@ -76,14 +76,9 @@
                            <div class="img_text" :class="data1.activity.image_text===''?'hid':''">{{data1.activity.image_text}}</div>
                            <div class="price" v-for="data2 in data1.specfoods">
                              <strong>¥{{data2.price}}</strong>
-                             <div class="Z_positionA">
-                               <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
-                                 <div class="Z_boll" v-show="Z_bollShow" ref="ball"></div>
-                               </transition>
-                               <span class="select_add" @click="addShopCart(data1.specfoods,getSj(data2),index)">{{getSj(data2)}}</span>
-                               <span class="select_add" v-if="Z_boolPerNum[index]">{{Z_perNum[index]}}</span>
-                               <span class="select_add" v-if="Z_boolPerNum[index]" @click="Z_subShopCart(data1.specfoods,index)">-</span>
-                             </div>
+                             <span class="select_add" @click="addShopCart(data1.specfoods,getSj(data2),index)">{{getSj(data2)}}</span>
+                             <span class="select_add" v-if="Z_boolPerNum[index]">{{Z_perNum[index]}}</span>
+                             <span class="select_add" v-if="Z_boolPerNum[index]" @click="Z_subShopCart(data1.specfoods,index)">-</span>
                              <div class="clean"></div>
                            </div>
                          </div>
@@ -194,7 +189,7 @@
       <div class="warn" v-if="isShow">
         <div class="alert alert-warning text-center LmAlert bounceIn">
           <img src="../L-imgs/感叹号.png" height="100" width="100"/>
-          <p>暂不开放支付功能</p>
+          <p>请先登录</p>
           <button class="btn btn-success btn-group btn-block" @click="Z_isShow()">确认</button>
         </div>
       </div>
