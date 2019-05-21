@@ -148,11 +148,11 @@
             this.isLoading = false;
             // console.log(res.data);
             //等待数据加载完毕之后再初始化轮播并处理数据
-            if(!!res.data){
-              this.swiperInit();
-              this.pic=res.data.slice(0,8);
-              this.pic1=res.data.slice(8,16);
-            }
+                if (!!res.data) {
+                  this.swiperInit();
+                  this.pic = res.data.slice(0, 8);
+                  this.pic1 = res.data.slice(8, 16);
+                }
           }).catch((error)=>{
             console.log('请求错误!',error);
           });
@@ -190,11 +190,26 @@
         //轮播图的基本配置
         swiperInit(){
           this.$nextTick(function() {
-            new Swiper('.swiper-container', {
+             new Swiper('.swiper-container', {
+              initialSlide :0,
+              observer:true,//修改swiper自己或子元素时，自动初始化swiper
+              observeParents:true,//修改swiper的父元素时，自动初始化swiper
               loop: true,
               pagination: {
                 el: '.swiper-pagination',
+                type: "bullets",
+                clickable: true
               },
+               on:{
+                progress:function () {
+                  for(var i=0;i<this.slides.length;i++){
+                    if(this.slides[i].progress<=0){
+                      $(".swiper-pagination-bullet").eq(i).addClass('swiper-pagination-bullet-active').siblings().removeClass('swiper-pagination-bullet-active');
+                      return;
+                    }
+                  }
+                }
+               }
             });
           });
         }
