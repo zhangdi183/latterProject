@@ -170,6 +170,7 @@
         },
         empty(){
           this.Z_shopTrolleyList=[];
+          this.$store.state.Z_shopTrolleyList=[];
           this.$store.state.Z_shopTrolleyList=this.Z_shopTrolleyList;
           this.getAllMoney();//计算总价
           this.getFootUpMoney();//计算起送价格
